@@ -63,6 +63,22 @@ npx fortistate inspect
 
 By default the inspector runs an HTTP server that serves a small UI and a WebSocket endpoint. Browser agents (examples included) auto-register client stores and stream updates to the inspector. Use `--token` and `--allow-origin` flags to control access in shared environments.
 
+CLI / Inspector flags
+---------------------
+
+The CLI exposes a few useful flags when running `npx fortistate inspect` or `npm run inspect`:
+
+- `--port <n>`: specify the inspector port (default 3333).
+- `--token <token>`: set a simple auth token to accept remote register/change requests.
+- `--allow-origin <origin>`: add an allowed origin for CORS.
+- `--quiet`: reduce debug logs in tests or CI.
+
+Example:
+
+```bash
+npx fortistate inspect --port 3333 --token hunter2 --allow-origin http://localhost:3000
+```
+
 Developer experience (DX)
 ------------------------
 
