@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Fortistate Inspector</title>
+    <style>body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:20px}</style>
+  </head>
+  <body>
+    <h1>Fortistate Inspector</h1>
+    <div id="log" style="white-space:pre-wrap;margin-bottom:12px"></div>
+    <div id="stores" style="background:#f6f6f6;padding:8px;max-height:300px;overflow:auto"></div>
+    <script>
+      const log = (m) => { const d = document.getElementById('log'); d.innerText = JSON.stringify(m, null, 2) + '\n' + d.innerText }
+      const stDiv = document.getElementById('stores')
+      async function loadRemoteStores(){
+        try{
+          const res = await fetch('/remote-stores')
+          const js = await res.json()
+          stDiv.innerText = JSON.stringify(js, null, 2)
+        }catch(e){ stDiv.innerText = 'error' }
+      }
+      loadRemoteStores()
+      const ws = new WebSocket((location.origin.replace(/^http/, 'ws')))
+      ws.addEventListener('message', (ev) => {
+        try { const data = JSON.parse(ev.data); log(data); loadRemoteStores() } catch (e) { log(ev.data) }
+      })
+      ws.addEventListener('open', () => log({ type: 'connected' }))
+    </script>
+  </body>
+</html>

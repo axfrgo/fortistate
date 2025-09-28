@@ -1,0 +1,45 @@
+{
+  "name": "fortistate",
+  "version": "1.0.1",
+  "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": ["dist","bin","src","docs","examples"],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+  "smoke": "node test/smoke.mjs",
+  "plugins-smoke": "npm run build && node test/plugins-smoke.mjs",
+    "prepare": "npm run build",
+    "cli": "node --loader ts-node/esm src/cli.ts",
+    "init": "node ./scripts/init-example.mjs",
+    "lint": "echo 'lint placeholder'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/react": "^19.1.14",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.9.2",
+    "ws": "^8.13.0",
+    "vitest": "^1.0.0"
+  },
+  "type": "module",
+  "bin": {
+    "fortistate": "dist/cli.js"
+  },
+  "dependencies": {
+    "react": "^19.1.1"
+  }
+}
