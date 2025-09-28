@@ -8,6 +8,11 @@ Release checklist
 - Publish to npm: `npm publish --access public`.
 
 Keep releases small and document breaking changes in the changelog.
+
+## 1.0.2 - 2025-09-28
+
+- docs: add examples (React/Vue), CLI docs, CI workflow, and contributing/release docs
+
 Publishing fortistate to npm — step by step
 
 1) Confirm version
