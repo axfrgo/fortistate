@@ -1,3 +1,13 @@
+Release checklist
+
+- Bump package.json version (semver).
+- Update PUBLISH.md with brief changelog entry.
+- Run `npm run build` and `npm test` locally.
+- Create a signed git tag and push it.
+- Create a GitHub release and attach the package tarball (optional).
+- Publish to npm: `npm publish --access public`.
+
+Keep releases small and document breaking changes in the changelog.
 Publishing fortistate to npm — step by step
 
 1) Confirm version
