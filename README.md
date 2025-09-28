@@ -2,13 +2,16 @@
 
 A tiny state library and developer inspector for fast iteration and debugging.
 
-Quick install
--------------
+[![CI](https://github.com/axfrgo/fortistate/actions/workflows/ci.yml/badge.svg)](https://github.com/axfrgo/fortistate/actions)
+[![npm](https://img.shields.io/npm/v/fortistate.svg)](https://www.npmjs.com/package/fortistate)
 
-Install from npm:
+Quick install & getting started
+------------------------------
+
+Follow the step-by-step quickstarts in `GETTING_STARTED.md`:
 
 ```bash
-npm install fortistate
+npx open GETTING_STARTED.md || start GETTING_STARTED.md
 ```
 
 Quickstarts
