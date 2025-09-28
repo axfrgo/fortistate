@@ -1,6 +1,90 @@
-# Fortistate
+# fortistate
 
-<!-- CI badge: replace `OWNER/REPO` with your GitHub org/repo if you rename the repo -->
+A tiny state library and developer inspector for fast iteration and debugging.
+
+Quick install
+-------------
+
+Install from npm:
+
+```bash
+npm install fortistate
+```
+
+Quickstarts
+-----------
+
+React (hooks)
+
+```tsx
+import React from 'react'
+import { createStore, useStore } from 'fortistate'
+
+const counter = createStore({ value: 0 })
+
+function Counter(){
+	const [state, setState] = useStore(counter)
+	return <button onClick={() => setState(s => ({ value: s.value + 1 }))}>{state.value}</button>
+}
+
+export default Counter
+```
+
+Vue (composition)
+
+```js
+import { createStore, useStore } from 'fortistate'
+import { ref } from 'vue'
+
+const counter = createStore({ value: 0 })
+
+export default {
+	setup(){
+		const [state, setState] = useStore(counter)
+		return { state, inc: () => setState(s => ({ value: s.value + 1 })) }
+	}
+}
+```
+
+Next.js (auto-register example)
+
+See `examples/my-nextjs-app` for a full Next.js example that auto-registers stores on the client and demonstrates the inspector integration.
+
+Zero-config inspector
+---------------------
+
+Start a local inspector for your project (zero-config):
+
+```bash
+npm run inspect
+# or
+npx fortistate inspect
+```
+
+By default the inspector runs an HTTP server that serves a small UI and a WebSocket endpoint. Browser agents (examples included) auto-register client stores and stream updates to the inspector. Use `--token` and `--allow-origin` flags to control access in shared environments.
+
+Developer experience (DX)
+------------------------
+
+- One-line install and small runtime make adoption trivial.
+- Hooks for React/Vue and an example Next.js app make getting started fast.
+- Inspector provides live remote inspection, persisted registrations across restarts, and simple token/origin controls for basic security.
+
+CI and stability
+----------------
+
+There is a small CI workflow that runs tests and builds on push and pull requests; it helps keep the package stable. See `.github/workflows/ci.yml` for details.
+
+Examples and templates
+----------------------
+
+Look in `examples/` for working integrations (Next.js example and a small inspector client). Contributing templates and migration recipes are planned to make adoption even easier.
+
+Contributing
+------------
+
+See `CONTRIBUTING.md` for contribution guidelines and release notes.
+
 [![CI](https://github.com/fgh-labs/fortistate/actions/workflows/ci.yml/badge.svg)](https://github.com/fgh-labs/fortistate/actions/workflows/ci.yml)
 
 Small utility-first state library and tooling.

@@ -19,8 +19,10 @@
     "test:watch": "vitest --watch",
   "smoke": "node test/smoke.mjs",
   "plugins-smoke": "npm run build && node test/plugins-smoke.mjs",
-    "prepare": "npm run build",
-    "cli": "node --loader ts-node/esm src/cli.ts",
+  "prepare": "npm run build",
+  "cli": "node --loader ts-node/esm src/cli.ts",
+  "inspect": "node dist/cli.js inspect",
+  "start:examples": "echo \"See examples/ for per-example start instructions\"",
     "init": "node ./scripts/init-example.mjs",
     "lint": "echo 'lint placeholder'"
   },
