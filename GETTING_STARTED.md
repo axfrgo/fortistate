@@ -88,6 +88,11 @@ To replace the placeholder GIF with a real recording:
 3. Export a small GIF (try 480x270, 10–15 FPS) and save it as `docs/inspector-demo.gif`.
 4. Commit and push the file; the README will display it automatically.
 
+Screenshot pack & captioning
+----------------------------
+
+You can also include a small set of screenshots to complement the GIF. See `docs/screenshots/` for placeholders and `docs/gif-caption.md` for overlay/caption instructions.
+
 6) Examples
 
 See `examples/react-minimal` and `examples/vue-minimal` for tiny copy-paste examples, and `examples/my-nextjs-app` for a fully working Next.js demo.
