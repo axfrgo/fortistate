@@ -14,6 +14,8 @@ Follow the step-by-step quickstarts in `GETTING_STARTED.md`:
 npx open GETTING_STARTED.md || start GETTING_STARTED.md
 ```
 
+![Inspector demo](docs/inspector-demo.gif)
+
 Quickstarts
 -----------
 

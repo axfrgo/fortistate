@@ -25,6 +25,8 @@
     "test:watch": "vitest --watch",
     "smoke": "node test/smoke.mjs",
     "plugins-smoke": "npm run build && node test/plugins-smoke.mjs",
+  "smoke:example:react": "node examples/react-minimal/smoke.js",
+  "smoke:example:vue": "node examples/vue-minimal/smoke.js",
     "prepare": "npm run build",
     "cli": "node --loader ts-node/esm src/cli.ts",
     "inspect": "node dist/cli.js inspect",
