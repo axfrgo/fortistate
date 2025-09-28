@@ -1,6 +1,6 @@
 {
   "name": "fortistate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -11,18 +11,24 @@
       "require": "./dist/index.js"
     }
   },
-  "files": ["dist","bin","src","docs","examples"],
+  "files": [
+    "dist",
+    "bin",
+    "src",
+    "docs",
+    "examples"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w",
     "test": "vitest",
     "test:watch": "vitest --watch",
-  "smoke": "node test/smoke.mjs",
-  "plugins-smoke": "npm run build && node test/plugins-smoke.mjs",
-  "prepare": "npm run build",
-  "cli": "node --loader ts-node/esm src/cli.ts",
-  "inspect": "node dist/cli.js inspect",
-  "start:examples": "echo \"See examples/ for per-example start instructions\"",
+    "smoke": "node test/smoke.mjs",
+    "plugins-smoke": "npm run build && node test/plugins-smoke.mjs",
+    "prepare": "npm run build",
+    "cli": "node --loader ts-node/esm src/cli.ts",
+    "inspect": "node dist/cli.js inspect",
+    "start:examples": "echo \"See examples/ for per-example start instructions\"",
     "init": "node ./scripts/init-example.mjs",
     "lint": "echo 'lint placeholder'"
   },
