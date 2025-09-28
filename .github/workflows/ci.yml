@@ -2,29 +2,6 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-jobs:
-  build-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - name: Install
-        run: npm ci
-      - name: Build
-        run: npm run build --if-present
-      - name: Test
-        run: npm test
-name: CI
-
-on:
-  push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
@@ -45,9 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: npm run build
+        run: npm run build --if-present
       - name: Run plugin smoke test
-        run: npm run plugins-smoke
+        run: npm run plugins-smoke --if-present
       - name: Run tests
         run: npm test --silent
         env:
