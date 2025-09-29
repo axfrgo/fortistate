@@ -96,3 +96,29 @@ You can also include a small set of screenshots to complement the GIF. See `docs
 6) Examples
 
 See `examples/react-minimal` and `examples/vue-minimal` for tiny copy-paste examples, and `examples/my-nextjs-app` for a fully working Next.js demo.
+
+Quick start commands (Windows PowerShell)
+--------------------------------------
+
+Open a PowerShell terminal and run these copyable commands.
+
+- Start the inspector locally (from repo root):
+
+  npm ci; npm run build; npm run inspect
+
+- Run the React minimal example (if it's inside a CRA or Vite project):
+
+  cd examples/react-minimal; npm ci; npm start
+
+- Run the Vue minimal example (in a Vue CLI or Vite setup):
+
+  cd examples/vue-minimal; npm ci; npm run dev
+
+- Run the Next.js example:
+
+  cd examples/my-nextjs-app; npm ci; npm run dev
+
+Notes:
+- The `inspect` command starts a local HTTP + WebSocket inspector on port 3333 by default. Use `--port` to change it.
+- If you installed the package globally or use `npx fortistate`, you can run `npx fortistate inspect --port 3333` from any folder.
+- If examples are plain components (not full apps), drop the component into an existing React or Vue app and run that app as usual. The examples are intentionally tiny to be copy-paste friendly.

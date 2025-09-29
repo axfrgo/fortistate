@@ -4,6 +4,8 @@ export declare function createInspectorServer(opts?: {
     token?: string;
     allowOrigin?: string;
     allowOriginStrict?: boolean;
+    devClient?: boolean;
+    host?: string;
 }): {
     start: () => Promise<void>;
     stop: () => Promise<void>;

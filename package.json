@@ -1,6 +1,6 @@
 {
   "name": "fortistate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -25,25 +25,37 @@
     "test:watch": "vitest --watch",
     "smoke": "node test/smoke.mjs",
     "plugins-smoke": "npm run build && node test/plugins-smoke.mjs",
-  "smoke:example:react": "node examples/react-minimal/smoke.js",
-  "smoke:example:vue": "node examples/vue-minimal/smoke.js",
+    "smoke:example:react": "node examples/react-minimal/smoke.js",
+    "smoke:example:vue": "node examples/vue-minimal/smoke.js",
     "prepare": "npm run build",
     "cli": "node --loader ts-node/esm src/cli.ts",
     "inspect": "node dist/cli.js inspect",
+    "inspect:dev": "node ./scripts/inspect-dev.mjs",
     "start:examples": "echo \"See examples/ for per-example start instructions\"",
     "init": "node ./scripts/init-example.mjs",
     "lint": "echo 'lint placeholder'"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["state","inspector","react","vue","devtools","fortistate"],
+  "author": "axfrgo <noreply@users.noreply.github.com>",
   "license": "ISC",
-  "description": "",
+  "description": "A tiny state library with a zero-config developer inspector for fast local iteration",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axfrgo/fortistate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/axfrgo/fortistate/issues"
+  },
+  "homepage": "https://github.com/axfrgo/fortistate#readme",
   "devDependencies": {
-    "@types/react": "^19.1.14",
     "@types/node": "^20.0.0",
+    "@types/react": "^19.1.14",
+    "@types/ws": "^8.18.1",
+    "chokidar": "^3.5.3",
+    "ts-node": "^10.9.1",
     "typescript": "^5.9.2",
-    "ws": "^8.13.0",
-    "vitest": "^1.0.0"
+    "vitest": "^1.0.0",
+    "ws": "^8.13.0"
   },
   "type": "module",
   "bin": {

@@ -4,6 +4,8 @@ export { useSelector } from "./useStore.js";
 export { loadPlugins } from './loader.js';
 export { getRegistered, registerStore } from './plugins.js';
 export { atom, derived, action, persist, useAtom } from './utils.js';
+export * from './presets.js';
+export * from './stateUtils.js';
 export type { FortistateConfig } from './config.js';
 export type { PluginFn, PluginApi } from './types.js';
 export type { Store } from './storeFactory.js';

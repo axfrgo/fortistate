@@ -70,7 +70,11 @@ async function main(argv = process.argv.slice(2)) {
         const allowOriginFlagIndex = argv.indexOf('--allow-origin');
         const allowOrigin = allowOriginFlagIndex >= 0 ? argv[allowOriginFlagIndex + 1] : undefined;
         const allowOriginStrict = argv.includes('--allow-origin-strict');
-        const srv = createInspector({ port, quiet, token, allowOrigin, allowOriginStrict });
+        const devClientFlagIndex = argv.indexOf('--dev-client');
+        const devClient = devClientFlagIndex >= 0 || process.env.FORTISTATE_INSPECTOR_DEV_CLIENT === '1';
+        const hostFlagIndex = argv.indexOf('--host');
+        const host = hostFlagIndex >= 0 ? argv[hostFlagIndex + 1] : undefined;
+        const srv = createInspector({ port, quiet, token, allowOrigin, allowOriginStrict, devClient, host });
         await srv.start();
         if (!quiet)
             console.log('Inspector running - open http://localhost:' + (port || 4000));

@@ -10,10 +10,31 @@ export class StoreFactory {
             return this.stores.get(key);
         let state = config.value;
         const subs = new Set();
+        // Normalization helper: given the configured initial value, coerce an
+        // incoming write into a canonical shape so user-written changes (from
+        // inspector or elsewhere) don't accidentally change store shape.
+        const normalize = (incoming, initial) => {
+            // if initial is an array, ensure incoming is an array
+            if (Array.isArray(initial)) {
+                return Array.isArray(incoming) ? incoming : (incoming === undefined || incoming === null ? [] : [incoming]);
+            }
+            // if initial is an object (but not null), and incoming is a primitive,
+            // wrap into { value: incoming }
+            if (initial && typeof initial === 'object' && !Array.isArray(initial)) {
+                if (incoming === null || incoming === undefined)
+                    return initial;
+                if (typeof incoming === 'object')
+                    return incoming;
+                return { value: incoming };
+            }
+            // otherwise, pass through (numbers, strings, booleans)
+            return incoming;
+        };
         const api = {
             get: () => state,
             set: (v) => {
-                state = v;
+                const coerced = normalize(v, config.value);
+                state = coerced;
                 subs.forEach(fn => fn(state));
                 // notify change listeners
                 for (const l of this.changeListeners)

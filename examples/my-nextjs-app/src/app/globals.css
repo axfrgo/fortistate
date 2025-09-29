@@ -24,3 +24,91 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Demo framing inspired by Steve Jobs keynote / OBS studio overlays */
+.demo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.25rem;
+}
+.macbook-shell {
+  width: min(980px, 96%);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,247,249,0.95));
+  box-shadow: 0 30px 80px rgba(2,6,23,0.45), inset 0 1px 0 rgba(255,255,255,0.5);
+  border: 1px solid rgba(16,24,40,0.06);
+  padding: 28px;
+  position: relative;
+}
+.macbook-notch {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 28px;
+  width: 220px;
+  background: linear-gradient(180deg, rgba(20,20,20,0.95), rgba(40,40,40,0.9));
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+}
+.obs-badge {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: linear-gradient(180deg,#ff5f57,#ff2f2f);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  box-shadow: 0 6px 14px rgba(16,24,40,0.18);
+}
+
+/* Inline inspector modal framing */
+.inline-inspector {
+  width: min(920px,94%);
+  max-height: 86vh;
+  overflow: auto;
+  border-radius: 12px;
+  padding: 18px;
+  background: linear-gradient(180deg,#ffffff, #fbfdff);
+  box-shadow: 0 20px 60px rgba(2,6,23,0.6);
+  position: relative;
+}
+.inline-inspector .inspector-header {
+  display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px
+}
+.inline-inspector .inspector-controls button { margin-left:8px }
+
+/* Icon button styles used by the demo and inline inspector */
+.icon-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  border-radius:8px;
+  background: transparent;
+  border: 1px solid rgba(16,24,40,0.06);
+  cursor: pointer;
+  padding: 4px;
+}
+.icon-btn.primary {
+  background: linear-gradient(180deg,#3b82f6,#2563eb);
+  color: #fff;
+  border: none;
+}
+.icon-btn.ghost {
+  background: transparent;
+}
+.icon-btn svg { width:18px; height:18px; display:block }
+.icon-btn:focus { outline: 3px solid rgba(59,130,246,0.18); }
+.icon-btn.small { width:32px; height:32px }

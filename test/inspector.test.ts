@@ -13,8 +13,8 @@ describe('inspector server', () => {
     const msgs: any[] = []
 
     // attach message handler immediately to avoid missed messages
-    ws.on('message', (m) => {
-      try { const parsed = JSON.parse(m.toString()); msgs.push(parsed); } catch (e) { msgs.push(m.toString()); }
+    ws.on('message', (m: unknown) => {
+      try { const s = typeof m === 'string' ? m : (m instanceof Buffer ? m.toString() : JSON.stringify(m)); const parsed = JSON.parse(String(s)); msgs.push(parsed); } catch (e) { msgs.push(String(m)); }
     })
 
     await new Promise<void>((resolve, reject) => {
@@ -41,7 +41,7 @@ describe('inspector server', () => {
           reject(new Error('no snapshot'))
         }
       }, 50)
-      ws.on('error', (e) => { clearInterval(iv); reject(e) })
+  ws.on('error', (e: any) => { clearInterval(iv); reject(e) })
     })
 
   // (silent in CI)

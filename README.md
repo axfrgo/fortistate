@@ -151,4 +151,46 @@ Snapshots and persistence:
 - CLI: added `--token` and `--allow-origin` flags for `inspect` command.
 - Example: Next.js example auto-registers demo counter to the inspector for easier testing.
 
+## What's new (latest)
+
+- Embedded inspector client: safer event wiring (no inline onclick code), modernized UI, and a new store filter input for easier navigation.
+- Auto-swap detection: the inspector can now heuristically detect the host app's active store key (URL param, data-active-key, or common names) and swap stores without manual key entry.
+- Presets & CSS: apply presets remotely; installer helper can optionally write a preset's CSS into the project. The inspector UI now has clearer apply / install CSS buttons.
+- Favicon support: inspector serves `/favicon.ico` from the project root if present (or a packaged fallback), so you can set a custom icon.
+- Example fixes: Next.js demo now reflects the selected store in the header and actions (inc/dec/reset) operate on the selected store.
+
+## Publishing a release (npm + GitHub)
+
+1. Bump the package version in `package.json` (semver). Example to set v1.0.2:
+
+```bash
+npm version patch -m "release: v%s"
+```
+
+2. Build the package and run tests:
+
+```bash
+npm run build
+npm test
+```
+
+3. Dry-run publish to check packaged files:
+
+```bash
+npm publish --dry-run
+```
+
+4. Publish to npm and push a git tag (example using npm to publish):
+
+```bash
+npm publish
+git push origin --follow-tags
+```
+
+5. Create a GitHub release (optional) and attach the changelog/notes. If you want, I can automatically create a release for you after publishing.
+
+Notes:
+- If your project uses a CI workflow to publish from tags (recommended), consider adding a GitHub Actions workflow to publish on semantic version tags. I can add a sample workflow if you'd like.
+
+
 

@@ -1,0 +1,10 @@
+{
+  "demoA": {
+    "name": "Alice",
+    "score": 9
+  },
+  "demoB": {
+    "name": "Bob",
+    "score": 7
+  }
+}

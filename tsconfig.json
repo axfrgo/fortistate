@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "ES2019",
   "module": "Node16",
-    "lib": ["ES2019", "DOM", "DOM.Iterable"],
+  "lib": ["ES2019", "DOM", "DOM.Iterable"],
+  "types": ["node", "vitest", "react"],
     "moduleResolution": "node16",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

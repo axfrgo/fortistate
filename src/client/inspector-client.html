@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Fortistate Inspector (embedded)</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;margin:18px}
+    </style>
+  </head>
+  <body>
+    <h1>Fortistate Inspector (embedded)</h1>
+    <div id="stores"></div>
+    <script>
+      // Minimal embedded inspector that mirrors the examples/inspector-client.html
+      async function load() {
+        try {
+          const res = await fetch('/remote-stores')
+          const js = await res.json()
+          const el = document.getElementById('stores')
+          el.innerText = JSON.stringify(js, null, 2)
+        } catch (e) { document.getElementById('stores').innerText = 'error' }
+      }
+      load()
+      setInterval(load, 3000)
+    </script>
+  </body>
+</html>

@@ -6,6 +6,7 @@ export type StoreUtils<T = any> = {
     remove?: (i: number) => void;
     reset: () => void;
 };
-declare const useStore: any;
+declare function useStoreFn(storeOrKey?: any): [any, StoreUtils<any>];
+declare const useStore: typeof useStoreFn;
 export default useStore;
 export declare function useSelector(storeKey: string, selector: (s: any) => any): () => any;
