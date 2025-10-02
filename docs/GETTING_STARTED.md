@@ -29,4 +29,12 @@ Files of interest
 - `src/plugins.ts` - plugin registry
 - `examples/` - example presets and configs
 
+Inspector integration
+---------------------
+
+- Running `npm run inspect` (or `npx fortistate inspect`) now auto-loads `fortistate.config.{js,cjs,mjs}` from the working directory.
+- Any presets that return plugins are resolved before execution, so your config is the single source of truth for inspector state.
+- File changes to the config or to string-referenced presets/plugins trigger a reload (backed by `chokidar`); connected inspector clients receive store updates instantly.
+- Set `FORTISTATE_DISABLE_CONFIG_WATCH=1` if you need to disable filesystem watching in constrained environments.
+
 

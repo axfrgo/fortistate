@@ -48,13 +48,16 @@ const inspectorClientHtml = `<!doctype html>
   </head>
   <body>
     <div class="wrap">
-    <div class="topbar">
+    <div class="topbar" role="banner">
       <div>
-        <h1>Fortistate Inspector</h1>
+        <h1 id="title">Fortistate Inspector</h1>
         <div class="subtitle">Embedded inspector — remote stores & presets</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
-        <input id="store-filter" class="filter" placeholder="Filter stores (name or type)" />
+        <input id="store-filter" class="filter" placeholder="Filter stores (name or type)" aria-label="Filter stores" />
+        <button id="dark-toggle" class="btn ghost" aria-pressed="false" title="Toggle dark mode">Dark</button>
+        <button id="timeline-toggle" class="btn ghost" aria-expanded="false" title="Show history timeline">Timeline</button>
+        <button id="telemetry-toggle" class="btn ghost" aria-expanded="false" title="Show law telemetry">Telemetry</button>
       </div>
     </div>
     <div class="preset-panel">
@@ -72,10 +75,41 @@ const inspectorClientHtml = `<!doctype html>
       </div>
     </div>
   <div id="stores" class="store-list"></div>
+  <div id="timeline" style="margin-top:12px;display:none">
+    <h3>State History</h3>
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+      <button id="replay-prev" class="btn small">◀ Prev</button>
+      <button id="replay-play" class="btn primary small">Play</button>
+      <button id="replay-next" class="btn small">Next ▶</button>
+      <div id="timeline-status" style="margin-left:8px;color:#666;font-size:13px"></div>
+    </div>
+    <div id="history-list" style="max-height:240px;overflow:auto;border-radius:8px;background:#fff;padding:8px;border:1px solid rgba(2,6,23,0.04)" role="list"></div>
+  </div>
+  <div id="telemetry-panel" style="margin-top:12px;display:none">
+    <h3>Law Telemetry <span id="telemetry-status" style="font-size:12px;color:#666;margin-left:8px">(connecting...)</span></h3>
+    <div id="telemetry-list" style="max-height:300px;overflow:auto;border-radius:8px;background:#fff;padding:8px;border:1px solid rgba(2,6,23,0.04)" role="list"></div>
+  </div>
     <script>
       let stores = {}
   let ws = null
   let presets = []
+  // deterministic handshake key set via postMessage or window.fortistate.setActiveKey
+  let activeKeyHint = undefined
+  // expose programmatic API for deterministic selection
+  try { if (typeof window !== 'undefined') { window.fortistate = window.fortistate || {}; window.fortistate.setActiveKey = function(k){ activeKeyHint = String(k); console.debug('[inspector.client] activeKey set via API',k); }; } } catch(e){}
+
+  // listen for postMessage handshake from host page
+  if (typeof window !== 'undefined' && window.addEventListener) {
+    window.addEventListener('message', (ev) => {
+      try {
+        const d = ev && ev.data
+        if (d && d.type === 'fortistate:setActiveKey' && d.key) {
+          activeKeyHint = String(d.key)
+          console.debug('[inspector.client] activeKey set via postMessage', d.key)
+        }
+      } catch (e) { }
+    }, false)
+  }
 
       async function tryFetch(url) {
         try {
@@ -272,6 +306,8 @@ const inspectorClientHtml = `<!doctype html>
   // window.__FORTISTATE_ACTIVE__ value, or common keys present in the stores list.
       function detectActiveKey(fallbackKey) {
         try {
+          // deterministic hint first
+          if (activeKeyHint && stores[activeKeyHint]) return activeKeyHint
           // 1) URL param: ?fortistate=key
           try {
             const u = new URL(location.href)
@@ -285,7 +321,7 @@ const inspectorClientHtml = `<!doctype html>
           const htmlAttr = document.documentElement && document.documentElement.getAttribute && document.documentElement.getAttribute('data-active-key')
           if (htmlAttr && stores[htmlAttr]) return htmlAttr
 
-          // 3) global window hint
+          // 3) global window hint (legacy)
           if (typeof window !== 'undefined' && window.__FORTISTATE_ACTIVE__) {
             const g = window.__FORTISTATE_ACTIVE__
             if (typeof g === 'string' && stores[g]) return g
@@ -367,6 +403,134 @@ const inspectorClientHtml = `<!doctype html>
   loadPresets()
   setInterval(loadRemoteStores, 3000)
   connectWS()
+
+  // history / timeline support
+  let historyEntries = []
+  let replayIndex = -1
+  async function loadHistory() {
+    try {
+      const res = await fetch('/history')
+      if (!res.ok) return
+      historyEntries = await res.json()
+      renderHistory()
+    } catch (e) { console.debug('history load', e && e.message) }
+  }
+
+  function renderHistory() {
+    const container = document.getElementById('history-list')
+    if (!container) return
+    container.innerHTML = historyEntries.map(function(h, i){
+      return '<div role="listitem" tabindex="0" data-idx="'+i+'" style="padding:8px;border-bottom:1px solid #f0f0f0"><strong>'+escapeHtml(String(h.action || ''))+'</strong> <small style="color:#666">'+new Date(h.ts||0).toLocaleString()+'</small><div style="font-family:monospace;margin-top:6px;white-space:pre-wrap">'+escapeHtml(JSON.stringify(h, null, 2))+'</div></div>'
+    }).join('')
+    // simple keyboard support for selecting entries
+    Array.from(container.querySelectorAll('[data-idx]')).forEach(function(el){
+      el.addEventListener('click', function(){ replayIndex = Number(el.getAttribute('data-idx')); applyHistoryEntry(replayIndex) })
+      el.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); replayIndex = Number(el.getAttribute('data-idx')); applyHistoryEntry(replayIndex) } })
+    })
+  }
+
+  function applyHistoryEntry(idx) {
+    const h = historyEntries[idx]
+    if (!h) return
+    // for replay, if change action with key/value, POST to /change
+    if (h.action === 'change' && h.key) {
+      fetch('/change', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key: h.key, value: h.value }) }).then(r => { if (r.ok) showToast('Replayed change') })
+    }
+    // other actions are informational
+    const status = document.getElementById('timeline-status')
+  if (status) status.innerText = 'Selected ' + (idx+1) + '/' + historyEntries.length
+  }
+
+  document.getElementById('timeline-toggle').addEventListener('click', function(){
+    const el = document.getElementById('timeline')
+    if (!el) return
+    const expanded = el.style.display !== 'none'
+    el.style.display = expanded ? 'none' : 'block'
+    this.setAttribute('aria-expanded', (!expanded).toString())
+    if (!expanded) { loadHistory() }
+  })
+
+  document.getElementById('replay-play').addEventListener('click', async function(){
+    // simple play through changes
+    if (historyEntries.length === 0) return
+    for (let i = 0; i < historyEntries.length; i++) {
+      await new Promise(r => setTimeout(r, 250))
+      replayIndex = i
+      applyHistoryEntry(i)
+    }
+    showToast('Replay finished')
+  })
+  document.getElementById('replay-prev').addEventListener('click', function(){ if (replayIndex>0) { replayIndex--; applyHistoryEntry(replayIndex) } })
+  document.getElementById('replay-next').addEventListener('click', function(){ if (replayIndex < historyEntries.length-1) { replayIndex++; applyHistoryEntry(replayIndex) } })
+
+  // dark mode toggle
+  document.getElementById('dark-toggle').addEventListener('click', function(){
+    const pressed = this.getAttribute('aria-pressed') === 'true'
+    this.setAttribute('aria-pressed', (!pressed).toString())
+    if (!pressed) document.body.style.background = 'linear-gradient(180deg,#0f1724,#0b1220)', document.body.style.color = '#e6eef6'
+    else document.body.style.background = 'linear-gradient(180deg,#f8fafc,#eef2ff)', document.body.style.color = '#0f1724'
+  })
+
+  // minimal toast system
+  function showToast(msg) {
+    let t = document.getElementById('fortistate-toast')
+    if (!t) {
+      t = document.createElement('div'); t.id = 'fortistate-toast'; t.style.position='fixed'; t.style.right='16px'; t.style.bottom='16px'; t.style.padding='10px 14px'; t.style.borderRadius='8px'; t.style.background='rgba(15,23,42,0.9)'; t.style.color='#fff'; t.style.zIndex='9999'; document.body.appendChild(t)
+    }
+    t.innerText = msg
+    setTimeout(()=>{ try{ t.parentNode && t.parentNode.removeChild(t) } catch(e){} }, 3000)
+  }
+
+  // telemetry SSE stream
+  let telemetrySource = null
+  const telemetryEntries = []
+  const MAX_TELEMETRY_DISPLAY = 50
+
+  function connectTelemetry() {
+    if (telemetrySource) return
+    const status = document.getElementById('telemetry-status')
+    try {
+      telemetrySource = new EventSource('/telemetry/stream')
+      if (status) status.innerText = '(connected)'
+      
+      telemetrySource.onmessage = function(e) {
+        try {
+          const entry = JSON.parse(e.data)
+          telemetryEntries.push(entry)
+          if (telemetryEntries.length > MAX_TELEMETRY_DISPLAY) telemetryEntries.shift()
+          renderTelemetry()
+        } catch (err) { console.debug('telemetry parse', err) }
+      }
+      
+      telemetrySource.onerror = function() {
+        if (status) status.innerText = '(disconnected)'
+        if (telemetrySource) telemetrySource.close()
+        telemetrySource = null
+      }
+    } catch (e) {
+      if (status) status.innerText = '(error)'
+    }
+  }
+
+  function renderTelemetry() {
+    const container = document.getElementById('telemetry-list')
+    if (!container) return
+    container.innerHTML = telemetryEntries.slice().reverse().map(function(entry){
+      const severityColor = entry.severity === 'error' ? '#dc2626' : entry.severity === 'warn' ? '#f59e0b' : '#10b981'
+      const typeLabel = entry.type || 'event'
+      return '<div style="padding:8px;border-bottom:1px solid #f0f0f0;font-size:13px"><div style="display:flex;gap:8px;align-items:center"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+severityColor+'"></span><strong>'+escapeHtml(entry.lawName || 'unknown')+'</strong><span style="color:#666">'+typeLabel+'</span><span style="color:#999;font-size:11px;margin-left:auto">'+new Date(entry.timestamp||0).toLocaleTimeString()+'</span></div><div style="margin-top:4px;color:#666">'+escapeHtml(entry.message || '')+'</div>'+(entry.details ? '<div style="margin-top:4px;font-family:monospace;font-size:11px;color:#999">'+escapeHtml(JSON.stringify(entry.details))+'</div>' : '')+'</div>'
+    }).join('')
+  }
+
+  document.getElementById('telemetry-toggle').addEventListener('click', function(){
+    const panel = document.getElementById('telemetry-panel')
+    if (!panel) return
+    const expanded = panel.style.display !== 'none'
+    panel.style.display = expanded ? 'none' : 'block'
+    this.setAttribute('aria-expanded', (!expanded).toString())
+    if (!expanded) { connectTelemetry(); renderTelemetry() }
+  })
+
     </script>
   </body>
 </html>`

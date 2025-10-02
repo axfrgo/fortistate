@@ -8,13 +8,105 @@ import { globalStoreFactory } from './storeFactory.js';
 import inspectorClientHtml from './client/inspectorClient.js';
 import { applyPreset, listPresets, listPresetObjects, installPresetCss } from './presets.js';
 import { duplicateStore, swapStores, moveStore } from './stateUtils.js';
+import { loadPlugins } from './loader.js';
+import { getRegistered } from './plugins.js';
+import { AuditLog } from './audit.js';
+import { SessionStore } from './sessionStore.js';
+import { createRoleEnforcer, createRoleMiddleware } from './inspectorAuth.js';
+import { PresenceManager } from './presence.js';
+const DURATION_UNITS = {
+    ms: 1,
+    s: 1000,
+    m: 1000 * 60,
+    h: 1000 * 60 * 60,
+    d: 1000 * 60 * 60 * 24,
+    w: 1000 * 60 * 60 * 24 * 7,
+};
+const MAX_JSON_BODY_BYTES = 1024 * 1024; // 1 MiB safety limit for JSON payloads
+const readJsonBody = (req, limit = MAX_JSON_BODY_BYTES) => {
+    return new Promise((resolve, reject) => {
+        let body = '';
+        let received = 0;
+        let completed = false;
+        let tooLarge = false;
+        const noop = () => { };
+        const cleanup = () => {
+            req.off('data', onData);
+            req.off('end', onEnd);
+            req.off('error', onError);
+            req.off('data', noop);
+        };
+        const finish = (fn) => {
+            if (completed)
+                return;
+            completed = true;
+            cleanup();
+            fn();
+        };
+        const onData = (chunk) => {
+            if (tooLarge || completed)
+                return;
+            const piece = typeof chunk === 'string' ? chunk : chunk.toString('utf-8');
+            received += piece.length;
+            if (received > limit) {
+                tooLarge = true;
+                req.on('data', noop);
+                req.resume();
+                finish(() => reject(new Error('payload too large')));
+                return;
+            }
+            body += piece;
+        };
+        const onEnd = () => {
+            if (completed)
+                return;
+            if (tooLarge) {
+                finish(() => reject(new Error('payload too large')));
+                return;
+            }
+            if (!body) {
+                finish(() => resolve({}));
+                return;
+            }
+            try {
+                const parsed = JSON.parse(body);
+                finish(() => resolve(parsed));
+            }
+            catch (err) {
+                finish(() => reject(err instanceof Error ? err : new Error('invalid json')));
+            }
+        };
+        const onError = (err) => {
+            finish(() => reject(err instanceof Error ? err : new Error('invalid json')));
+        };
+        req.on('data', onData);
+        req.on('end', onEnd);
+        req.on('error', onError);
+    });
+};
+function parseDuration(value) {
+    if (!value)
+        return undefined;
+    if (/^\d+$/.test(value))
+        return Number(value);
+    const match = String(value).trim().match(/^([0-9]+(?:\.[0-9]+)?)([a-zA-Z]+)$/);
+    if (!match)
+        return undefined;
+    const amount = Number(match[1]);
+    const unit = match[2].toLowerCase();
+    const base = DURATION_UNITS[unit];
+    if (!base || Number.isNaN(amount))
+        return undefined;
+    return amount * base;
+}
 export function createInspectorServer(opts = {}) {
     const port = opts.port || 4000;
     const quiet = Boolean(opts.quiet);
     const host = typeof opts.host === 'string' ? opts.host : undefined;
+    const root = typeof opts.cwd === 'string' ? opts.cwd : process.cwd();
     // mutable token value (can be updated via /set-token)
     let token = typeof opts.token === 'string' ? opts.token : undefined;
-    const tokenFile = path.resolve(process.cwd(), '.fortistate-inspector-token');
+    const tokenFile = path.resolve(root, '.fortistate-inspector-token');
     try {
         if (!token && fs.existsSync(tokenFile)) {
             const raw = fs.readFileSync(tokenFile, 'utf-8');
@@ -31,7 +123,7 @@ export function createInspectorServer(opts = {}) {
     let wss = null;
     // stores registered remotely (from other processes / browser)
     const remoteStores = {};
-    const persistFile = path.resolve(process.cwd(), '.fortistate-remote-stores.json');
+    const persistFile = path.resolve(root, '.fortistate-remote-stores.json');
     const base = path.dirname(fileURLToPath(import.meta.url));
     // prefer embedded module HTML; if devClient option (or env) is enabled prefer the examples copy
     const devClientEnabled = Boolean(opts.devClient) || process.env.FORTISTATE_INSPECTOR_DEV_CLIENT === '1';
@@ -44,13 +136,587 @@ export function createInspectorServer(opts = {}) {
         }
         catch (e) { /* ignore */ }
     }
+    const pluginStoreKeys = new Set();
+    let configWatchPaths = [];
+    let configWatcher = null;
+    let chokidarUnavailable = false;
+    let refreshingConfig = false;
+    let refreshQueued = false;
+    let refreshQueuedReason = 'change';
+    let shuttingDown = false;
+    // Telemetry buffer for law violations/repairs (cosmogenesis runtime)
+    const telemetryBuffer = [];
+    const telemetryClients = new Set();
+    const MAX_TELEMETRY_BUFFER = 100;
+    const emitTelemetry = (entry) => {
+        telemetryBuffer.push(entry);
+        if (telemetryBuffer.length > MAX_TELEMETRY_BUFFER) {
+            telemetryBuffer.shift();
+        }
+        // Broadcast to SSE clients
+        const message = `data: ${JSON.stringify(entry)}\n\n`;
+        for (const client of telemetryClients) {
+            try {
+                if (!client.writableEnded)
+                    client.write(message);
+            }
+            catch (e) {
+                telemetryClients.delete(client);
+            }
+        }
+    };
+    const persistRemoteStoresSafe = () => {
+        try {
+            fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+        }
+        catch (e) { /* ignore */ }
+    };
+    const broadcastStoreMessage = (msg) => {
+        if (!wss)
+            return;
+        wss.clients.forEach((c) => {
+            try {
+                if (c.readyState === 1)
+                    c.send(JSON.stringify(msg));
+            }
+            catch (e) { /* ignore */ }
+        });
+    };
+    const gatherConfigWatchTargets = (configPath, config) => {
+        const targets = new Set();
+        if (configPath)
+            targets.add(path.resolve(configPath));
+        else {
+            const defaults = ['fortistate.config.js', 'fortistate.config.cjs', 'fortistate.config.mjs'];
+            for (const name of defaults)
+                targets.add(path.resolve(root, name));
+        }
+        const addEntry = (entry) => {
+            if (typeof entry === 'string' && entry.trim()) {
+                const abs = path.isAbsolute(entry) ? entry : path.resolve(root, entry);
+                targets.add(abs);
+            }
+        };
+        const presets = Array.isArray(config === null || config === void 0 ? void 0 : config.presets) ? config.presets : [];
+        for (const preset of presets)
+            addEntry(preset);
+        const plugins = Array.isArray(config === null || config === void 0 ? void 0 : config.plugins) ? config.plugins : [];
+        for (const plugin of plugins)
+            addEntry(plugin);
+        return Array.from(targets);
+    };
+    const applyPluginStores = (registered) => {
+        const newKeys = Object.keys(registered || {});
+        const removed = Array.from(pluginStoreKeys).filter(key => !newKeys.includes(key));
+        for (const key of removed) {
+            pluginStoreKeys.delete(key);
+            if (Object.prototype.hasOwnProperty.call(remoteStores, key)) {
+                delete remoteStores[key];
+                broadcastStoreMessage({ type: 'store:change', key, value: null });
+            }
+        }
+        for (const key of newKeys) {
+            const existed = pluginStoreKeys.has(key);
+            pluginStoreKeys.add(key);
+            let value;
+            try {
+                const store = globalStoreFactory.get(key);
+                value = store ? store.get() : registered[key];
+            }
+            catch (e) {
+                value = registered[key];
+            }
+            remoteStores[key] = value;
+            broadcastStoreMessage(existed ? { type: 'store:change', key, value } : { type: 'store:create', key, initial: value });
+        }
+        if (newKeys.length || removed.length)
+            persistRemoteStoresSafe();
+    };
+    const queueConfigRefresh = (reason) => {
+        if (shuttingDown)
+            return;
+        refreshQueuedReason = reason;
+        if (refreshingConfig) {
+            refreshQueued = true;
+            return;
+        }
+        void refreshConfig(reason);
+    };
+    const ensureConfigWatcher = async (targets) => {
+        if (shuttingDown)
+            return;
+        const normalized = Array.from(new Set(targets.map(t => path.resolve(t)))).sort();
+        if (normalized.length === 0) {
+            if (configWatcher) {
+                try {
+                    await configWatcher.close();
+                }
+                catch (e) { /* ignore */ }
+                configWatcher = null;
+            }
+            configWatchPaths = [];
+            return;
+        }
+        if (configWatchPaths.length === normalized.length && configWatchPaths.every((v, i) => v === normalized[i]))
+            return;
+        configWatchPaths = normalized;
+        if (configWatcher) {
+            try {
+                await configWatcher.close();
+            }
+            catch (e) { /* ignore */ }
+            configWatcher = null;
+        }
+        if (process.env.FORTISTATE_DISABLE_CONFIG_WATCH === '1')
+            return;
+        if (chokidarUnavailable)
+            return;
+        try {
+            const chokidar = await import('chokidar');
+            configWatcher = chokidar.watch(normalized, { ignoreInitial: true });
+            const handle = (file) => queueConfigRefresh('config-watch:' + path.relative(root, file));
+            configWatcher.on('add', handle);
+            configWatcher.on('change', handle);
+            configWatcher.on('unlink', handle);
+            if (!quiet) {
+                console.log('[fortistate][inspector] watching config files:', normalized.map(p => path.relative(root, p)).join(', '));
+            }
+        }
+        catch (err) {
+            chokidarUnavailable = true;
+            if (!quiet)
+                console.warn('[fortistate][inspector] config watch disabled:', (err && typeof err === 'object' && 'message' in err) ? err.message : String(err));
+        }
+    };
+    const refreshConfig = async (reason) => {
+        if (shuttingDown)
+            return;
+        refreshingConfig = true;
+        try {
+            const result = await loadPlugins(root);
+            const registered = getRegistered();
+            applyPluginStores(registered);
+            const targets = gatherConfigWatchTargets(result.configPath, result.config);
+            if (!shuttingDown)
+                await ensureConfigWatcher(targets);
+            if (!quiet && !shuttingDown) {
+                const count = Object.keys(registered || {}).length;
+                console.log('[fortistate][inspector] config loaded (' + reason + '): ' + count + ' plugin store' + (count === 1 ? '' : 's'));
+            }
+        }
+        catch (err) {
+            if (!quiet && !shuttingDown)
+                console.warn('[fortistate][inspector] config load failed:', (err && typeof err === 'object' && 'message' in err) ? err.message : String(err));
+        }
+        finally {
+            refreshingConfig = false;
+            if (refreshQueued) {
+                refreshQueued = false;
+                const queuedReason = refreshQueuedReason;
+                refreshQueuedReason = 'change';
+                if (!shuttingDown)
+                    void refreshConfig(queuedReason);
+            }
+        }
+    };
     return {
         start: async () => {
+            var _a;
+            shuttingDown = false;
+            const debugEnabled = process.env.FORTISTATE_DEBUG === '1';
+            const requireSessions = process.env.FORTISTATE_REQUIRE_SESSIONS === '1';
+            const allowAnonSessions = process.env.FORTISTATE_ALLOW_ANON_SESSIONS === '1';
+            const sessionStore = new SessionStore({
+                rootDir: root,
+                debug: debugEnabled,
+                defaultTtlMs: (_a = parseDuration(process.env.FORTISTATE_SESSION_TTL)) !== null && _a !== void 0 ? _a : undefined,
+                maxSessions: process.env.FORTISTATE_SESSION_MAX ? Number(process.env.FORTISTATE_SESSION_MAX) : undefined,
+            });
+            const auditLog = new AuditLog({
+                rootDir: root,
+                debug: debugEnabled,
+                rotationMaxSizeBytes: process.env.FORTISTATE_AUDIT_MAX_SIZE ? Number(process.env.FORTISTATE_AUDIT_MAX_SIZE) : undefined,
+                rotationMaxAgeDays: process.env.FORTISTATE_AUDIT_ROTATE_DAYS ? Number(process.env.FORTISTATE_AUDIT_ROTATE_DAYS) : undefined,
+            });
+            const presenceManager = new PresenceManager({
+                debug: debugEnabled,
+            });
+            const roleEnforcer = createRoleEnforcer({
+                sessionStore,
+                requireSessions,
+                allowAnonSessions,
+                getLegacyToken: () => token,
+                debug: debugEnabled,
+            });
+            const roleMiddleware = createRoleMiddleware(roleEnforcer);
+            const recordAudit = (action, auth, details) => {
+                var _a, _b, _c, _d;
+                auditLog.append({
+                    action,
+                    sessionId: (_b = (_a = auth === null || auth === void 0 ? void 0 : auth.sessionContext) === null || _a === void 0 ? void 0 : _a.session.id) !== null && _b !== void 0 ? _b : null,
+                    role: (_d = (_c = auth === null || auth === void 0 ? void 0 : auth.sessionContext) === null || _c === void 0 ? void 0 : _c.session.role) !== null && _d !== void 0 ? _d : ((auth === null || auth === void 0 ? void 0 : auth.legacyToken) ? 'legacy' : null),
+                    details,
+                    time: new Date().toISOString(),
+                });
+            };
             server = http.createServer((req, res) => {
-                // helper to attempt opening an editor at line + column
+                var _a, _b, _c;
+                const requireObserver = (options) => roleMiddleware.http.observer(req, res, options);
+                const requireEditor = (options) => roleMiddleware.http.editor(req, res, options);
+                const requireAdmin = (options) => roleMiddleware.http.admin(req, res, options);
+                const auditEvent = (action, auth, details) => {
+                    recordAudit(action, auth, details);
+                };
+                const setCors = (allowedOrigin) => {
+                    if (allowOriginOption === '*') {
+                        res.setHeader('Access-Control-Allow-Origin', '*');
+                    }
+                    else {
+                        const origin = allowedOrigin || req.headers.origin || allowOriginOption;
+                        if (origin)
+                            res.setHeader('Access-Control-Allow-Origin', origin);
+                        if (origin)
+                            res.setHeader('Access-Control-Allow-Credentials', 'true');
+                    }
+                    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-fortistate-token, Authorization');
+                    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+                };
+                if (req.method === 'POST' && req.url === '/session/create') {
+                    const allowedOrigin = req.headers.origin;
+                    setCors(allowedOrigin);
+                    const sendError = (status, message) => {
+                        if (!res.headersSent) {
+                            res.statusCode = status;
+                            if (!res.hasHeader('Content-Type')) {
+                                res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+                            }
+                        }
+                        if (!res.writableEnded)
+                            res.end(message);
+                    };
+                    void (async () => {
+                        var _a, _b;
+                        try {
+                            const rawPayload = await readJsonBody(req);
+                            const payload = (rawPayload && typeof rawPayload === 'object' && !Array.isArray(rawPayload) ? rawPayload : {});
+                            const requestedRole = ((_a = payload.role) !== null && _a !== void 0 ? _a : 'observer');
+                            if (!['observer', 'editor', 'admin'].includes(requestedRole)) {
+                                sendError(400, 'bad role');
+                                return;
+                            }
+                            const ttlMs = typeof payload.expiresIn === 'number' ? payload.expiresIn : parseDuration(payload.expiresIn ? String(payload.expiresIn) : undefined);
+                            const requiresAuth = sessionStore.hasSessions() && !allowAnonSessions;
+                            let auth = null;
+                            if (requestedRole === 'admin') {
+                                // Allow first admin session creation without auth
+                                auth = requireAdmin({ optional: true, allowLegacy: true });
+                                if (!auth)
+                                    return;
+                            }
+                            else if (requiresAuth) {
+                                auth = requireEditor({ optional: false, allowLegacy: true });
+                                if (!auth)
+                                    return;
+                            }
+                            else {
+                                auth = requireObserver({ optional: true, allowLegacy: true });
+                                if (!auth)
+                                    return;
+                            }
+                            const { session, token: issuedToken, tokenType } = sessionStore.createSession({
+                                role: requestedRole,
+                                ttlMs: typeof ttlMs === 'number' ? ttlMs : undefined,
+                                label: payload.label,
+                                issuedBy: (_b = auth === null || auth === void 0 ? void 0 : auth.sessionContext) === null || _b === void 0 ? void 0 : _b.session.id,
+                                ip: req.socket.remoteAddress,
+                                userAgent: typeof req.headers['user-agent'] === 'string' ? req.headers['user-agent'] : undefined,
+                            });
+                            auditEvent('session:create', auth, { createdSessionId: session.id, role: session.role });
+                            res.setHeader('Content-Type', 'application/json');
+                            res.setHeader('X-Fortistate-Session-Id', session.id);
+                            res.writeHead(200);
+                            res.end(JSON.stringify({ session, token: issuedToken, tokenType }));
+                        }
+                        catch (e) {
+                            const message = e instanceof Error ? e.message : 'error';
+                            if (message === 'payload too large') {
+                                sendError(413, message);
+                            }
+                            else if (e instanceof SyntaxError || message.toLowerCase().includes('invalid json')) {
+                                sendError(400, 'invalid json');
+                            }
+                            else {
+                                sendError(500, 'error');
+                            }
+                        }
+                    })();
+                    return;
+                }
+                if (req.method === 'GET' && req.url === '/session/current') {
+                    const auth = requireObserver({ optional: true, allowLegacy: true });
+                    if (auth === null)
+                        return;
+                    setCors(req.headers.origin);
+                    res.setHeader('Content-Type', 'application/json');
+                    res.writeHead(200);
+                    res.end(JSON.stringify({
+                        session: (_b = (_a = auth === null || auth === void 0 ? void 0 : auth.sessionContext) === null || _a === void 0 ? void 0 : _a.session) !== null && _b !== void 0 ? _b : null,
+                        legacyToken: Boolean(auth === null || auth === void 0 ? void 0 : auth.legacyToken),
+                        requireSessions,
+                        allowAnonSessions,
+                        hasSessions: sessionStore.hasSessions(),
+                    }));
+                    return;
+                }
+                if (req.method === 'GET' && req.url === '/session/list') {
+                    const auth = requireAdmin({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    setCors(req.headers.origin);
+                    res.setHeader('Content-Type', 'application/json');
+                    sessionStore.cleanupExpired();
+                    res.writeHead(200);
+                    res.end(JSON.stringify({ sessions: sessionStore.listSessions() }));
+                    return;
+                }
+                if (req.method === 'POST' && req.url === '/session/revoke') {
+                    const auth = requireAdmin({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    let body = '';
+                    req.on('data', (c) => { body += c.toString(); });
+                    req.on('end', () => {
+                        var _a;
+                        const allowedOrigin = req.headers.origin;
+                        setCors(allowedOrigin);
+                        try {
+                            const payload = JSON.parse(body || '{}');
+                            const rawSessionId = typeof payload.sessionId === 'string' ? payload.sessionId.trim() : '';
+                            const rawToken = typeof payload.token === 'string' ? payload.token.trim() : '';
+                            if (!rawSessionId && !rawToken) {
+                                res.writeHead(400);
+                                res.end('bad request');
+                                auditEvent('session:revoke', auth, { success: false, reason: 'missing-identifier' });
+                                return;
+                            }
+                            let targetSessionId = rawSessionId || '';
+                            if (!targetSessionId && rawToken) {
+                                const ctx = sessionStore.validateToken(rawToken);
+                                if ((_a = ctx === null || ctx === void 0 ? void 0 : ctx.session) === null || _a === void 0 ? void 0 : _a.id)
+                                    targetSessionId = ctx.session.id;
+                            }
+                            if (!targetSessionId) {
+                                res.writeHead(404);
+                                res.end('not found');
+                                auditEvent('session:revoke', auth, { success: false, reason: 'unknown-session', viaToken: Boolean(rawToken) });
+                                return;
+                            }
+                            const revoked = sessionStore.revokeSession(targetSessionId);
+                            if (!revoked) {
+                                res.writeHead(404);
+                                res.end('not found');
+                                auditEvent('session:revoke', auth, { success: false, reason: 'not-found', sessionId: targetSessionId, viaToken: Boolean(rawToken) });
+                                return;
+                            }
+                            auditEvent('session:revoke', auth, { success: true, sessionId: targetSessionId, viaToken: Boolean(rawToken) });
+                            res.setHeader('Content-Type', 'application/json');
+                            res.writeHead(200);
+                            res.end(JSON.stringify({ revoked: true, sessionId: targetSessionId }));
+                        }
+                        catch (e) {
+                            res.writeHead(500);
+                            res.end('error');
+                        }
+                    });
+                    return;
+                }
+                if (req.method === 'GET' && ((_c = req.url) === null || _c === void 0 ? void 0 : _c.startsWith('/audit/log'))) {
+                    const auth = requireAdmin({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    const allowedOrigin = req.headers.origin;
+                    setCors(allowedOrigin);
+                    try {
+                        const urlObj = new URL(req.url, 'http://localhost');
+                        const limitParam = urlObj.searchParams.get('limit');
+                        const formatParam = (urlObj.searchParams.get('format') || 'json').toLowerCase();
+                        let limit = 200;
+                        if (limitParam) {
+                            const parsed = Number(limitParam);
+                            if (!Number.isNaN(parsed) && parsed > 0)
+                                limit = parsed;
+                        }
+                        limit = Math.max(1, Math.min(limit, 1000));
+                        const auditPath = path.resolve(root, '.fortistate-audit.log');
+                        let entries = [];
+                        let totalLines = 0;
+                        if (fs.existsSync(auditPath)) {
+                            const raw = fs.readFileSync(auditPath, 'utf-8');
+                            const lines = raw.split(/\r?\n/).filter((line) => line.trim().length > 0);
+                            totalLines = lines.length;
+                            const recent = lines.slice(-limit);
+                            entries = recent.map((line) => {
+                                try {
+                                    return JSON.parse(line);
+                                }
+                                catch (e) {
+                                    return { raw: line, parseError: true };
+                                }
+                            });
+                        }
+                        if (formatParam === 'csv') {
+                            const csvLines = ['time,action,sessionId,role,details'];
+                            for (const entry of entries) {
+                                const time = entry.time || '';
+                                const action = entry.action || '';
+                                const sessionId = entry.sessionId || '';
+                                const role = entry.role || '';
+                                const details = entry.details ? JSON.stringify(entry.details).replace(/"/g, '""') : '';
+                                csvLines.push(`"${time}","${action}","${sessionId}","${role}","${details}"`);
+                            }
+                            res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+                            res.setHeader('Content-Disposition', 'attachment; filename="audit-log.csv"');
+                            res.writeHead(200);
+                            res.end(csvLines.join('\n'));
+                            auditEvent('audit:read', auth, { limit, returned: entries.length, format: 'csv' });
+                        }
+                        else if (formatParam === 'plain') {
+                            const plainLines = ['time\taction\tsessionId\trole\tdetails'];
+                            for (const entry of entries) {
+                                const time = entry.time || '';
+                                const action = entry.action || '';
+                                const sessionId = entry.sessionId || '';
+                                const role = entry.role || '';
+                                const details = entry.details ? JSON.stringify(entry.details) : '';
+                                plainLines.push(`${time}\t${action}\t${sessionId}\t${role}\t${details}`);
+                            }
+                            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+                            res.writeHead(200);
+                            res.end(plainLines.join('\n'));
+                            auditEvent('audit:read', auth, { limit, returned: entries.length, format: 'plain' });
+                        }
+                        else {
+                            // json format (default)
+                            res.setHeader('Content-Type', 'application/json');
+                            res.writeHead(200);
+                            res.end(JSON.stringify({
+                                entries,
+                                totalLines,
+                                returned: entries.length,
+                                limit,
+                            }));
+                            auditEvent('audit:read', auth, { limit, returned: entries.length, format: 'json' });
+                        }
+                    }
+                    catch (e) {
+                        res.writeHead(500);
+                        res.end('error');
+                    }
+                    return;
+                }
+                // Telemetry SSE stream endpoint
+                if (req.method === 'GET' && req.url === '/telemetry/stream') {
+                    const auth = requireObserver({ optional: !requireSessions, allowLegacy: true });
+                    if (!auth)
+                        return;
+                    const allowedOrigin = req.headers.origin;
+                    setCors(allowedOrigin);
+                    res.writeHead(200, {
+                        'Content-Type': 'text/event-stream',
+                        'Cache-Control': 'no-cache',
+                        'Connection': 'keep-alive',
+                    });
+                    // Send buffered telemetry on connection
+                    for (const entry of telemetryBuffer) {
+                        res.write(`data: ${JSON.stringify(entry)}\n\n`);
+                    }
+                    // Add client to active set
+                    telemetryClients.add(res);
+                    auditEvent('telemetry:connect', auth, { origin: allowedOrigin });
+                    // Keep-alive ping every 30s
+                    const keepAlive = setInterval(() => {
+                        try {
+                            if (!res.writableEnded)
+                                res.write(': ping\n\n');
+                        }
+                        catch (e) {
+                            clearInterval(keepAlive);
+                            telemetryClients.delete(res);
+                        }
+                    }, 30000);
+                    req.on('close', () => {
+                        clearInterval(keepAlive);
+                        telemetryClients.delete(res);
+                        auditEvent('telemetry:disconnect', auth);
+                    });
+                    return;
+                }
+                if (req.method === 'GET' && req.url === '/presence') {
+                    const auth = requireObserver({ optional: true, allowLegacy: true });
+                    if (!auth)
+                        return;
+                    const allowedOrigin = req.headers.origin;
+                    setCors(allowedOrigin);
+                    try {
+                        const users = presenceManager.getAll();
+                        res.setHeader('Content-Type', 'application/json');
+                        res.writeHead(200);
+                        res.end(JSON.stringify({
+                            users,
+                            total: users.length,
+                        }));
+                        auditEvent('presence:read', auth, { total: users.length });
+                    }
+                    catch (e) {
+                        res.writeHead(500);
+                        res.end('error');
+                    }
+                    return;
+                }
+                if (req.method === 'POST' && req.url === '/duplicate-store') {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    let body = '';
+                    req.on('data', (c) => (body += c.toString()));
+                    req.on('end', () => {
+                        try {
+                            const allowedOrigin = req.headers.origin;
+                            setCors(allowedOrigin);
+                            const payload = JSON.parse(body || '{}');
+                            if (!(payload === null || payload === void 0 ? void 0 : payload.sourceKey) || !(payload === null || payload === void 0 ? void 0 : payload.destKey)) {
+                                res.writeHead(400);
+                                res.end('bad request');
+                                return;
+                            }
+                            duplicateStore(payload.sourceKey, payload.destKey);
+                            try {
+                                fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                            }
+                            catch (e) { /* ignore */ }
+                            if (wss) {
+                                wss.clients.forEach((c) => {
+                                    try {
+                                        if (c.readyState === 1)
+                                            c.send(JSON.stringify({ type: 'store:duplicate', sourceKey: payload.sourceKey, destKey: payload.destKey }));
+                                    }
+                                    catch (e) { /* ignore */ }
+                                });
+                            }
+                            auditEvent('store:duplicate', auth, { sourceKey: payload.sourceKey, destKey: payload.destKey });
+                            res.writeHead(200);
+                            res.end('ok');
+                        }
+                        catch (e) {
+                            res.writeHead(500);
+                            res.end('error');
+                        }
+                    });
+                    return;
+                }
                 const attemptOpenInEditor = (targetPath, lineNum, colNum) => {
                     try {
-                        const target = path.resolve(process.cwd(), targetPath);
+                        const target = path.resolve(root, targetPath);
                         const pos = typeof colNum === 'number' ? `${lineNum}:${colNum}` : `${lineNum}`;
                         let codeAvailable = false;
                         try {
@@ -70,12 +736,11 @@ export function createInspectorServer(opts = {}) {
                             }
                             catch (e) { /* ignore */ }
                         }
-                        // try common windows exe or URL-scheme fallback
                         if (process.platform === 'win32') {
                             const candidates = [
                                 path.join(process.env.LOCALAPPDATA || '', 'Programs', 'Microsoft VS Code', 'Code.exe'),
                                 path.join(process.env.PROGRAMFILES || '', 'Microsoft VS Code', 'Code.exe'),
-                                path.join(process.env['PROGRAMFILES(X86)'] || '', 'Microsoft VS Code', 'Code.exe')
+                                path.join(process.env['PROGRAMFILES(X86)'] || '', 'Microsoft VS Code', 'Code.exe'),
                             ];
                             for (const exe of candidates) {
                                 try {
@@ -86,7 +751,7 @@ export function createInspectorServer(opts = {}) {
                                         return { opened: true, method: exe };
                                     }
                                 }
-                                catch (e) { }
+                                catch (e) { /* ignore */ }
                             }
                             try {
                                 const c = spawn('cmd', ['/c', 'start', '', vscodeUrl], { stdio: 'ignore', detached: true });
@@ -94,7 +759,7 @@ export function createInspectorServer(opts = {}) {
                                 c.unref();
                                 return { opened: true, method: 'vscode-url' };
                             }
-                            catch (e) { }
+                            catch (e) { /* ignore */ }
                         }
                         else if (process.platform === 'darwin') {
                             try {
@@ -103,7 +768,7 @@ export function createInspectorServer(opts = {}) {
                                 c.unref();
                                 return { opened: true, method: 'open' };
                             }
-                            catch (e) { }
+                            catch (e) { /* ignore */ }
                         }
                         else {
                             try {
@@ -112,21 +777,15 @@ export function createInspectorServer(opts = {}) {
                                 c.unref();
                                 return { opened: true, method: 'xdg-open' };
                             }
-                            catch (e) { }
+                            catch (e) { /* ignore */ }
                         }
                     }
                     catch (e) { /* ignore */ }
                     return { opened: false };
                 };
-                if (req.url === '/' || req.url === '/index.html') {
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.end(clientHtml);
-                    return;
-                }
-                // serve favicon if present in project root or bundled client
-                if (req.url === '/favicon.ico') {
+                if (req.method === 'GET' && req.url === '/favicon.ico') {
                     try {
-                        const favFromCwd = path.resolve(process.cwd(), 'favicon.ico');
+                        const favFromCwd = path.resolve(root, 'favicon.ico');
                         if (fs.existsSync(favFromCwd)) {
                             const buf = fs.readFileSync(favFromCwd);
                             res.writeHead(200, { 'Content-Type': 'image/x-icon', 'Cache-Control': 'public, max-age=86400' });
@@ -163,24 +822,6 @@ export function createInspectorServer(opts = {}) {
                     }
                     catch (e) { /* ignore */ }
                 }
-                // small helper to set CORS headers consistently
-                const setCors = (allowedOrigin) => {
-                    // allowOriginOption may be '*' to allow all origins
-                    if (allowOriginOption === '*') {
-                        res.setHeader('Access-Control-Allow-Origin', '*');
-                    }
-                    else {
-                        const origin = allowedOrigin || req.headers.origin || allowOriginOption;
-                        if (origin)
-                            res.setHeader('Access-Control-Allow-Origin', origin);
-                        // when a specific origin is used, allow credentials (useful for some clients)
-                        if (origin)
-                            res.setHeader('Access-Control-Allow-Credentials', 'true');
-                    }
-                    // allow common headers used by the inspector UI
-                    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-fortistate-token');
-                    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-                };
                 // CORS preflight for register/change
                 if (req.method === 'OPTIONS' && (req.url === '/register' || req.url === '/change')) {
                     setCors();
@@ -188,32 +829,27 @@ export function createInspectorServer(opts = {}) {
                     res.end();
                     return;
                 }
+                if (req.method === 'OPTIONS' && req.url && req.url.startsWith('/session/')) {
+                    setCors();
+                    res.writeHead(204);
+                    res.end();
+                    return;
+                }
                 // accept remote registrations and changes: POST /register { key, initial }
                 if (req.method === 'POST' && req.url === '/register') {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
                     let body = '';
                     req.on('data', (c) => (body += c.toString()));
                     req.on('end', () => {
-                        // basic token/origin check
                         try {
-                            // debug log incoming registration attempts
-                            try {
-                                console.log('[fortistate][inspector] POST /register from', req.headers.origin || req.socket.remoteAddress);
-                            }
-                            catch (e) { }
                             const allowedOrigin = req.headers.origin;
-                            // set CORS response header
                             setCors(allowedOrigin);
-                            if (token && req.headers['x-fortistate-token'] !== token) {
-                                res.writeHead(403);
-                                res.end('forbidden');
-                                return;
-                            }
-                            // allow same-origin or no-origin (non-browser) only
-                            if (allowedOrigin && allowedOrigin !== 'null' && typeof allowedOrigin === 'string') {
+                            if (allowedOrigin && allowedOrigin !== 'null') {
                                 try {
-                                    const url = new URL(allowedOrigin);
-                                    // only accept http(s) origins
-                                    if (!['http:', 'https:'].includes(url.protocol)) {
+                                    const parsed = new URL(allowedOrigin);
+                                    if (!['http:', 'https:'].includes(parsed.protocol)) {
                                         res.writeHead(403);
                                         res.end('forbidden');
                                         return;
@@ -225,73 +861,62 @@ export function createInspectorServer(opts = {}) {
                                     return;
                                 }
                             }
-                            const p = JSON.parse(body || '{}');
-                            if (p && p.key) {
-                                remoteStores[p.key] = p.initial;
-                                // also create or set the store in the shared runtime so
-                                // clients using the global factory receive the update
+                            const payload = JSON.parse(body || '{}');
+                            if (payload && payload.key) {
+                                remoteStores[payload.key] = payload.initial;
                                 try {
-                                    const existing = globalStoreFactory.get(p.key);
+                                    const existing = globalStoreFactory.get(payload.key);
                                     if (existing)
-                                        existing.set(p.initial);
+                                        existing.set(payload.initial);
                                     else
-                                        globalStoreFactory.create(p.key, { value: p.initial });
+                                        globalStoreFactory.create(payload.key, { value: payload.initial });
                                 }
                                 catch (e) { /* ignore */ }
-                                // persist
                                 try {
                                     fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
                                 }
                                 catch (e) { /* ignore */ }
-                                // notify connected clients
                                 if (wss) {
                                     wss.clients.forEach((c) => {
                                         try {
                                             if (c.readyState === 1)
-                                                c.send(JSON.stringify({ type: 'store:create', key: p.key, initial: p.initial }));
+                                                c.send(JSON.stringify({ type: 'store:create', key: payload.key, initial: payload.initial }));
                                         }
-                                        catch (e) { }
+                                        catch (e) { /* ignore */ }
                                     });
                                 }
+                                auditEvent('store:register', auth, { key: payload.key, hasInitial: Object.prototype.hasOwnProperty.call(payload, 'initial') });
                             }
+                            res.writeHead(200);
+                            res.end('ok');
                         }
-                        catch (e) { /* ignore */ }
-                        res.writeHead(200);
-                        res.end('ok');
+                        catch (e) {
+                            res.writeHead(500);
+                            res.end('error');
+                        }
                     });
                     return;
                 }
                 // POST /change { key, value }
                 if (req.method === 'POST' && req.url === '/change') {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
                     let body = '';
                     req.on('data', (c) => (body += c.toString()));
                     req.on('end', () => {
                         try {
-                            try {
-                                console.log('[fortistate][inspector] POST /change from', req.headers.origin || req.socket.remoteAddress);
-                            }
-                            catch (e) { }
                             const allowedOrigin = req.headers.origin;
-                            if (allowOriginOption)
-                                res.setHeader('Access-Control-Allow-Origin', allowOriginOption);
-                            else if (allowedOrigin)
-                                res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
-                            if (token && req.headers['x-fortistate-token'] !== token) {
-                                res.writeHead(403);
-                                res.end('forbidden');
-                                return;
-                            }
-                            const p = JSON.parse(body || '{}');
-                            if (p && p.key) {
-                                remoteStores[p.key] = p.value;
-                                // also apply the change to the shared runtime store so
-                                // normalization and subscriptions run as expected
+                            setCors(allowedOrigin);
+                            const payload = JSON.parse(body || '{}');
+                            if (payload && payload.key) {
+                                remoteStores[payload.key] = payload.value;
                                 try {
-                                    const existing = globalStoreFactory.get(p.key);
+                                    const existing = globalStoreFactory.get(payload.key);
                                     if (existing)
-                                        existing.set(p.value);
+                                        existing.set(payload.value);
                                     else
-                                        globalStoreFactory.create(p.key, { value: p.value });
+                                        globalStoreFactory.create(payload.key, { value: payload.value });
                                 }
                                 catch (e) { /* ignore */ }
                                 try {
@@ -302,50 +927,60 @@ export function createInspectorServer(opts = {}) {
                                     wss.clients.forEach((c) => {
                                         try {
                                             if (c.readyState === 1)
-                                                c.send(JSON.stringify({ type: 'store:change', key: p.key, value: p.value }));
+                                                c.send(JSON.stringify({ type: 'store:change', key: payload.key, value: payload.value }));
                                         }
-                                        catch (e) { }
+                                        catch (e) { /* ignore */ }
                                     });
                                 }
+                                auditEvent('store:change', auth, { key: payload.key });
                             }
+                            res.writeHead(200);
+                            res.end('ok');
                         }
-                        catch (e) { /* ignore */ }
-                        res.writeHead(200);
-                        res.end('ok');
+                        catch (e) {
+                            res.writeHead(500);
+                            res.end('error');
+                        }
                     });
                     return;
                 }
                 // dev helper: small UI + POST to set token (stored to .fortistate-inspector-token) if no token configured
                 if (req.method === 'GET' && req.url === '/set-token') {
+                    const auth = requireAdmin({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    setCors(req.headers.origin);
                     const html = `<!doctype html><html><body><h3>Set Fortistate Inspector Token (dev)</h3><form method="post" action="/set-token"><input name="token" placeholder="token"/><button type="submit">Set</button></form></body></html>`;
                     res.writeHead(200, { 'Content-Type': 'text/html' });
                     res.end(html);
+                    auditEvent('legacy-token:ui', auth);
                     return;
                 }
                 if (req.method === 'POST' && req.url === '/set-token') {
-                    // allow setting token even if one exists — update in memory
+                    const auth = requireAdmin({ allowLegacy: true });
+                    if (!auth)
+                        return;
                     let body = '';
                     req.on('data', (c) => (body += c.toString()));
                     req.on('end', () => {
                         try {
-                            // support form-encoded or JSON body
-                            let p = {};
+                            setCors(req.headers.origin);
+                            let payload = {};
                             try {
-                                p = JSON.parse(body || '{}');
+                                payload = JSON.parse(body || '{}');
                             }
                             catch (e) {
-                                // naive parse for form body like token=abc
                                 const m = String(body).match(/token=([^&]+)/);
                                 if (m)
-                                    p = { token: decodeURIComponent(m[1]) };
+                                    payload = { token: decodeURIComponent(m[1]) };
                             }
-                            if (p && p.token && typeof p.token === 'string') {
-                                // update in-memory token and persist
-                                token = p.token;
+                            if (payload && typeof payload.token === 'string' && payload.token.trim()) {
+                                token = payload.token.trim();
                                 try {
                                     fs.writeFileSync(tokenFile, JSON.stringify({ token }));
                                 }
                                 catch (e) { /* ignore */ }
+                                auditEvent('legacy-token:set', auth);
                                 res.writeHead(200);
                                 res.end('ok');
                                 return;
@@ -359,23 +994,28 @@ export function createInspectorServer(opts = {}) {
                 }
                 // expose current remote stores (for client to fetch and render)
                 if (req.method === 'GET' && req.url === '/remote-stores') {
-                    // allow cross-origin access so the embedded inspector client
-                    // can fetch persisted stores when loaded from a different origin
+                    const auth = requireObserver({ optional: !requireSessions, allowLegacy: true });
+                    if (auth === null)
+                        return;
                     const allowedOrigin = req.headers.origin;
                     setCors(allowedOrigin);
                     res.setHeader('Content-Type', 'application/json');
                     res.writeHead(200);
                     res.end(JSON.stringify(remoteStores));
+                    auditEvent('remote-stores:list', auth);
                     return;
                 }
-                // list available presets (name + description)
                 if (req.method === 'GET' && req.url === '/presets') {
+                    const auth = requireObserver({ optional: !requireSessions, allowLegacy: true });
+                    if (auth === null)
+                        return;
                     try {
-                        setCors();
+                        setCors(req.headers.origin);
+                        const presetList = typeof listPresetObjects === 'function' ? listPresetObjects() : typeof listPresets === 'function' ? listPresets() : [];
                         res.setHeader('Content-Type', 'application/json');
                         res.writeHead(200);
-                        // listPresetObjects returns {name, description}
-                        res.end(JSON.stringify(listPresets === undefined ? [] : (listPresetObjects ? listPresetObjects() : listPresets())));
+                        res.end(JSON.stringify(presetList !== null && presetList !== void 0 ? presetList : []));
+                        auditEvent('presets:list', auth);
                         return;
                     }
                     catch (e) {
@@ -386,8 +1026,11 @@ export function createInspectorServer(opts = {}) {
                 }
                 // debug helper to inspect runtime state (safe for local dev)
                 if (req.method === 'GET' && req.url === '/debug') {
+                    const auth = requireAdmin({ allowLegacy: true });
+                    if (!auth)
+                        return;
                     try {
-                        setCors();
+                        setCors(req.headers.origin);
                         const clients = [];
                         if (wss) {
                             wss.clients.forEach((c) => {
@@ -403,6 +1046,7 @@ export function createInspectorServer(opts = {}) {
                         res.setHeader('Content-Type', 'application/json');
                         res.writeHead(200);
                         res.end(JSON.stringify({ remoteStores, wsClients: clients.length, clients }));
+                        auditEvent('debug:info', auth, { clientCount: clients.length });
                         return;
                     }
                     catch (e) { /* ignore */ }
@@ -416,32 +1060,40 @@ export function createInspectorServer(opts = {}) {
                 }
                 // apply a preset: POST /apply-preset { name, targetKey? }
                 if (req.method === 'POST' && req.url === '/apply-preset') {
+                    const auth = requireEditor({ allowLegacy: true, optional: !requireSessions });
+                    if (!auth)
+                        return;
                     let body = '';
                     req.on('data', (c) => (body += c.toString()));
                     req.on('end', () => {
+                        var _a, _b;
                         try {
                             const allowedOrigin = req.headers.origin;
                             setCors(allowedOrigin);
-                            if (token && req.headers['x-fortistate-token'] !== token) {
-                                res.writeHead(403);
-                                res.end('forbidden');
-                                return;
-                            }
-                            const p = JSON.parse(body || '{}');
-                            if (!p || !p.name) {
+                            const payload = JSON.parse(body || '{}');
+                            if (!payload || !payload.name) {
                                 res.writeHead(400);
-                                res.end('bad');
+                                res.end('bad request');
                                 return;
                             }
-                            const result = applyPreset(p.name, p.targetKey);
-                            // optionally install preset CSS into the current working directory
-                            if (p.installCss) {
+                            const result = applyPreset(payload.name, payload.targetKey);
+                            try {
+                                const val = (_a = globalStoreFactory.get(result.key)) === null || _a === void 0 ? void 0 : _a.get();
+                                if (typeof val !== 'undefined') {
+                                    remoteStores[result.key] = val;
+                                    try {
+                                        fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                    }
+                                    catch (e) { /* ignore */ }
+                                }
+                            }
+                            catch (e) { /* ignore */ }
+                            if (payload.installCss) {
                                 try {
-                                    installPresetCss(p.name, process.cwd(), { overwrite: false });
+                                    installPresetCss(payload.name, process.cwd(), { overwrite: false });
                                 }
                                 catch (e) { /* ignore */ }
                             }
-                            // notify WS clients
                             if (wss) {
                                 wss.clients.forEach((c) => {
                                     var _a;
@@ -449,152 +1101,182 @@ export function createInspectorServer(opts = {}) {
                                         if (c.readyState === 1)
                                             c.send(JSON.stringify({ type: 'store:create', key: result.key, initial: (_a = globalStoreFactory.get(result.key)) === null || _a === void 0 ? void 0 : _a.get() }));
                                     }
-                                    catch (e) { }
+                                    catch (e) { /* ignore */ }
                                 });
                             }
+                            auditEvent('preset:apply', auth, { name: payload.name, targetKey: (_b = payload.targetKey) !== null && _b !== void 0 ? _b : result.key });
                             res.setHeader('Content-Type', 'application/json');
                             res.writeHead(200);
                             res.end(JSON.stringify(result));
-                            return;
                         }
                         catch (e) {
                             res.writeHead(500);
                             res.end('error');
-                            return;
                         }
                     });
                     return;
                 }
                 // duplicate store: POST /duplicate-store { sourceKey, destKey }
                 if (req.method === 'POST' && req.url === '/duplicate-store') {
+                    const auth = requireEditor({ allowLegacy: true, optional: !requireSessions });
+                    if (!auth)
+                        return;
                     let body = '';
                     req.on('data', (c) => (body += c.toString()));
                     req.on('end', () => {
+                        var _a;
                         try {
                             const allowedOrigin = req.headers.origin;
                             setCors(allowedOrigin);
-                            if (token && req.headers['x-fortistate-token'] !== token) {
-                                res.writeHead(403);
-                                res.end('forbidden');
-                                return;
-                            }
-                            const p = JSON.parse(body || '{}');
-                            if (!p || !p.sourceKey || !p.destKey) {
+                            const payload = JSON.parse(body || '{}');
+                            const sourceKey = payload === null || payload === void 0 ? void 0 : payload.sourceKey;
+                            const destKey = payload === null || payload === void 0 ? void 0 : payload.destKey;
+                            if (!sourceKey || !destKey) {
                                 res.writeHead(400);
-                                res.end('bad');
+                                res.end('bad request');
                                 return;
                             }
-                            duplicateStore(p.sourceKey, p.destKey);
-                            // notify WS clients
+                            duplicateStore(sourceKey, destKey);
+                            try {
+                                const val = (_a = globalStoreFactory.get(destKey)) === null || _a === void 0 ? void 0 : _a.get();
+                                if (typeof val !== 'undefined') {
+                                    remoteStores[destKey] = val;
+                                    try {
+                                        fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                    }
+                                    catch (e) { /* ignore */ }
+                                }
+                            }
+                            catch (e) { /* ignore */ }
                             if (wss) {
                                 wss.clients.forEach((c) => {
                                     var _a;
                                     try {
                                         if (c.readyState === 1)
-                                            c.send(JSON.stringify({ type: 'store:create', key: p.destKey, initial: (_a = globalStoreFactory.get(p.destKey)) === null || _a === void 0 ? void 0 : _a.get() }));
+                                            c.send(JSON.stringify({ type: 'store:create', key: destKey, initial: (_a = globalStoreFactory.get(destKey)) === null || _a === void 0 ? void 0 : _a.get() }));
                                     }
-                                    catch (e) { }
+                                    catch (e) { /* ignore */ }
                                 });
                             }
+                            auditEvent('store:duplicate', auth, { sourceKey, destKey });
                             res.writeHead(200);
                             res.end('ok');
-                            return;
                         }
                         catch (e) {
                             res.writeHead(500);
                             res.end('error');
-                            return;
                         }
                     });
                     return;
                 }
                 // swap stores: POST /swap-stores { keyA, keyB }
                 if (req.method === 'POST' && req.url === '/swap-stores') {
+                    const auth = requireEditor({ allowLegacy: true, optional: !requireSessions });
+                    if (!auth)
+                        return;
                     let body = '';
                     req.on('data', (c) => (body += c.toString()));
                     req.on('end', () => {
+                        var _a, _b;
                         try {
                             const allowedOrigin = req.headers.origin;
                             setCors(allowedOrigin);
-                            if (token && req.headers['x-fortistate-token'] !== token) {
-                                res.writeHead(403);
-                                res.end('forbidden');
-                                return;
-                            }
-                            const p = JSON.parse(body || '{}');
-                            if (!p || !p.keyA || !p.keyB) {
+                            const payload = JSON.parse(body || '{}');
+                            const keyA = payload === null || payload === void 0 ? void 0 : payload.keyA;
+                            const keyB = payload === null || payload === void 0 ? void 0 : payload.keyB;
+                            if (!keyA || !keyB) {
                                 res.writeHead(400);
-                                res.end('bad');
+                                res.end('bad request');
                                 return;
                             }
-                            swapStores(p.keyA, p.keyB);
-                            // notify WS clients
+                            swapStores(keyA, keyB);
+                            try {
+                                const aVal = (_a = globalStoreFactory.get(keyA)) === null || _a === void 0 ? void 0 : _a.get();
+                                const bVal = (_b = globalStoreFactory.get(keyB)) === null || _b === void 0 ? void 0 : _b.get();
+                                if (typeof aVal !== 'undefined')
+                                    remoteStores[keyA] = aVal;
+                                if (typeof bVal !== 'undefined')
+                                    remoteStores[keyB] = bVal;
+                                try {
+                                    fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                }
+                                catch (e) { /* ignore */ }
+                            }
+                            catch (e) { /* ignore */ }
                             if (wss) {
                                 wss.clients.forEach((c) => {
                                     var _a, _b;
                                     try {
                                         if (c.readyState === 1) {
-                                            c.send(JSON.stringify({ type: 'store:change', key: p.keyA, value: (_a = globalStoreFactory.get(p.keyA)) === null || _a === void 0 ? void 0 : _a.get() }));
-                                            c.send(JSON.stringify({ type: 'store:change', key: p.keyB, value: (_b = globalStoreFactory.get(p.keyB)) === null || _b === void 0 ? void 0 : _b.get() }));
+                                            c.send(JSON.stringify({ type: 'store:change', key: keyA, value: (_a = globalStoreFactory.get(keyA)) === null || _a === void 0 ? void 0 : _a.get() }));
+                                            c.send(JSON.stringify({ type: 'store:change', key: keyB, value: (_b = globalStoreFactory.get(keyB)) === null || _b === void 0 ? void 0 : _b.get() }));
                                         }
                                     }
-                                    catch (e) { }
+                                    catch (e) { /* ignore */ }
                                 });
                             }
+                            auditEvent('store:swap', auth, { keyA, keyB });
                             res.writeHead(200);
                             res.end('ok');
-                            return;
                         }
                         catch (e) {
                             res.writeHead(500);
                             res.end('error');
-                            return;
                         }
                     });
                     return;
                 }
                 // move store: POST /move-store { oldKey, newKey }
                 if (req.method === 'POST' && req.url === '/move-store') {
+                    const auth = requireEditor({ allowLegacy: true, optional: !requireSessions });
+                    if (!auth)
+                        return;
                     let body = '';
                     req.on('data', (c) => (body += c.toString()));
                     req.on('end', () => {
+                        var _a;
                         try {
                             const allowedOrigin = req.headers.origin;
                             setCors(allowedOrigin);
-                            if (token && req.headers['x-fortistate-token'] !== token) {
-                                res.writeHead(403);
-                                res.end('forbidden');
-                                return;
-                            }
-                            const p = JSON.parse(body || '{}');
-                            if (!p || !p.oldKey || !p.newKey) {
+                            const payload = JSON.parse(body || '{}');
+                            const oldKey = payload === null || payload === void 0 ? void 0 : payload.oldKey;
+                            const newKey = payload === null || payload === void 0 ? void 0 : payload.newKey;
+                            if (!oldKey || !newKey) {
                                 res.writeHead(400);
-                                res.end('bad');
+                                res.end('bad request');
                                 return;
                             }
-                            moveStore(p.oldKey, p.newKey);
-                            // notify WS clients
+                            moveStore(oldKey, newKey);
+                            try {
+                                const newVal = (_a = globalStoreFactory.get(newKey)) === null || _a === void 0 ? void 0 : _a.get();
+                                if (typeof newVal !== 'undefined')
+                                    remoteStores[newKey] = newVal;
+                                delete remoteStores[oldKey];
+                                try {
+                                    fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                }
+                                catch (e) { /* ignore */ }
+                            }
+                            catch (e) { /* ignore */ }
                             if (wss) {
                                 wss.clients.forEach((c) => {
                                     var _a;
                                     try {
                                         if (c.readyState === 1) {
-                                            c.send(JSON.stringify({ type: 'store:create', key: p.newKey, initial: (_a = globalStoreFactory.get(p.newKey)) === null || _a === void 0 ? void 0 : _a.get() }));
-                                            // optionally notify old key removal, but since we don't have delete, just change to null
-                                            c.send(JSON.stringify({ type: 'store:change', key: p.oldKey, value: null }));
+                                            c.send(JSON.stringify({ type: 'store:create', key: newKey, initial: (_a = globalStoreFactory.get(newKey)) === null || _a === void 0 ? void 0 : _a.get() }));
+                                            c.send(JSON.stringify({ type: 'store:change', key: oldKey, value: null }));
                                         }
                                     }
-                                    catch (e) { }
+                                    catch (e) { /* ignore */ }
                                 });
                             }
+                            auditEvent('store:move', auth, { oldKey, newKey });
                             res.writeHead(200);
                             res.end('ok');
-                            return;
                         }
                         catch (e) {
                             res.writeHead(500);
                             res.end('error');
-                            return;
                         }
                     });
                     return;
@@ -615,32 +1297,29 @@ export function createInspectorServer(opts = {}) {
                 }
                 // open a file in an editor on the host machine (opt-in)
                 if (req.method === 'POST' && req.url === '/open-source') {
+                    const auth = requireAdmin({ allowLegacy: true });
+                    if (!auth)
+                        return;
                     let body = '';
                     req.on('data', (c) => (body += c.toString()));
                     req.on('end', () => {
                         try {
-                            // allow CORS response
                             const allowedOrigin = req.headers.origin;
                             setCors(allowedOrigin);
-                            if (token && req.headers['x-fortistate-token'] !== token) {
-                                res.writeHead(403);
-                                res.end('forbidden');
-                                return;
-                            }
                             const allowOpen = Boolean(opts && opts.allowOpen) || process.env.FORTISTATE_INSPECTOR_ALLOW_OPEN === '1';
                             if (!allowOpen) {
                                 res.writeHead(403);
                                 res.end('open-not-allowed');
                                 return;
                             }
-                            const p = JSON.parse(body || '{}');
-                            if (!p || !p.path) {
+                            const payload = JSON.parse(body || '{}');
+                            if (!(payload === null || payload === void 0 ? void 0 : payload.path)) {
                                 res.writeHead(400);
-                                res.end('bad');
+                                res.end('bad request');
                                 return;
                             }
-                            const target = path.resolve(process.cwd(), p.path);
-                            const line = typeof p.line === 'number' ? p.line : 1;
+                            const target = path.resolve(process.cwd(), payload.path);
+                            const line = typeof payload.line === 'number' ? payload.line : 1;
                             try {
                                 // prefer to run the `code` CLI if available
                                 let codeAvailable = false;
@@ -680,6 +1359,7 @@ export function createInspectorServer(opts = {}) {
                                         catch (e) { /* ignore fallback errors */ }
                                     });
                                     child.unref();
+                                    auditEvent('source:open', auth, { path: target, line, method: 'code-cli' });
                                     res.writeHead(200);
                                     res.end('ok');
                                     return;
@@ -724,24 +1404,28 @@ export function createInspectorServer(opts = {}) {
                                         c.on('error', () => { });
                                         c.unref();
                                     }
+                                    auditEvent('source:open', auth, { path: target, line, method: 'fallback-url' });
                                     res.writeHead(200);
                                     res.end(JSON.stringify({ path: target, line, opened: 'vscode-url-fallback' }));
                                     return;
                                 }
                                 catch (e) {
                                     // nothing worked — return helpful JSON so the UI can show instructions
+                                    auditEvent('source:open', auth, { path: target, line, method: 'error', error: String(e) });
                                     res.writeHead(200);
                                     res.end(JSON.stringify({ path: target, line, opened: false, message: "Could not spawn editor. Ensure VSCode is installed and the code CLI is on PATH (install the 'code' command in PATH) or your system supports the vscode:// URL scheme." }));
                                     return;
                                 }
                             }
                             catch (e) {
+                                auditEvent('source:open', auth, { path: target, line, method: 'exception', error: String(e) });
                                 res.writeHead(500);
                                 res.end('error');
                                 return;
                             }
                         }
                         catch (e) {
+                            auditEvent('source:open', auth, { error: String(e) });
                             res.writeHead(500);
                             res.end('error');
                             return;
@@ -751,15 +1435,17 @@ export function createInspectorServer(opts = {}) {
                 }
                 // locate source files that reference a store key (help IDE links)
                 if (req.method === 'GET' && req.url && req.url.startsWith('/locate-source')) {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
                     try {
                         const u = new URL(req.url, 'http://localhost');
                         const key = String(u.searchParams.get('key') || '');
                         const results = [];
                         const shouldAutoOpen = String(u.searchParams.get('open') || '') === '1';
+                        const origin = req.headers.origin;
+                        setCors(origin);
                         if (key) {
-                            // set CORS response header for browser callers
-                            const origin = req.headers.origin;
-                            setCors(origin);
                             const searchRoot = process.cwd();
                             const exts = ['.ts', '.tsx', '.js', '.jsx', '.vue'];
                             // skip build and vendor folders
@@ -786,30 +1472,6 @@ export function createInspectorServer(opts = {}) {
                                                 return;
                                             continue;
                                         }
-                                        const ext = path.extname(name);
-                                        if (!exts.includes(ext))
-                                            continue;
-                                        const raw = fs.readFileSync(full, 'utf-8');
-                                        const lines = raw.split(/\r?\n/);
-                                        for (let i = 0; i < lines.length; i++) {
-                                            const l = lines[i];
-                                            if (l.includes(`createStore('${key}'`) || l.includes(`createStore("${key}"`) || l.includes(`useStore.${key}`) || l.includes(`getStore('${key}'`) || l.includes(`getStore("${key}"`) || new RegExp(`\\b${key}\\b`).test(l)) {
-                                                // compute column (first occurrence index +1)
-                                                const col = (l.indexOf(key) >= 0) ? l.indexOf(key) + 1 : undefined;
-                                                // build a small preview: matched line +/- ctx lines
-                                                const start = Math.max(0, i - ctx);
-                                                const end = Math.min(lines.length - 1, i + ctx);
-                                                const previewLines = [];
-                                                for (let j = start; j <= end; j++) {
-                                                    const prefix = (j === i) ? '>' : ' ';
-                                                    previewLines.push(`${prefix} ${String(lines[j]).trim()}`);
-                                                }
-                                                results.push({ path: path.relative(searchRoot, full), line: i + 1, preview: previewLines.join('\n'), column: col });
-                                                if (results.length >= maxResults)
-                                                    return;
-                                                break;
-                                            }
-                                        }
                                         // removed nested open-source handler (handled at top-level)
                                     }
                                     catch (e) { /* ignore file errors */ }
@@ -833,11 +1495,18 @@ export function createInspectorServer(opts = {}) {
                         res.setHeader('Content-Type', 'application/json');
                         res.writeHead(200);
                         res.end(JSON.stringify(results));
+                        auditEvent('source:locate', auth, { key, open: shouldAutoOpen, results: results.length });
                         return;
                     }
                     catch (e) {
                         // ignore and fallthrough
                     }
+                }
+                // serve inspector UI at root
+                if (req.url === '/' || req.url === '/index.html') {
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end(clientHtml);
+                    return;
                 }
                 res.writeHead(404);
                 res.end('Not found');
@@ -853,13 +1522,77 @@ export function createInspectorServer(opts = {}) {
                 }
             }
             catch (e) { /* ignore */ }
+            await refreshConfig('startup');
             wss = new WebSocketServer({ server });
-            wss.on('connection', (ws) => {
+            wss.on('connection', (ws, request) => {
+                var _a, _b, _c, _d, _e, _f;
+                let queryToken = null;
+                try {
+                    if (request.url) {
+                        const parsed = new URL(request.url, 'http://localhost');
+                        queryToken = parsed.searchParams.get('token')
+                            || parsed.searchParams.get('sessionToken')
+                            || parsed.searchParams.get('accessToken');
+                    }
+                }
+                catch (e) {
+                    queryToken = null;
+                }
+                const authInfo = roleEnforcer.resolve(request.headers, queryToken);
+                const requiresSession = requireSessions || sessionStore.hasSessions();
+                const allowAnon = !requiresSession || allowAnonSessions;
+                const decision = roleMiddleware.check(authInfo, 'observer', {
+                    optional: allowAnon,
+                    allowLegacy: true,
+                    requireSession: requiresSession && !allowAnon,
+                    description: 'ws:connect',
+                });
+                const originHeader = request.headers.origin;
+                let originAllowed = true;
+                if (allowOriginOption && allowOriginOption !== '*') {
+                    if (allowOriginStrict) {
+                        originAllowed = originHeader ? originHeader === allowOriginOption : false;
+                    }
+                    else {
+                        originAllowed = !originHeader || originHeader === allowOriginOption;
+                    }
+                }
+                const connectionDetails = {
+                    origin: originHeader !== null && originHeader !== void 0 ? originHeader : null,
+                    remoteAddress: (_b = (_a = request.socket) === null || _a === void 0 ? void 0 : _a.remoteAddress) !== null && _b !== void 0 ? _b : null,
+                };
+                if (!originAllowed) {
+                    recordAudit('ws:connect', authInfo, { ...connectionDetails, success: false, reason: 'forbidden-origin' });
+                    try {
+                        ws.close(4403, 'forbidden origin');
+                    }
+                    catch (e) { /* ignore */ }
+                    return;
+                }
+                if (!decision.ok) {
+                    const status = (_c = decision.statusCode) !== null && _c !== void 0 ? _c : 401;
+                    const reason = (_d = decision.reason) !== null && _d !== void 0 ? _d : 'unauthorized';
+                    recordAudit('ws:connect', authInfo, { ...connectionDetails, success: false, reason });
+                    const closeCode = status === 403 ? 4403 : 4401;
+                    try {
+                        ws.close(closeCode, (_e = decision.message) !== null && _e !== void 0 ? _e : reason);
+                    }
+                    catch (e) { /* ignore */ }
+                    return;
+                }
+                ;
+                ws._fortistateAuth = authInfo;
+                recordAudit('ws:connect', authInfo, {
+                    ...connectionDetails,
+                    success: true,
+                    via: authInfo.legacyToken ? 'legacy-token' : authInfo.sessionContext ? 'session' : 'anonymous',
+                });
+                // Register with presence manager
+                const presenceUser = presenceManager.add(ws, (_f = authInfo.sessionContext) !== null && _f !== void 0 ? _f : null, connectionDetails.remoteAddress);
                 try {
                     ws.send(JSON.stringify({ type: 'hello', version: 1 }));
                 }
                 catch (e) { /* ignore */ }
-                // send snapshot of current stores
                 try {
                     const keys = globalStoreFactory.keys();
                     const snapshot = {};
@@ -868,19 +1601,33 @@ export function createInspectorServer(opts = {}) {
                         if (st)
                             snapshot[k] = st.get();
                     }
-                    // include any remote-registered stores
                     for (const rk of Object.keys(remoteStores)) {
                         snapshot[rk] = remoteStores[rk];
                     }
                     ws.send(JSON.stringify({ type: 'snapshot', stores: snapshot }));
                 }
                 catch (e) { /* ignore */ }
-                // respond to explicit snapshot requests to help test determinism
+                // Send initial presence list to new client
+                try {
+                    const allUsers = presenceManager.getAll();
+                    ws.send(JSON.stringify({ type: 'presence:init', users: allUsers }));
+                }
+                catch (e) { /* ignore */ }
+                // Broadcast presence:join to other clients
+                if (wss) {
+                    wss.clients.forEach((client) => {
+                        if (client !== ws && client.readyState === 1) {
+                            try {
+                                client.send(JSON.stringify({ type: 'presence:join', user: presenceUser }));
+                            }
+                            catch (e) { /* ignore */ }
+                        }
+                    });
+                }
                 ws.on('message', (msg) => {
-                    // minimal debug log
-                    // (silent in CI)
                     try {
-                        if (String(msg) === 'req:snapshot') {
+                        const msgStr = String(msg);
+                        if (msgStr === 'req:snapshot') {
                             const keys = globalStoreFactory.keys();
                             const snapshot = {};
                             for (const k of keys) {
@@ -888,20 +1635,74 @@ export function createInspectorServer(opts = {}) {
                                 if (st)
                                     snapshot[k] = st.get();
                             }
-                            // include remote stores in explicit snapshot responses
                             for (const rk of Object.keys(remoteStores)) {
                                 snapshot[rk] = remoteStores[rk];
                             }
                             try {
-                                // (silent in CI)
                                 ws.send(JSON.stringify({ type: 'snapshot', stores: snapshot }));
                             }
-                            catch (e) { }
+                            catch (e) { /* ignore */ }
+                            return;
+                        }
+                        // Handle JSON messages
+                        try {
+                            const parsed = JSON.parse(msgStr);
+                            if (parsed.type === 'presence:update') {
+                                const update = parsed;
+                                const updatedUser = presenceManager.update(ws, {
+                                    activeStore: update.activeStore,
+                                    cursorPath: update.cursorPath,
+                                });
+                                if (updatedUser && wss) {
+                                    // Broadcast presence update to other clients
+                                    wss.clients.forEach((client) => {
+                                        if (client !== ws && client.readyState === 1) {
+                                            try {
+                                                client.send(JSON.stringify({
+                                                    type: 'presence:update',
+                                                    sessionId: updatedUser.sessionId,
+                                                    activeStore: updatedUser.activeStore,
+                                                    cursorPath: updatedUser.cursorPath,
+                                                }));
+                                            }
+                                            catch (e) { /* ignore */ }
+                                        }
+                                    });
+                                }
+                            }
+                            else if (parsed.type === 'presence:ping') {
+                                // Heartbeat/activity tracking
+                                presenceManager.touch(ws);
+                            }
+                        }
+                        catch (e) {
+                            // Not JSON or parse error, ignore
                         }
                     }
                     catch (e) { /* ignore */ }
                 });
-                // (silent in CI)
+                ws.on('close', (code, reason) => {
+                    // Remove from presence and broadcast leave event
+                    const removedUser = presenceManager.remove(ws);
+                    if (removedUser && wss) {
+                        wss.clients.forEach((client) => {
+                            if (client.readyState === 1) {
+                                try {
+                                    client.send(JSON.stringify({
+                                        type: 'presence:leave',
+                                        sessionId: removedUser.sessionId,
+                                    }));
+                                }
+                                catch (e) { /* ignore */ }
+                            }
+                        });
+                    }
+                    recordAudit('ws:disconnect', authInfo, {
+                        ...connectionDetails,
+                        code,
+                        reason: reason ? reason.toString() : '',
+                    });
+                });
             });
             const unsubCreate = globalStoreFactory.subscribeCreate((key, initial) => {
                 if (!wss)
@@ -959,8 +1760,23 @@ export function createInspectorServer(opts = {}) {
             }
         },
         stop: async () => {
-            if (!server || !wss)
+            shuttingDown = true;
+            if (configWatcher) {
+                try {
+                    await configWatcher.close();
+                }
+                catch (e) { /* ignore */ }
+                configWatcher = null;
+            }
+            configWatchPaths = [];
+            pluginStoreKeys.clear();
+            refreshQueued = false;
+            refreshingConfig = false;
+            if (!server || !wss) {
+                server = null;
+                wss = null;
                 return;
+            }
             try {
                 const unsubCreate = wss._unsubCreate;
                 const unsubChange = wss._unsubChange;

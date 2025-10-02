@@ -6,4 +6,6 @@ export type PluginApi = {
 export type PluginFn = (api: PluginApi) => void | Promise<void>;
 export type LoadResult = {
     loaded: number;
+    configPath?: string;
+    config?: FortistateConfig;
 };

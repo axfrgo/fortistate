@@ -1,10 +1,45 @@
 {
   "demoA": {
     "name": "Alice",
-    "score": 9
+    "score": 0
   },
   "demoB": {
     "name": "Bob",
     "score": 7
+  },
+  "counter": {
+    "value": 0
+  },
+  "swapA": {
+    "theme": "light",
+    "palette": {
+      "primary": "#06b6d4",
+      "accent": "#ea580c"
+    }
+  },
+  "swapB": {
+    "value": 0
+  },
+  "movedTo": {
+    "todos": [
+      {
+        "id": 1,
+        "text": "Buy milk",
+        "done": false
+      },
+      {
+        "id": 2,
+        "text": "Write tests",
+        "done": false
+      }
+    ],
+    "nextId": 3
+  },
+  "theme-sample": {
+    "theme": "light",
+    "palette": {
+      "primary": "#06b6d4",
+      "accent": "#ea580c"
+    }
   }
 }

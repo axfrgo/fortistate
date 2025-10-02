@@ -1,20 +1,120 @@
 # fortistate
 
-A tiny state library and developer inspector for fast iteration and debugging.
+**A tiny state library evolving into the world's first cosmogenesis engine** — define, generate, and govern digital realities.
 
 [![CI](https://github.com/axfrgo/fortistate/actions/workflows/ci.yml/badge.svg)](https://github.com/axfrgo/fortistate/actions)
 [![npm](https://img.shields.io/npm/v/fortistate.svg)](https://www.npmjs.com/package/fortistate)
 
+---
+
+## 🌟 What's New in v2.0 (Phase 3D Complete!)
+
+🚀 **Physics Simulations are live!** Latest achievements:
+
+**Phase 3D: Physics Simulations** �
+- ⚛️ **Classical mechanics substrate**: Gravity, friction, momentum, energy
+- 💥 **Collision detection & resolution**: Elastic collisions with conservation laws
+- 📐 **Vector mathematics**: 2D physics operations and utilities
+- 🔒 **Constraint enforcement**: Mass positivity, velocity limits, position bounds
+- 📊 **Energy tracking**: Kinetic, potential, and total energy calculations
+- 🎮 **Example simulations**: Bouncing ball, multi-body collisions
+
+[Physics guide →](./docs/PHYSICS.md) | [Examples →](./examples/physics/)
+
+**Phase 3C: Performance Harness** ⚡
+- 📊 **Statistical benchmarking**: P95/P99 analysis with warmup
+- 🎯 **Result: 5.6ms average** (3x better than 15ms target!)
+- 💾 **Memory tracking**: ~38MB for 10k events
+- 📈 **Scalability testing**: Constraint overhead, repairs, cross-store laws
+
+[Performance docs →](./docs/PERFORMANCE.md)
+
+**Phase 3B: Universe Manager** 🌌
+- 🌐 **Universe orchestration**: Manage multiple causal stores as unified realities
+- 🔄 **Lifecycle management**: Start, pause, resume, destroy universes
+- 📸 **Snapshots & time travel**: Capture and restore complete universe state
+- 🌿 **Universe forking**: Create alternate timelines with divergent state
+- 🌐 **Multiverse coordination**: Manage multiple universes simultaneously
+
+[Universe docs →](./docs/UNIVERSE_MANAGER.md) | [Quick reference →](./docs/UNIVERSE_QUICKSTART.md) | [Full roadmap →](./COSMOGENESIS_ROADMAP.md)
+
+**Phase 1 (Temporal Foundation):**
+- ⏰ **Time travel**: Jump to any state in history
+- 🌿 **Universe branching**: Create parallel timelines
+- 📊 **Entropy measurement**: Quantify state complexity
+- 🔒 **Existence constraints**: Define "laws of nature"
+
+[Phase 1 summary →](./PHASE_1_COMPLETE.md) | [Migration guide →](./docs/TEMPORAL_MIGRATION.md)
+
+---
+
 Quick install & getting started
 ------------------------------
 
-Follow the step-by-step quickstarts in `GETTING_STARTED.md`:
-
 ```bash
-npx open GETTING_STARTED.md || start GETTING_STARTED.md
+npm install fortistate
 ```
 
-![Inspector demo](docs/inspector-demo.gif)
+### Basic Usage (v1.x compatible)
+
+```tsx
+import { createStore, useStore } from 'fortistate'
+
+const counter = createStore({ value: 0 })
+
+function Counter() {
+  const [state, setState] = useStore(counter)
+  return <button onClick={() => setState(s => ({ value: s.value + 1 }))}>
+    {state.value}
+  </button>
+}
+```
+
+### New: Temporal State & Universe Management (v2.0+)
+
+```tsx
+import { createUniverse } from 'fortistate'
+
+// Define laws of physics for your universe
+const substrate = {
+  id: 'my-app',
+  name: 'Application Rules',
+  constraints: new Map([...]),
+  laws: new Map([...]),
+}
+
+// Create a universe with multiple stores
+const universe = createUniverse({
+  id: 'my-app',
+  substrate,
+})
+
+// Create stores within the universe
+const counter = universe.createStore('counter', 0)
+const user = universe.createStore('user', { name: 'Alice' })
+
+// Time travel
+const pastState = counter.at(Date.now() - 5000)  // 5 seconds ago
+
+// Snapshots
+const checkpoint = universe.snapshot()
+universe.restore(checkpoint)  // Rollback to checkpoint
+
+// Forking (create parallel realities)
+const fork = universe.fork('experiment-a')
+fork.getStore('counter')?.set(999)  // Changes don't affect original
+
+// Multiverse coordination
+import { Multiverse } from 'fortistate'
+const multiverse = new Multiverse()
+multiverse.add(universe1)
+multiverse.add(universe2)
+multiverse.pauseAll()  // Freeze all universes
+```
+
+[Full Universe Manager guide →](./docs/UNIVERSE_MANAGER.md)
+
+---
 
 Quickstarts
 -----------
@@ -73,16 +173,43 @@ CLI / Inspector flags
 
 The CLI exposes a few useful flags when running `npx fortistate inspect` or `npm run inspect`:
 
-- `--port <n>`: specify the inspector port (default 3333).
-- `--token <token>`: set a simple auth token to accept remote register/change requests.
+- `--port <n>`: specify the inspector port (default 4000).
+- `--token <token>`: provide a legacy shared token (backward compatibility only — use session-based auth for production).
 - `--allow-origin <origin>`: add an allowed origin for CORS.
 - `--quiet`: reduce debug logs in tests or CI.
+- `FORTISTATE_REQUIRE_SESSIONS=1`: require issued sessions for write operations; combine with `FORTISTATE_ALLOW_ANON_SESSIONS=1` to keep anonymous read-only access during local testing.
+
+**New:** Session management via CLI
+
+```bash
+# Create editor session
+fortistate session create --role editor --label "Alice" --ttl 24h
+
+# List active sessions (requires admin token)
+fortistate session list --port 4000 --token <admin-token>
+
+# Revoke session
+fortistate session revoke <session-id> --token <admin-token>
+```
+
+Run `fortistate help` for complete command reference and environment variable documentation.
 
 Example:
 
 ```bash
-npx fortistate inspect --port 3333 --token hunter2 --allow-origin http://localhost:3000
+npx fortistate inspect --port 3333 --allow-origin http://localhost:3000
 ```
+
+For comprehensive session workflows, see `docs/SESSION_WORKFLOWS.md`.
+
+Config-driven presets & plugins
+-------------------------------
+
+- The inspector now looks for `fortistate.config.{js,cjs,mjs}` in its working directory and automatically loads any declared presets or plugins.
+- Presets that return additional plugins are resolved before plugin execution, matching the RFC roadmap for a Tailwind-like ecosystem.
+- Config changes (or updates to string-referenced presets/plugins) trigger a reload via [`chokidar`](https://github.com/paulmillr/chokidar); the inspector refreshes registered stores in-place and broadcasts updates to connected clients.
+- Use the environment variable `FORTISTATE_DISABLE_CONFIG_WATCH=1` to disable file watching when running in environments where filesystem watchers are not desirable.
+- When a plugin/preset is removed from the config, the associated stores are cleaned up from the inspector's remote view so the UI stays in sync with the source of truth.
 
 Developer experience (DX)
 ------------------------
@@ -144,6 +271,13 @@ Dev helper:
 
 Snapshots and persistence:
 - Remote registrations are stored in `.fortistate-remote-stores.json` and loaded at inspector startup.
+
+Collaboration & security:
+- Set `FORTISTATE_REQUIRE_SESSIONS=1` to require session tokens for write endpoints and WebSocket connections. Create sessions via `POST /session/create` (roles: `observer`, `editor`, `admin`).
+- The inspector issues JWT-based sessions by default; provide `FORTISTATE_SESSION_SECRET` to persist tokens across restarts (otherwise ephemeral secret is generated).
+- Audit entries are appended to `.fortistate-audit.log` (JSON Lines). Admin sessions can retrieve recent entries via `GET /audit/log?limit=<n>&format=<json|csv|plain>`. Logs rotate automatically by size (default: 1 MB) or age (default: 30 days); configure with `FORTISTATE_AUDIT_MAX_SIZE` (bytes) and `FORTISTATE_AUDIT_ROTATE_DAYS`.
+- Admins can clean up access with `POST /session/revoke`, passing either a `sessionId` or `token` to invalidate.
+- **New:** Role-based middleware simplifies endpoint guards. See `docs/AUTHENTICATION.md` for comprehensive auth documentation and security best practices.
 
 ## Release notes — v1.0.1
 

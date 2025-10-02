@@ -1,0 +1,227 @@
+[
+  {
+    "ts": 1759266647013,
+    "action": "apply-preset",
+    "name": "counter",
+    "resultKey": "counter",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266647121,
+    "action": "apply-preset",
+    "name": "counter",
+    "target": "swapA",
+    "resultKey": "swapA",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266647133,
+    "action": "apply-preset",
+    "name": "theme-sample",
+    "target": "swapB",
+    "resultKey": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266647157,
+    "action": "swap",
+    "a": "swapA",
+    "b": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266647173,
+    "action": "apply-preset",
+    "name": "todo-list",
+    "target": "moveMe",
+    "resultKey": "moveMe",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266647191,
+    "action": "move",
+    "from": "moveMe",
+    "to": "movedTo",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266702395,
+    "action": "apply-preset",
+    "name": "counter",
+    "resultKey": "counter",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266702501,
+    "action": "apply-preset",
+    "name": "counter",
+    "target": "swapA",
+    "resultKey": "swapA",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266702513,
+    "action": "apply-preset",
+    "name": "theme-sample",
+    "target": "swapB",
+    "resultKey": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266702534,
+    "action": "swap",
+    "a": "swapA",
+    "b": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266702552,
+    "action": "apply-preset",
+    "name": "todo-list",
+    "target": "moveMe",
+    "resultKey": "moveMe",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266702562,
+    "action": "move",
+    "from": "moveMe",
+    "to": "movedTo",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266879903,
+    "action": "apply-preset",
+    "name": "counter",
+    "resultKey": "counter",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266880018,
+    "action": "apply-preset",
+    "name": "counter",
+    "target": "swapA",
+    "resultKey": "swapA",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266880027,
+    "action": "apply-preset",
+    "name": "theme-sample",
+    "target": "swapB",
+    "resultKey": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266880064,
+    "action": "swap",
+    "a": "swapA",
+    "b": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266880086,
+    "action": "apply-preset",
+    "name": "todo-list",
+    "target": "moveMe",
+    "resultKey": "moveMe",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759266880095,
+    "action": "move",
+    "from": "moveMe",
+    "to": "movedTo",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267531368,
+    "action": "apply-preset",
+    "name": "counter",
+    "resultKey": "counter",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267531507,
+    "action": "apply-preset",
+    "name": "counter",
+    "target": "swapA",
+    "resultKey": "swapA",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267531535,
+    "action": "apply-preset",
+    "name": "theme-sample",
+    "target": "swapB",
+    "resultKey": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267531582,
+    "action": "swap",
+    "a": "swapA",
+    "b": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267531598,
+    "action": "apply-preset",
+    "name": "todo-list",
+    "target": "moveMe",
+    "resultKey": "moveMe",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267531620,
+    "action": "move",
+    "from": "moveMe",
+    "to": "movedTo",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267624959,
+    "action": "apply-preset",
+    "name": "counter",
+    "resultKey": "counter",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267625142,
+    "action": "apply-preset",
+    "name": "counter",
+    "target": "swapA",
+    "resultKey": "swapA",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267625183,
+    "action": "apply-preset",
+    "name": "theme-sample",
+    "target": "swapB",
+    "resultKey": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267625265,
+    "action": "swap",
+    "a": "swapA",
+    "b": "swapB",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267625292,
+    "action": "apply-preset",
+    "name": "todo-list",
+    "target": "moveMe",
+    "resultKey": "moveMe",
+    "actor": "::1"
+  },
+  {
+    "ts": 1759267625307,
+    "action": "move",
+    "from": "moveMe",
+    "to": "movedTo",
+    "actor": "::1"
+  }
+]

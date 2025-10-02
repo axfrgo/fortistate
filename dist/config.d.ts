@@ -3,7 +3,9 @@ export type FortistateConfig = {
     plugins?: Array<any>;
     [k: string]: any;
 };
-export declare function _loadModule(p: string): Promise<any>;
+export declare function _loadModule(p: string, options?: {
+    bustCache?: boolean;
+}): Promise<any>;
 export declare function resolveConfig(cwd?: string): {
     path?: string;
     config?: FortistateConfig;
