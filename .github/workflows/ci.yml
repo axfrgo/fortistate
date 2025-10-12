@@ -21,6 +21,11 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: npm install
+      - name: Install workspace dependencies
+        run: |
+          cd packages/possibility
+          npm install
+          cd ../..
       - name: Build
         run: npm run build
       - name: Run tests
