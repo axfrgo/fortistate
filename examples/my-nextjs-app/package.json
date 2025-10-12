@@ -4,14 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-  "inspect:quiet": "node ../../dist/cli.js inspect --quiet 4555",
+    "inspect:quiet": "node ../../dist/cli.js inspect --quiet 4555",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "fortimotion": "^0.0.1",
-    "fortistate": "file:fortistate-1.0.0.tgz",
+    "fortistate": "file:fortistate-2.0.0.tgz",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"

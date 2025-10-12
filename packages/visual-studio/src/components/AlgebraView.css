@@ -1,0 +1,140 @@
+.algebra-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-left: 1px solid rgba(139, 92, 246, 0.2);
+  overflow: hidden;
+}
+
+.algebra-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: rgba(139, 92, 246, 0.1);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.algebra-icon {
+  font-size: 24px;
+  animation: pulse-algebra 2s ease-in-out infinite;
+}
+
+@keyframes pulse-algebra {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.algebra-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e0e0e0;
+  flex: 1;
+}
+
+.copy-btn {
+  padding: 6px 12px;
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background: rgba(139, 92, 246, 0.3);
+  border-color: rgba(139, 92, 246, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.copy-btn:active {
+  transform: translateY(0);
+}
+
+.algebra-code {
+  flex: 1;
+  margin: 0;
+  padding: 20px;
+  overflow: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e0e0e0;
+  background: transparent;
+}
+
+.algebra-code code {
+  display: block;
+  white-space: pre;
+  color: inherit;
+}
+
+/* Scrollbar styling */
+.algebra-code::-webkit-scrollbar {
+  width: 8px;
+}
+
+.algebra-code::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.algebra-code::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+}
+
+.algebra-code::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+/* Syntax highlighting hints */
+.algebra-code code {
+  color: #e0e0e0;
+}
+
+/* Comments */
+.algebra-code code:has(> *):before {
+  color: #6a9955;
+}
+
+body[data-theme='aurora-light'] .algebra-view {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2ff 100%);
+  border-left: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+body[data-theme='aurora-light'] .algebra-header {
+  background: rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+body[data-theme='aurora-light'] .algebra-header h3 {
+  color: #1f2937;
+}
+
+body[data-theme='aurora-light'] .copy-btn {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(129, 140, 248, 0.4);
+  color: #1f2937;
+}
+
+body[data-theme='aurora-light'] .copy-btn:hover {
+  background: rgba(129, 140, 248, 0.2);
+  border-color: rgba(129, 140, 248, 0.5);
+  color: rgba(17, 24, 39, 0.95);
+}
+
+body[data-theme='aurora-light'] .algebra-code {
+  color: #0f172a;
+}

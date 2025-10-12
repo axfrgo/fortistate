@@ -1,0 +1,31 @@
+{
+  "name": "@fortistate/possibility",
+  "version": "3.0.0-alpha.0",
+  "description": "Possibility algebra for Fortistate v3.0 - define what CAN exist before instantiation",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "fortistate",
+    "possibility",
+    "schema",
+    "validation",
+    "type-system"
+  ],
+  "author": "Fortistate Core Team",
+  "license": "ISC",
+  "dependencies": {
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.6.0"
+  }
+}

@@ -51,26 +51,7 @@ export async function loadPlugins(cwd = process.cwd()) {
         presetCfg = await preset()
       } else {
         const pPath = path.isAbsolute(preset as string) ? preset as string : path.resolve(cwd, preset as string)
-        let url = pathToFileURL(pPath).href
-        url += (url.includes('?') ? '&' : '?') + 't=' + Date.now()
-        let mod: any
-        try {
-          mod = await import(url).then(m => (m.default ?? m))
-        } catch (eImport) {
-          try {
-            // eslint-disable-next-line @typescript-eslint/no-var-requires
-            const { createRequire } = await import('module')
-            const req = createRequire(import.meta.url)
-            try {
-              const resolvedReq = req.resolve(pPath)
-              if ((req as any).cache) delete (req as any).cache[resolvedReq]
-              if (typeof require !== 'undefined' && require.cache && require.cache[resolvedReq]) delete require.cache[resolvedReq]
-            } catch (eResolve) { /* ignore */ }
-            mod = req(pPath)
-          } catch (eReq) {
-            throw eImport
-          }
-        }
+        const mod = await _loadModule(pPath, { bustCache: true })
         presetCfg = typeof mod === 'function' ? await mod() : mod
       }
       if (presetCfg?.plugins) cfg.plugins = [...(cfg.plugins || []), ...presetCfg.plugins]
@@ -91,23 +72,7 @@ export async function loadPlugins(cwd = process.cwd()) {
       }
 
       const pPath = path.isAbsolute(p as string) ? p as string : path.resolve(cwd, p as string)
-  let url = pathToFileURL(pPath).href
-  url += (url.includes('?') ? '&' : '?') + 't=' + Date.now()
-      let mod: any
-      try {
-        mod = await import(url).then(m => (m.default ?? m))
-      } catch (eImport) {
-        // fallback to require for CommonJS plugins
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const { createRequire } = await import('module')
-        const req = createRequire(import.meta.url)
-        try {
-          const resolvedReq = req.resolve(pPath)
-          if ((req as any).cache) delete (req as any).cache[resolvedReq]
-          if (typeof require !== 'undefined' && require.cache && require.cache[resolvedReq]) delete require.cache[resolvedReq]
-        } catch (eResolve) { /* ignore */ }
-        mod = req(pPath)
-      }
+      const mod = await _loadModule(pPath, { bustCache: true })
       const fn: PluginFn = typeof mod === 'function' ? mod : (mod && mod.plugin) || null
       if (!fn) continue
       await Promise.resolve(fn({ registerStore: (key: string, init: any) => registerViaApi(key, init) }))

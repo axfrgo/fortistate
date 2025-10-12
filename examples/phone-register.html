@@ -13,22 +13,38 @@
     <label>Inspector URL (e.g. <em>http://192.168.2.83:4000</em>)</label>
     <div><input id="inspectorUrl" style="width:100%;padding:8px;margin:8px 0;border-radius:6px;border:1px solid #ddd" placeholder="http://<PC-IP>:4000" value="" /></div>
 
-    <p>One-line snippet (paste into console or use the button):</p>
-    <pre id="snippet" style="background:#f6f8fa;padding:8px;border-radius:6px;overflow:auto">fetch(window.prompt('Inspector URL (http://pc-ip:4000):') + '/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:'counter',initial:{value:0}})})
+    <label>Store Key</label>
+    <div><input id="storeKey" style="width:100%;padding:8px;margin:8px 0;border-radius:6px;border:1px solid #ddd" placeholder="myStore" value="appState" /></div>
+
+    <label>Initial State (JSON)</label>
+    <div><textarea id="initialState" style="width:100%;padding:8px;margin:8px 0;border-radius:6px;border:1px solid #ddd;font-family:monospace;min-height:80px" placeholder='{"data": []}'>{}</textarea></div>
+
+    <p>One-line snippet (paste into console):</p>
+    <pre id="snippet" style="background:#f6f8fa;padding:8px;border-radius:6px;overflow:auto;font-size:11px">fetch(window.prompt('Inspector URL (http://pc-ip:4000):') + '/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:window.prompt('Store key:','appState'),initial:JSON.parse(window.prompt('Initial state (JSON):','{}'))})})
   .then(r=>r.text()).then(t=>alert('registered: '+t)).catch(e=>alert('error:'+e))</pre>
 
     <button id="run">Run register</button>
 
     <script>
       const inp = document.getElementById('inspectorUrl')
+      const keyInp = document.getElementById('storeKey')
+      const stateInp = document.getElementById('initialState')
       const btn = document.getElementById('run')
       btn.addEventListener('click', async () => {
         const url = inp.value.trim() || (location.origin)
+        const key = keyInp.value.trim() || 'appState'
+        let initial
+        try {
+          initial = JSON.parse(stateInp.value.trim() || '{}')
+        } catch (e) {
+          alert('Invalid JSON in initial state: ' + e.message)
+          return
+        }
         try {
           const res = await fetch(url + '/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ key: 'counter', initial: { value: 0 } })
+            body: JSON.stringify({ key, initial })
           })
           const txt = await res.text()
           alert('register response: ' + txt)

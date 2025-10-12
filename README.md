@@ -1,9 +1,163 @@
 # fortistate
 
-**A tiny state library evolving into the world's first cosmogenesis engine** — define, generate, and govern digital realities.
+**Version 3.0 - Collaborative Inspector Edition** 👥
+
+A powerful state management library with collaborative inspector, real-time debugging, and IDE integration. Share snapshots 📸, locate stores in code 🔍, and collaborate with your team in real-time!
 
 [![CI](https://github.com/axfrgo/fortistate/actions/workflows/ci.yml/badge.svg)](https://github.com/axfrgo/fortistate/actions)
 [![npm](https://img.shields.io/npm/v/fortistate.svg)](https://www.npmjs.com/package/fortistate)
+
+---
+
+## � What's New in v3.0!
+
+### Collaborative Inspector Features
+
+**📸 Share Store Snapshots**
+- One-click shareable URLs with encoded state
+- Export as JSON, CSV, Email, or Tweet
+- Perfect for bug reports and team collaboration
+
+**🔍 Locate Store in Code**
+- Automatically opens store files in VS Code
+- Intelligent search pattern generation
+- Works with VS Code, WebStorm, and GitHub
+
+**👥 Invite Team to Inspector**
+- Share inspector session URLs
+- QR code for mobile access
+- Real-time collaboration and debugging
+
+**🎨 Aurora White Theme**
+- Beautiful, professional interface
+- Improved readability and UX
+- Modern glassmorphism design
+
+[See full v3.0 release notes →](./RELEASE_NOTES_v3.0.md)
+
+---
+
+## 🚀 Quick Start
+
+### Installation
+```bash
+npm install fortistate
+```
+
+### Create a Store
+```typescript
+import { createStore } from 'fortistate'
+
+const counterStore = createStore('counter', { count: 0 })
+```
+
+### Start the Inspector
+```bash
+npx fortistate inspect
+```
+
+Open `http://localhost:4000` and enjoy the new collaboration features!
+
+### Use New v3.0 Features
+- Click **📸** on any store to share snapshots
+- Click **🔍** to locate store in your code (auto-opens VS Code!)
+- Click **👥 Invite** to share with your team
+
+---
+
+## 🎯 Advanced Features (v2.0 - Cosmogenesis Engine)
+
+**From Cosmogenesis Engine → Substrate of Possibility** — Evolution into "Figma for State Management" with quantum mechanics and relativity built-in.
+
+🚀 **Meta-Laws Engine is live!** Compose laws with conflict resolution:
+
+**Week 7-8: Meta-Laws Engine** ⚖️
+- 🔗 **Law composition**: AND/OR/IMPLIES/SEQUENCE/PARALLEL operators
+- ⚡ **Conflict resolution**: 7 strategies (priority, voting, frame-dependent, etc.)
+- 🧩 **Dynamic mutation**: Add/remove laws at runtime
+- 🎨 **Helper functions**: `and()`, `or()`, `implies()`, `sequence()`
+- 🎯 **157/161 tests passing** (97.5% - core functionality 100%)
+
+[Meta-laws docs →](./WEEK_7_8_COMPLETE.md) | [Progress tracker →](./V3_PROGRESS.md)
+
+**Week 5-6: Relativistic Substrate** 🌌
+- 🚀 **Observer frames**: Multiple perspectives with relative velocities
+- ⏱️ **Causal ordering**: Light cone constraints, no time paradoxes
+- 🔄 **Lorentz transformations**: Time dilation for distributed systems
+- 📊 **29 new tests**: 133/133 v3.0 tests passing (100%)
+
+[Relativistic docs →](./WEEK_5_6_COMPLETE.md)
+
+**Week 3-4: Quantum Substrate** ⚛️
+- 🌊 **Superposition**: States exist in multiple possibilities simultaneously
+- 🔗 **Entanglement**: Spooky action between entities
+- 👁️ **Observer**: Collapse superpositions via measurement (Born rule)
+- 📊 **37 new tests**: 104/104 v3.0 tests passing (100%)
+
+[Quantum docs →](./WEEK_3_4_COMPLETE.md)
+
+**Week 1-2: Possibility Algebra** 🔤
+- 🏗️ **Entity primitive**: Type-safe entity definitions
+- 🔒 **Constraint primitive**: Validation with auto-repair
+- ⚖️ **Law primitive**: Universal rules governing behavior
+- 📊 **67 tests**: Foundation complete
+
+[Foundation docs →](./WEEK_1_2_COMPLETE.md)
+
+---
+
+## 🚀 v3.0 Quick Start
+
+### Meta-Law Composition
+```typescript
+import { defineMetaLaw, defineLaw, and } from '@fortistate/possibility'
+
+// Define individual laws
+const creditCheck = defineLaw({
+  name: 'credit-check',
+  inputs: ['customer'],
+  output: 'approved',
+  enforce: (c) => c.creditScore > 650
+})
+
+const inventoryCheck = defineLaw({
+  name: 'inventory-check',
+  inputs: ['product'],
+  output: 'available',
+  enforce: (p) => p.stock > 0
+})
+
+const fraudCheck = defineLaw({
+  name: 'fraud-check',
+  inputs: ['transaction'],
+  output: 'safe',
+  enforce: (t) => !t.flagged && t.amount < 10000
+})
+
+// Compose into meta-law (ALL must pass)
+const orderApproval = and('order-approval', [
+  creditCheck,
+  inventoryCheck,
+  fraudCheck
+], {
+  conflictResolution: 'error',
+  context: { mode: 'strict' }
+})
+
+// Execute
+const result = orderApproval.execute([customer, product, transaction])
+
+if (result.success) {
+  console.log('Order approved! ✅')
+} else {
+  console.log('Order denied:', result.error)
+  console.log('Failed checks:', 
+    Array.from(result.lawResults.entries())
+      .filter(([_, r]) => !r.success)
+      .map(([name, _]) => name)
+  )
+}
+```
 
 ---
 

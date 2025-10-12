@@ -5,6 +5,111 @@ All notable changes to Fortistate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2025-10-11 — Collaborative Inspector Edition 👥
+
+### 🎉 Major Release
+
+FortiState v3.0 introduces powerful collaboration features, enhanced IDE integration, and a completely redesigned inspector experience. Share snapshots, locate stores in your code instantly, and collaborate with your team in real-time.
+
+### ✨ Added
+
+#### Collaboration Features
+- **📸 Share Store Snapshots**
+  - One-click shareable URLs with base64-encoded state
+  - Multiple sharing methods: copy link, email, tweet, download
+  - Export as JSON or CSV formats
+  - Live snapshot preview in modal
+  - Perfect for bug reports and team collaboration
+
+- **🔍 Locate Store in Code**
+  - Intelligent search pattern generation
+  - Automatic VS Code integration with file opening
+  - Backend endpoint `POST /open-in-vscode` for direct IDE integration
+  - Search in VS Code, WebStorm, and GitHub
+  - Common file location suggestions
+  - Copy search patterns to clipboard
+  - Works with `code` CLI command
+
+- **👥 Invite Team to Inspector**
+  - Shareable inspector session URLs
+  - QR code generation for mobile access
+  - Email invitation templates
+  - Real-time collaboration features
+  - Security warnings for network sharing
+  - Comprehensive collaborator instructions
+
+#### Inspector UI Enhancements
+- **Aurora White Theme**
+  - Beautiful pastel color palette
+  - Glassmorphism effects
+  - Professional gradient accents
+  - Clean white background
+  - Improved readability and contrast
+
+- **UX Improvements**
+  - Toast notifications for user actions
+  - Auto-closing temporary modals
+  - Loading states and visual feedback
+  - Better error messages
+  - Responsive button layouts
+  - Keyboard accessibility
+  - Modal backdrop click-to-close
+
+#### Backend Improvements
+- **New Endpoints**
+  - `POST /open-in-vscode` - Open store files in VS Code
+  - File discovery with grep fallback
+  - Common path searching
+  - CLI integration support
+
+- **Directory-Scoped Inspector**
+  - `--cwd` flag for workspace isolation
+  - Prevents store cross-contamination
+  - Namespace-based persistence
+  - Per-directory configuration
+
+#### VS Code Extension Support
+- Inspector promotes VS Code extension installation
+- Direct links to marketplace
+- Snapshot viewing in sidebar (extension feature)
+- Quick navigation to store definitions
+- Integrated debugging tools
+
+### 🔧 Technical Improvements
+- Eliminated nested template string conflicts in inspector client
+- Better HTML escaping and injection prevention
+- Cleaner event listener management
+- Improved modal state management
+- Clipboard API with legacy fallbacks
+- Network request error handling
+- Better TypeScript type safety
+
+### 🐛 Bug Fixes
+- Fixed store cross-contamination between projects
+- Fixed template string escaping issues in inspector HTML
+- Improved clipboard API fallback support
+- Better error messages for missing stores
+- Fixed modal z-index layering conflicts
+- Improved WebSocket reconnection handling
+- Fixed event listener memory leaks
+
+### 📚 Documentation
+- Comprehensive release notes (RELEASE_NOTES_v3.0.md)
+- Updated README with v3.0 features
+- New collaboration features guide
+- VS Code extension documentation
+- Enhanced API documentation
+- Migration guide (fully backward compatible!)
+
+### 🎯 Backward Compatibility
+- **100% backward compatible** with v2.x
+- No breaking changes
+- All 2.x features continue to work
+- New features are purely additive
+- Smooth upgrade path
+
+---
+
 ## [2.0.0] - 2024-01-XX — Cosmogenesis Complete 🌌
 
 ### 🎉 Major Release

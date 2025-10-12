@@ -1,0 +1,586 @@
+/**
+ * 🌱🌊🧱🌀 Ontogenetic Node Styles - vX Visual Studio
+ * 
+ * Styles for BEGIN, BECOME, CEASE, TRANSCEND nodes
+ */
+
+/* ═══════════════════════════════════════════════════════════
+   Base Ontogenetic Node
+   ═══════════════════════════════════════════════════════════ */
+
+.ontogenetic-node {
+  min-width: 280px;
+  background: rgba(20, 20, 31, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ontogenetic-node::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(167, 139, 250, 0.5) 50%,
+    transparent 100%);
+  opacity: 0.6;
+}
+
+.ontogenetic-node.selected {
+  box-shadow: 
+    0 12px 48px rgba(167, 139, 250, 0.3),
+    0 0 0 2px rgba(167, 139, 250, 0.5) inset;
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Node Status States
+   ═══════════════════════════════════════════════════════════ */
+
+.ontogenetic-node.executing {
+  animation: pulse-execute 1.5s ease-in-out infinite;
+  box-shadow: 
+    0 8px 32px rgba(167, 139, 250, 0.4),
+    0 0 40px rgba(167, 139, 250, 0.2);
+}
+
+.ontogenetic-node.success {
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.ontogenetic-node.error {
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+@keyframes pulse-execute {
+  0%, 100% { box-shadow: 0 8px 32px rgba(167, 139, 250, 0.4); }
+  50% { box-shadow: 0 12px 48px rgba(167, 139, 250, 0.6); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Node Metaphor Icons
+   ═══════════════════════════════════════════════════════════ */
+
+.node-metaphor {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seed-icon,
+.flow-icon,
+.boundary-icon,
+.portal-icon {
+  font-size: 48px;
+  filter: drop-shadow(0 4px 12px rgba(167, 139, 250, 0.4));
+}
+
+/* Seed (BEGIN) - Pulsing growth */
+.seed-icon.pulse {
+  animation: pulse-seed 2s ease-in-out infinite;
+}
+
+@keyframes pulse-seed {
+  0%, 100% { 
+    transform: scale(1);
+    filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.4));
+  }
+  50% { 
+    transform: scale(1.1);
+    filter: drop-shadow(0 6px 16px rgba(16, 185, 129, 0.6));
+  }
+}
+
+/* Flow (BECOME) - Wave motion */
+.flow-icon.wave {
+  animation: wave-flow 2.5s ease-in-out infinite;
+}
+
+@keyframes wave-flow {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg);
+    filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.4));
+  }
+  25% { 
+    transform: translateY(-4px) rotate(-5deg);
+    filter: drop-shadow(0 6px 16px rgba(59, 130, 246, 0.5));
+  }
+  75% { 
+    transform: translateY(4px) rotate(5deg);
+    filter: drop-shadow(0 6px 16px rgba(59, 130, 246, 0.5));
+  }
+}
+
+/* Boundary (CEASE) - Pulse warning */
+.boundary-icon.pulse-boundary {
+  animation: pulse-boundary 2s ease-in-out infinite;
+}
+
+@keyframes pulse-boundary {
+  0%, 100% { 
+    transform: scale(1);
+    filter: drop-shadow(0 4px 12px rgba(239, 68, 68, 0.4));
+  }
+  50% { 
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 16px rgba(239, 68, 68, 0.6));
+  }
+}
+
+/* Portal (TRANSCEND) - Rotation */
+.portal-icon.rotate-portal {
+  animation: rotate-portal 4s linear infinite;
+}
+
+@keyframes rotate-portal {
+  from { 
+    transform: rotate(0deg);
+    filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.4));
+  }
+  to { 
+    transform: rotate(360deg);
+    filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.4));
+  }
+}
+
+.portal-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, 
+    rgba(139, 92, 246, 0.3) 0%, 
+    transparent 70%);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Node Content
+   ═══════════════════════════════════════════════════════════ */
+
+.node-content {
+  text-align: center;
+}
+
+.node-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.node-type {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #a78bfa 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.node-operator {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.node-entity {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 8px;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.node-narrative {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+  margin-bottom: 12px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  border-left: 2px solid rgba(167, 139, 250, 0.3);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BEGIN Node (Seed) Specifics
+   ═══════════════════════════════════════════════════════════ */
+
+.begin-node {
+  border: 2px solid rgba(16, 185, 129, 0.3);
+}
+
+.begin-node::before {
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(16, 185, 129, 0.5) 50%,
+    transparent 100%);
+}
+
+.node-properties {
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  text-align: left;
+}
+
+.property-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.prop-key {
+  color: rgba(167, 139, 250, 0.8);
+  font-weight: 500;
+}
+
+.prop-value {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.property-more {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BECOME Node (Flow) Specifics
+   ═══════════════════════════════════════════════════════════ */
+
+.become-node {
+  border: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.become-node::before {
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(59, 130, 246, 0.5) 50%,
+    transparent 100%);
+}
+
+.node-transform {
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  text-align: left;
+}
+
+.transform-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.transform-code {
+  font-size: 11px;
+  color: rgba(59, 130, 246, 0.9);
+  font-family: 'Monaco', 'Courier New', monospace;
+  line-height: 1.4;
+}
+
+.node-trigger {
+  margin-top: 8px;
+  font-size: 11px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.trigger-label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.trigger-value {
+  color: rgba(236, 72, 153, 0.9);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CEASE Node (Boundary) Specifics
+   ═══════════════════════════════════════════════════════════ */
+
+.cease-node {
+  border: 2px solid rgba(239, 68, 68, 0.3);
+}
+
+.cease-node::before {
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(239, 68, 68, 0.5) 50%,
+    transparent 100%);
+}
+
+.node-condition {
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  text-align: left;
+}
+
+.condition-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.condition-code {
+  font-size: 11px;
+  color: rgba(239, 68, 68, 0.9);
+  font-family: 'Monaco', 'Courier New', monospace;
+  line-height: 1.4;
+}
+
+.node-action {
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+}
+
+.action-icon {
+  font-size: 16px;
+}
+
+.action-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TRANSCEND Node (Portal) Specifics
+   ═══════════════════════════════════════════════════════════ */
+
+.transcend-node {
+  border: 2px solid rgba(139, 92, 246, 0.3);
+}
+
+.transcend-node::before {
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(139, 92, 246, 0.5) 50%,
+    transparent 100%);
+}
+
+.node-portal {
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 6px;
+  text-align: left;
+}
+
+.portal-label {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.portal-universe {
+  font-size: 13px;
+  color: rgba(139, 92, 246, 0.9);
+  font-weight: 600;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Status Indicator
+   ═══════════════════════════════════════════════════════════ */
+
+.status-indicator {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.status-indicator.executing {
+  background: rgba(167, 139, 250, 0.2);
+  animation: pulse-status 1s ease-in-out infinite;
+}
+
+.status-indicator.success {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.status-indicator.error {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+@keyframes pulse-status {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ReactFlow Handles
+   ═══════════════════════════════════════════════════════════ */
+
+.handle-target,
+.handle-source,
+.handle-fork,
+.handle-portal {
+  width: 16px;
+  height: 16px;
+  background: rgba(167, 139, 250, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.handle-target:hover,
+.handle-source:hover,
+.handle-fork:hover,
+.handle-portal:hover {
+  width: 20px;
+  height: 20px;
+  background: rgba(167, 139, 250, 1);
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+}
+
+.handle-fork {
+  background: rgba(139, 92, 246, 0.8);
+}
+
+.handle-portal {
+  background: rgba(236, 72, 153, 0.8);
+  animation: pulse-portal 2s ease-in-out infinite;
+}
+
+@keyframes pulse-portal {
+  0%, 100% { box-shadow: 0 0 8px rgba(236, 72, 153, 0.4); }
+  50% { box-shadow: 0 0 16px rgba(236, 72, 153, 0.8); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🔄 RESOLVE Node - Conflict Resolution
+   ═══════════════════════════════════════════════════════════ */
+
+.resolve-node {
+  border: 2px solid rgba(245, 158, 11, 0.3);
+}
+
+.resolve-node::before {
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(245, 158, 11, 0.5) 50%,
+    transparent 100%);
+}
+
+.resolve-icon {
+  font-size: 42px;
+  position: relative;
+}
+
+.conflict-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.node-strategy {
+  margin-top: 12px;
+  padding: 8px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 6px;
+  font-size: 12px;
+  color: rgba(245, 158, 11, 0.9);
+}
+
+.node-strategy strong {
+  color: rgba(255, 255, 255, 0.9);
+  margin-right: 4px;
+}
+
+.spin-pulse {
+  animation: spin-pulse-combined 3s ease-in-out infinite;
+}
+
+@keyframes spin-pulse-combined {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(90deg) scale(1.1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+    opacity: 1;
+  }
+  75% {
+    transform: rotate(270deg) scale(1.1);
+    opacity: 0.8;
+  }
+}

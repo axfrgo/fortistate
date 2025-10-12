@@ -5,3 +5,6 @@ dist/
 .DS_Store
 .vscode/
 coverage/
+.fortistate-remote-stores.json
+.fortistate/
+.fortistate-audit*.log

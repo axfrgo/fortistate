@@ -1,9 +1,30 @@
 import type { NextRequest } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 
 const INSPECTOR_TARGET =
   process.env.FORTISTATE_INSPECTOR_TARGET ??
   process.env.NEXT_PUBLIC_INSPECTOR_URL ??
   'http://localhost:4000';
+
+const INSPECTOR_TOKEN = (() => {
+  if (typeof process.env.FORTISTATE_INSPECTOR_TOKEN === 'string' && process.env.FORTISTATE_INSPECTOR_TOKEN.trim()) {
+    return process.env.FORTISTATE_INSPECTOR_TOKEN.trim();
+  }
+  try {
+    const tokenPath = path.resolve(process.cwd(), '.fortistate-inspector-token');
+    if (fs.existsSync(tokenPath)) {
+      const raw = fs.readFileSync(tokenPath, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed.token === 'string') {
+        return parsed.token.trim();
+      }
+    }
+  } catch (error) {
+    console.warn('[Inspector proxy] Unable to read .fortistate-inspector-token:', error);
+  }
+  return undefined;
+})();
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -43,11 +64,18 @@ const forward = async (req: NextRequest, context: HandlerContext) => {
   const headers = new Headers();
   req.headers.forEach((value, key) => {
     const lower = key.toLowerCase();
-    if (lower === 'host' || lower === 'content-length' || lower === 'connection') {
+    if (lower === 'host' || lower === 'content-length' || lower === 'connection' || lower === 'expect') {
       return;
     }
     headers.set(key, value);
   });
+
+  // Only add legacy token if client didn't provide any auth
+  const hasClientAuth = headers.has('authorization') || headers.has('x-fortistate-token');
+  if (INSPECTOR_TOKEN && !hasClientAuth) {
+    headers.set('x-fortistate-token', INSPECTOR_TOKEN);
+    headers.set('authorization', `Bearer ${INSPECTOR_TOKEN}`);
+  }
 
   const init: RequestInit = {
     method: req.method,

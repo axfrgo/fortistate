@@ -1,0 +1,30 @@
+{
+  "name": "@fortistate/design-system",
+  "version": "1.0.0",
+  "description": "Shared design system for Fortistate applications with VS Code aesthetic",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./tokens": "./tokens.js",
+    "./tailwind": "./tailwind.config.js",
+    "./css": "./styles.css"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "tokens.js",
+    "tokens.d.ts",
+    "tailwind.config.js",
+    "styles.css"
+  ],
+  "keywords": [
+    "design-system",
+    "design-tokens",
+    "tailwind",
+    "vscode",
+    "fortistate"
+  ],
+  "author": "Fortistate",
+  "license": "MIT"
+}

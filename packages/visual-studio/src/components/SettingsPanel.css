@@ -1,0 +1,326 @@
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 999;
+}
+
+.settings-panel {
+  position: fixed;
+  top: 72px;
+  right: 32px;
+  width: 420px;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 120px);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(18, 19, 32, 0.95) 0%, rgba(41, 24, 54, 0.92) 50%, rgba(14, 16, 29, 0.96) 100%);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  box-shadow:
+    0 24px 80px rgba(88, 28, 135, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.settings-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.settings-panel::-webkit-scrollbar-track {
+  background: rgba(99, 102, 241, 0.08);
+  border-radius: 999px;
+}
+
+.settings-panel::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.4);
+  border-radius: 999px;
+}
+
+.settings-panel {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.4) rgba(99, 102, 241, 0.08);
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.settings-header h2 {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #f9f5ff;
+}
+
+.settings-header p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(226, 213, 255, 0.75);
+}
+
+.settings-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.settings-close:hover {
+  background: rgba(236, 72, 153, 0.18);
+  border-color: rgba(236, 72, 153, 0.45);
+  color: #fff;
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.settings-section h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.theme-options {
+  display: grid;
+  gap: 12px;
+}
+
+.theme-card {
+  position: relative;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  background: rgba(23, 14, 47, 0.6);
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-card:hover {
+  border-color: rgba(236, 72, 153, 0.35);
+  box-shadow: 0 12px 30px rgba(167, 139, 250, 0.2);
+}
+
+.theme-card.active {
+  border-color: rgba(236, 72, 153, 0.55);
+  box-shadow: 0 16px 40px rgba(167, 139, 250, 0.3);
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.2) 0%, rgba(236, 72, 153, 0.15) 100%);
+}
+
+.theme-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.theme-description {
+  font-size: 12px;
+  color: rgba(229, 224, 255, 0.65);
+}
+
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: rgba(16, 12, 32, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-row:hover {
+  border-color: rgba(167, 139, 250, 0.3);
+  box-shadow: 0 10px 24px rgba(167, 139, 250, 0.18);
+}
+
+.toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.toggle-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.toggle-description {
+  font-size: 12px;
+  color: rgba(229, 224, 255, 0.62);
+}
+
+.toggle {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 3px;
+  transition: all 0.2s ease;
+}
+
+.toggle.on {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.35);
+}
+
+.toggle.off {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.toggle.on .toggle-thumb {
+  transform: translateX(20px);
+}
+
+.settings-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.reset-button,
+.primary-button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-button {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.75);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.reset-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(168, 85, 247, 0.3);
+}
+
+.primary-button:hover {
+  box-shadow: 0 16px 32px rgba(236, 72, 153, 0.35);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .settings-panel {
+    right: 16px;
+    left: 16px;
+    width: auto;
+    max-width: none;
+  }
+}
+
+body[data-theme='aurora-light'] .settings-panel {
+  background: linear-gradient(135deg, rgba(248, 250, 255, 0.95) 0%, rgba(235, 244, 255, 0.9) 100%);
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow:
+    0 24px 80px rgba(99, 102, 241, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+body[data-theme='aurora-light'] .settings-section h3,
+body[data-theme='aurora-light'] .toggle-label,
+body[data-theme='aurora-light'] .theme-label {
+  color: rgba(24, 26, 36, 0.92);
+}
+
+body[data-theme='aurora-light'] .settings-header h2 {
+  color: #12142b;
+}
+
+body[data-theme='aurora-light'] .settings-header p,
+body[data-theme='aurora-light'] .toggle-description,
+body[data-theme='aurora-light'] .theme-description {
+  color: rgba(55, 65, 81, 0.72);
+}
+
+body[data-theme='aurora-light'] .toggle-row {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(208, 213, 221, 0.6);
+}
+
+body[data-theme='aurora-light'] .toggle-row:hover {
+  border-color: rgba(129, 161, 249, 0.8);
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.18);
+}
+
+body[data-theme='aurora-light'] .theme-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(208, 213, 221, 0.6);
+  color: rgba(24, 26, 36, 0.85);
+}
+
+body[data-theme='aurora-light'] .theme-card.active {
+  border-color: rgba(99, 102, 241, 0.75);
+  background: linear-gradient(135deg, rgba(243, 244, 255, 0.95) 0%, rgba(224, 231, 255, 0.85) 100%);
+  box-shadow: 0 16px 32px rgba(99, 102, 241, 0.28);
+}
+
+body[data-theme='aurora-light'] .reset-button {
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(17, 24, 39, 0.78);
+}
+
+body[data-theme='aurora-light'] .primary-button {
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.3);
+}

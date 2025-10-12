@@ -1,0 +1,3702 @@
+[
+  {
+    "id": "diplomat-0",
+    "input": {
+      "universeA": {
+        "id": "universe-a-0",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-0",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-0",
+        "universeA": "universe-a-0",
+        "universeB": "universe-b-0",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629752649
+    }
+  },
+  {
+    "id": "diplomat-4",
+    "input": {
+      "universeA": {
+        "id": "universe-a-4",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-4",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-4",
+        "universeA": "universe-a-4",
+        "universeB": "universe-b-4",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629752650
+    }
+  },
+  {
+    "id": "diplomat-8",
+    "input": {
+      "universeA": {
+        "id": "universe-a-8",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-8",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-8",
+        "universeA": "universe-a-8",
+        "universeB": "universe-b-8",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629752650
+    }
+  },
+  {
+    "id": "diplomat-12",
+    "input": {
+      "universeA": {
+        "id": "universe-a-12",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-12",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-12",
+        "universeA": "universe-a-12",
+        "universeB": "universe-b-12",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-16",
+    "input": {
+      "universeA": {
+        "id": "universe-a-16",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-16",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-16",
+        "universeA": "universe-a-16",
+        "universeB": "universe-b-16",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-20",
+    "input": {
+      "universeA": {
+        "id": "universe-a-20",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-20",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-20",
+        "universeA": "universe-a-20",
+        "universeB": "universe-b-20",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-24",
+    "input": {
+      "universeA": {
+        "id": "universe-a-24",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-24",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-24",
+        "universeA": "universe-a-24",
+        "universeB": "universe-b-24",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-28",
+    "input": {
+      "universeA": {
+        "id": "universe-a-28",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-28",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-28",
+        "universeA": "universe-a-28",
+        "universeB": "universe-b-28",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-32",
+    "input": {
+      "universeA": {
+        "id": "universe-a-32",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-32",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-32",
+        "universeA": "universe-a-32",
+        "universeB": "universe-b-32",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-36",
+    "input": {
+      "universeA": {
+        "id": "universe-a-36",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-36",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-36",
+        "universeA": "universe-a-36",
+        "universeB": "universe-b-36",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-40",
+    "input": {
+      "universeA": {
+        "id": "universe-a-40",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-40",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-40",
+        "universeA": "universe-a-40",
+        "universeB": "universe-b-40",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-44",
+    "input": {
+      "universeA": {
+        "id": "universe-a-44",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-44",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-44",
+        "universeA": "universe-a-44",
+        "universeB": "universe-b-44",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-48",
+    "input": {
+      "universeA": {
+        "id": "universe-a-48",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-48",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-48",
+        "universeA": "universe-a-48",
+        "universeB": "universe-b-48",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-52",
+    "input": {
+      "universeA": {
+        "id": "universe-a-52",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-52",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-52",
+        "universeA": "universe-a-52",
+        "universeB": "universe-b-52",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-56",
+    "input": {
+      "universeA": {
+        "id": "universe-a-56",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-56",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-56",
+        "universeA": "universe-a-56",
+        "universeB": "universe-b-56",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-60",
+    "input": {
+      "universeA": {
+        "id": "universe-a-60",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-60",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-60",
+        "universeA": "universe-a-60",
+        "universeB": "universe-b-60",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-64",
+    "input": {
+      "universeA": {
+        "id": "universe-a-64",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-64",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-64",
+        "universeA": "universe-a-64",
+        "universeB": "universe-b-64",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-68",
+    "input": {
+      "universeA": {
+        "id": "universe-a-68",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-68",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-68",
+        "universeA": "universe-a-68",
+        "universeB": "universe-b-68",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-72",
+    "input": {
+      "universeA": {
+        "id": "universe-a-72",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-72",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-72",
+        "universeA": "universe-a-72",
+        "universeB": "universe-b-72",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-76",
+    "input": {
+      "universeA": {
+        "id": "universe-a-76",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-76",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-76",
+        "universeA": "universe-a-76",
+        "universeB": "universe-b-76",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-80",
+    "input": {
+      "universeA": {
+        "id": "universe-a-80",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-80",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-80",
+        "universeA": "universe-a-80",
+        "universeB": "universe-b-80",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-84",
+    "input": {
+      "universeA": {
+        "id": "universe-a-84",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-84",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-84",
+        "universeA": "universe-a-84",
+        "universeB": "universe-b-84",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-88",
+    "input": {
+      "universeA": {
+        "id": "universe-a-88",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-88",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-88",
+        "universeA": "universe-a-88",
+        "universeB": "universe-b-88",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-92",
+    "input": {
+      "universeA": {
+        "id": "universe-a-92",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-92",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-92",
+        "universeA": "universe-a-92",
+        "universeB": "universe-b-92",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-96",
+    "input": {
+      "universeA": {
+        "id": "universe-a-96",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-96",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-96",
+        "universeA": "universe-a-96",
+        "universeB": "universe-b-96",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-100",
+    "input": {
+      "universeA": {
+        "id": "universe-a-100",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-100",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-100",
+        "universeA": "universe-a-100",
+        "universeB": "universe-b-100",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-104",
+    "input": {
+      "universeA": {
+        "id": "universe-a-104",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-104",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-104",
+        "universeA": "universe-a-104",
+        "universeB": "universe-b-104",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-108",
+    "input": {
+      "universeA": {
+        "id": "universe-a-108",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-108",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-108",
+        "universeA": "universe-a-108",
+        "universeB": "universe-b-108",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-112",
+    "input": {
+      "universeA": {
+        "id": "universe-a-112",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-112",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-112",
+        "universeA": "universe-a-112",
+        "universeB": "universe-b-112",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-116",
+    "input": {
+      "universeA": {
+        "id": "universe-a-116",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-116",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-116",
+        "universeA": "universe-a-116",
+        "universeB": "universe-b-116",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-120",
+    "input": {
+      "universeA": {
+        "id": "universe-a-120",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-120",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-120",
+        "universeA": "universe-a-120",
+        "universeB": "universe-b-120",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-124",
+    "input": {
+      "universeA": {
+        "id": "universe-a-124",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-124",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-124",
+        "universeA": "universe-a-124",
+        "universeB": "universe-b-124",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-128",
+    "input": {
+      "universeA": {
+        "id": "universe-a-128",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-128",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-128",
+        "universeA": "universe-a-128",
+        "universeB": "universe-b-128",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-132",
+    "input": {
+      "universeA": {
+        "id": "universe-a-132",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-132",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-132",
+        "universeA": "universe-a-132",
+        "universeB": "universe-b-132",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-136",
+    "input": {
+      "universeA": {
+        "id": "universe-a-136",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-136",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-136",
+        "universeA": "universe-a-136",
+        "universeB": "universe-b-136",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-140",
+    "input": {
+      "universeA": {
+        "id": "universe-a-140",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-140",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-140",
+        "universeA": "universe-a-140",
+        "universeB": "universe-b-140",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-144",
+    "input": {
+      "universeA": {
+        "id": "universe-a-144",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-144",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-144",
+        "universeA": "universe-a-144",
+        "universeB": "universe-b-144",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-148",
+    "input": {
+      "universeA": {
+        "id": "universe-a-148",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-148",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-148",
+        "universeA": "universe-a-148",
+        "universeB": "universe-b-148",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-152",
+    "input": {
+      "universeA": {
+        "id": "universe-a-152",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-152",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-152",
+        "universeA": "universe-a-152",
+        "universeB": "universe-b-152",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-156",
+    "input": {
+      "universeA": {
+        "id": "universe-a-156",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-156",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-156",
+        "universeA": "universe-a-156",
+        "universeB": "universe-b-156",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-160",
+    "input": {
+      "universeA": {
+        "id": "universe-a-160",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-160",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-160",
+        "universeA": "universe-a-160",
+        "universeB": "universe-b-160",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-164",
+    "input": {
+      "universeA": {
+        "id": "universe-a-164",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-164",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-164",
+        "universeA": "universe-a-164",
+        "universeB": "universe-b-164",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-168",
+    "input": {
+      "universeA": {
+        "id": "universe-a-168",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-168",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-168",
+        "universeA": "universe-a-168",
+        "universeB": "universe-b-168",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-172",
+    "input": {
+      "universeA": {
+        "id": "universe-a-172",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-172",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "collaborate"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-172",
+        "universeA": "universe-a-172",
+        "universeB": "universe-b-172",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-176",
+    "input": {
+      "universeA": {
+        "id": "universe-a-176",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-176",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-176",
+        "universeA": "universe-a-176",
+        "universeB": "universe-b-176",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-180",
+    "input": {
+      "universeA": {
+        "id": "universe-a-180",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "universeB": {
+        "id": "universe-b-180",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-180",
+        "universeA": "universe-a-180",
+        "universeB": "universe-b-180",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging banking and social via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "banking+social",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-184",
+    "input": {
+      "universeA": {
+        "id": "universe-a-184",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "universeB": {
+        "id": "universe-b-184",
+        "laws": [
+          "balance >= 0",
+          "sum(transactions.amount) === balance",
+          "user.verified === true OR transaction.limit < 100"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "banking"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-184",
+        "universeA": "universe-a-184",
+        "universeB": "universe-b-184",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging workflow and banking via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "workflow+banking",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-188",
+    "input": {
+      "universeA": {
+        "id": "universe-a-188",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "universeB": {
+        "id": "universe-b-188",
+        "laws": [
+          "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+          "approval.required === true IMPLIES approval.count >= approval.threshold",
+          "resource.allocated <= resource.available"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "workflow"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-188",
+        "universeA": "universe-a-188",
+        "universeB": "universe-b-188",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging physics and workflow via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "physics+workflow",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-192",
+    "input": {
+      "universeA": {
+        "id": "universe-a-192",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "universeB": {
+        "id": "universe-b-192",
+        "laws": [
+          "energy.total === conserved",
+          "momentum.total === conserved",
+          "entropy >= 0 AND entropy.delta >= 0"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "physics"
+      },
+      "intent": "merge"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-192",
+        "universeA": "universe-a-192",
+        "universeB": "universe-b-192",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging game and physics via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "game+physics",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  },
+  {
+    "id": "diplomat-196",
+    "input": {
+      "universeA": {
+        "id": "universe-a-196",
+        "laws": [
+          "username.unique === true",
+          "connection.mutual === true",
+          "post.visibility IN [\"public\", \"friends\", \"private\"]"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "social"
+      },
+      "universeB": {
+        "id": "universe-b-196",
+        "laws": [
+          "player.health >= 0 AND player.health <= 100",
+          "item.count >= 0",
+          "quest.prerequisites.every(q => q.completed)"
+        ],
+        "entities": {},
+        "constraints": [
+          "law_compliance",
+          "data_integrity"
+        ],
+        "invariants": [
+          "monotonic_time",
+          "causality"
+        ],
+        "substrate": "game"
+      },
+      "intent": "observe"
+    },
+    "output": {
+      "treaty": {
+        "id": "treaty-196",
+        "universeA": "universe-a-196",
+        "universeB": "universe-b-196",
+        "agreements": [
+          {
+            "type": "shared_law",
+            "description": "Both universes maintain data integrity",
+            "implementation": [
+              "validate_on_entry",
+              "sync_checkpoints"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "mergeStrategy": "federation",
+        "proof": "Treaty preserves invariants in both universes."
+      },
+      "reasoning": "Merging social and game via federation strategy.",
+      "riskAssessment": {
+        "conflicts": 0,
+        "resolutionConfidence": 0.9,
+        "estimatedComplexity": 5
+      }
+    },
+    "metadata": {
+      "substrate": "social+game",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629752651
+    }
+  }
+]

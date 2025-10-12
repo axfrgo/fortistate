@@ -1,0 +1,88 @@
+.glass-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 18px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.38), rgba(129, 140, 248, 0.28));
+  box-shadow:
+    0 10px 28px rgba(15, 23, 42, 0.38),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45),
+    inset 0 0 0 0.75px rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  opacity: 0;
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.18s ease,
+    transform 0.18s ease;
+  z-index: 5000;
+}
+
+.glass-cursor::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(96, 165, 250, 0.4));
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  transition: opacity 0.25s ease;
+}
+
+.glass-cursor.visible {
+  opacity: 1;
+}
+
+.glass-cursor.pressed {
+  transform: translate(-50%, -50%) scale(0.94);
+  box-shadow:
+    0 6px 16px rgba(15, 23, 42, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    inset 0 0 0 1px rgba(148, 163, 255, 0.32);
+}
+
+.glass-cursor.interactive {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.45), rgba(192, 132, 252, 0.42));
+  box-shadow:
+    0 18px 38px rgba(59, 130, 246, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5),
+    inset 0 0 0 1.25px rgba(147, 197, 253, 0.55);
+}
+
+.glass-cursor.interactive::after {
+  opacity: 0.6;
+}
+
+.glass-cursor.text {
+  width: 4px;
+  height: 30px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(148, 163, 255, 0.7));
+  box-shadow:
+    0 12px 28px rgba(15, 23, 42, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.glass-cursor.text::after {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-cursor {
+    transition: opacity 0.2s ease;
+  }
+  .glass-cursor.interactive,
+  .glass-cursor.text,
+  .glass-cursor.pressed {
+    transition: opacity 0.2s ease;
+  }
+}

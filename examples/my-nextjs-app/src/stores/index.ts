@@ -9,6 +9,48 @@ export interface CartItem {
   quantity: number;
 }
 
+// Game Store types - for Space Shooter demo
+export interface GameState {
+  player: {
+    health: number;
+    maxHealth: number;
+    position: { x: number; y: number };
+    speed: number;
+  };
+  score: number;
+  highScore: number;
+  level: number;
+  enemies: Array<{
+    id: string;
+    x: number;
+    y: number;
+    health: number;
+    speed: number;
+  }>;
+  enemyCount: number;
+  resources: {
+    energy: number;
+    shields: number;
+    ammo: number;
+  };
+  resourceCapacity: {
+    energy: number;
+    shields: number;
+    ammo: number;
+  };
+  activePowerUps: Array<{
+    type: string;
+    activatedAt: number;
+    expiresAt: number;
+    effect: string;
+  }>;
+  isPaused: boolean;
+  pausedAt: number | null;
+  isGameOver: boolean;
+  gameBounds: { width: number; height: number };
+  _validated: boolean;
+}
+
 // Store schemas are defined implicitly via usage
 // The useStore proxy automatically creates stores on first access
 

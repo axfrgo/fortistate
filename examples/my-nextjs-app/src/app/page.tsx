@@ -5,6 +5,7 @@ import StoreDemo from '@/components/StoreDemo';
 import SessionManager from '@/components/SessionManager';
 import PresenceViewer from '@/components/PresenceViewer';
 import AuditLogViewer from '@/components/AuditLogViewer';
+import SpaceShooterGame from '@/components/SpaceShooterGame';
 import { getInspectorDisplayHost } from '@/utils/inspector';
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
 
   const sections = [
     { id: 'overview', label: '📊 Overview', icon: '📊' },
+    { id: 'game', label: '🎮 Game Demo', icon: '🎮' },
     { id: 'stores', label: '🗄️ Stores', icon: '🗄️' },
     { id: 'sessions', label: '🔐 Sessions', icon: '🔐' },
     { id: 'presence', label: '👥 Presence', icon: '👥' },
@@ -75,6 +77,24 @@ export default function Home() {
 
               <div className="grid md:grid-cols-2 gap-6 mt-6">
                 {/* Epic Cards */}
+                <div className="border rounded-lg p-4 hover:shadow-md transition-shadow bg-gradient-to-br from-purple-50 to-pink-50">
+                  <div className="flex items-start gap-3">
+                    <div className="text-2xl">🎮</div>
+                    <div>
+                      <h3 className="font-bold mb-1">Game Demo: Ontogenetic Laws</h3>
+                      <p className="text-sm text-gray-600 mb-2">
+                        Space shooter with 10 ontogenetic laws governing game state, auto-fix, and inspector integration
+                      </p>
+                      <button
+                        onClick={() => setActiveSection('game')}
+                        className="text-sm text-purple-600 hover:text-purple-700 font-medium"
+                      >
+                        Play Game →
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-start gap-3">
                     <div className="text-2xl">🔐</div>
@@ -196,6 +216,9 @@ export default function Home() {
             </div>
           </div>
         )}
+
+        {/* Game Demo Section */}
+        {activeSection === 'game' && <SpaceShooterGame />}
 
         {/* Store Demo Section */}
         {activeSection === 'stores' && <StoreDemo />}

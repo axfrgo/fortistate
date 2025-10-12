@@ -12,7 +12,7 @@ export type FortistateConfig = {
 export async function _loadModule(p: string, options: { bustCache?: boolean } = {}) {
   let url = pathToFileURL(p).href
   if (options.bustCache) {
-    url += (url.includes('?') ? '&' : '?') + 't=' + Date.now()
+    url += (url.includes('?') ? '&' : '?') + 't=' + Date.now() + '&r=' + Math.random()
   }
   try {
     const mod = await import(url)
@@ -26,8 +26,27 @@ export async function _loadModule(p: string, options: { bustCache?: boolean } = 
       if (options.bustCache) {
         try {
           const resolved = req.resolve(p)
-          if ((req as unknown as { cache?: Record<string, unknown> }).cache) delete (req as any).cache[resolved]
-          if (typeof require !== 'undefined' && require.cache && require.cache[resolved]) delete require.cache[resolved]
+          // Clear from all possible caches
+          if ((req as unknown as { cache?: Record<string, unknown> }).cache) {
+            delete (req as any).cache[resolved]
+          }
+          if (typeof require !== 'undefined' && require.cache) {
+            if (require.cache[resolved]) {
+              delete require.cache[resolved]
+            }
+          }
+          // Also try to clear parent references
+          if (typeof require !== 'undefined' && require.cache) {
+            Object.keys(require.cache).forEach(key => {
+              const mod = require.cache[key]
+              if (mod && mod.children) {
+                const idx = mod.children.findIndex((child: any) => child.id === resolved)
+                if (idx >= 0) {
+                  mod.children.splice(idx, 1)
+                }
+              }
+            })
+          }
         } catch (eResolve) { /* ignore */ }
       }
       // require may throw if file isn't CJS

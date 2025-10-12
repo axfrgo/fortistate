@@ -1,0 +1,61 @@
+.law-node {
+  min-width: 200px;
+  border: 2px solid;
+  border-radius: 8px;
+  background: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.law-node:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.law-node-header {
+  padding: 8px 12px;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: white;
+}
+
+.law-icon {
+  font-size: 18px;
+}
+
+.law-name {
+  font-size: 14px;
+}
+
+.law-node-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.law-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.law-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #888;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.law-param {
+  padding: 4px 8px;
+  background: #2a2a2a;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #e0e0e0;
+  font-family: 'Courier New', monospace;
+}

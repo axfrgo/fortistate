@@ -1,0 +1,8052 @@
+[
+  {
+    "id": "narrator-0",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629755119,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 17.74940790972117
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-5",
+          "timestamp": 1759629756119,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 78.54139643815165
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-9",
+          "timestamp": 1759629757119,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 60.20879355133293
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-4",
+          "timestamp": 1759629758119,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 44.58765714018875
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-1",
+          "timestamp": 1759629759119,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 67.36519278410607
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-2"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755119,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 17.74940790972117
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756119,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a delete.",
+          "context": {
+            "value": 78.54139643815165
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757119,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a transfer.",
+          "context": {
+            "value": 60.20879355133293
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758119,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a transfer.",
+          "context": {
+            "value": 44.58765714018875
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759119,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a transfer.",
+          "context": {
+            "value": 67.36519278410607
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755120
+    }
+  },
+  {
+    "id": "narrator-6",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-3",
+          "timestamp": 1759629755122,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 15.368133018416174
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-1",
+          "timestamp": 1759629756122,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 70.72172090302064
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629757122,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 91.04340653171352
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-5",
+          "timestamp": 1759629758122,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 41.71633899135878
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-1",
+          "timestamp": 1759629759122,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 99.69515001966589
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-8"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755122,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a create.",
+          "context": {
+            "value": 15.368133018416174
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756122,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a update.",
+          "context": {
+            "value": 70.72172090302064
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757122,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 91.04340653171352
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758122,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a transfer.",
+          "context": {
+            "value": 41.71633899135878
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759122,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a delete.",
+          "context": {
+            "value": 99.69515001966589
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755122
+    }
+  },
+  {
+    "id": "narrator-12",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-2",
+          "timestamp": 1759629755122,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 55.3768817179934
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-5",
+          "timestamp": 1759629756122,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 5.792620187317188
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629757122,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 48.12294093439491
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629758122,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 87.3098867065206
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-3",
+          "timestamp": 1759629759122,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 94.98780450111755
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-9"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755122,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a create.",
+          "context": {
+            "value": 55.3768817179934
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756122,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a delete.",
+          "context": {
+            "value": 5.792620187317188
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757122,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 48.12294093439491
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758122,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 87.3098867065206
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759122,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a transfer.",
+          "context": {
+            "value": 94.98780450111755
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755122
+    }
+  },
+  {
+    "id": "narrator-18",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-9",
+          "timestamp": 1759629755122,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 47.35555484400711
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-5",
+          "timestamp": 1759629756122,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 12.09688085596905
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-1",
+          "timestamp": 1759629757122,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 44.42315516608453
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-2",
+          "timestamp": 1759629758122,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 94.3122342701014
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-1",
+          "timestamp": 1759629759122,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 86.77731478635506
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755122,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a update.",
+          "context": {
+            "value": 47.35555484400711
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756122,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a update.",
+          "context": {
+            "value": 12.09688085596905
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757122,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a create.",
+          "context": {
+            "value": 44.42315516608453
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758122,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a create.",
+          "context": {
+            "value": 94.3122342701014
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759122,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a create.",
+          "context": {
+            "value": 86.77731478635506
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755122
+    }
+  },
+  {
+    "id": "narrator-24",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-6",
+          "timestamp": 1759629755123,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 6.8937625648729295
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-0",
+          "timestamp": 1759629756123,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 11.397921676774558
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-7",
+          "timestamp": 1759629757123,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 8.122203436978626
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629758123,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 30.59549758296416
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629759123,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 50.03914204555642
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-4"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755123,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a create.",
+          "context": {
+            "value": 6.8937625648729295
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756123,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a transfer.",
+          "context": {
+            "value": 11.397921676774558
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757123,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a update.",
+          "context": {
+            "value": 8.122203436978626
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758123,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 30.59549758296416
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759123,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 50.03914204555642
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755123
+    }
+  },
+  {
+    "id": "narrator-30",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629755124,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 22.911659222969472
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-7",
+          "timestamp": 1759629756124,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 27.806442470659775
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-5",
+          "timestamp": 1759629757124,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 43.721508561453334
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-0",
+          "timestamp": 1759629758124,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 37.761708484446885
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-5",
+          "timestamp": 1759629759124,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 59.32162071021643
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-1"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755124,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 22.911659222969472
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756124,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a transfer.",
+          "context": {
+            "value": 27.806442470659775
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757124,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a create.",
+          "context": {
+            "value": 43.721508561453334
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758124,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a transfer.",
+          "context": {
+            "value": 37.761708484446885
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759124,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a create.",
+          "context": {
+            "value": 59.32162071021643
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755124
+    }
+  },
+  {
+    "id": "narrator-36",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629755125,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 60.004127850988056
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-6",
+          "timestamp": 1759629756125,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 4.4389316283849345
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629757125,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 79.21859668835876
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629758125,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 67.50651691787695
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-0",
+          "timestamp": 1759629759125,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 72.389983698416
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-2"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755125,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 60.004127850988056
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756125,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a create.",
+          "context": {
+            "value": 4.4389316283849345
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757125,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 79.21859668835876
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758125,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 67.50651691787695
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759125,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a transfer.",
+          "context": {
+            "value": 72.389983698416
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755125
+    }
+  },
+  {
+    "id": "narrator-42",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-3",
+          "timestamp": 1759629755125,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 48.77761437643711
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629756125,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 96.41227185630554
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-0",
+          "timestamp": 1759629757125,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 32.13111370744932
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-3",
+          "timestamp": 1759629758125,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 12.379215175251112
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629759125,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 30.912017799127845
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-5"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755125,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a transfer.",
+          "context": {
+            "value": 48.77761437643711
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756125,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 96.41227185630554
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757125,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a update.",
+          "context": {
+            "value": 32.13111370744932
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758125,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a delete.",
+          "context": {
+            "value": 12.379215175251112
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759125,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 30.912017799127845
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755125
+    }
+  },
+  {
+    "id": "narrator-48",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-4",
+          "timestamp": 1759629755126,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 39.314087311315674
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-0",
+          "timestamp": 1759629756126,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 26.71603945999692
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-8",
+          "timestamp": 1759629757126,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 94.02661922159051
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-7",
+          "timestamp": 1759629758126,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 7.603289144138614
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-4",
+          "timestamp": 1759629759126,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 12.24501030096019
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-4"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755126,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a delete.",
+          "context": {
+            "value": 39.314087311315674
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756126,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a delete.",
+          "context": {
+            "value": 26.71603945999692
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757126,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a delete.",
+          "context": {
+            "value": 94.02661922159051
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758126,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a transfer.",
+          "context": {
+            "value": 7.603289144138614
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759126,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a delete.",
+          "context": {
+            "value": 12.24501030096019
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755126
+    }
+  },
+  {
+    "id": "narrator-54",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629755126,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 52.46868026169318
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-9",
+          "timestamp": 1759629756126,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 28.139632513721224
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-5",
+          "timestamp": 1759629757126,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 5.977652667125799
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629758126,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 35.409261036392415
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-1",
+          "timestamp": 1759629759126,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 6.946041336116493
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755126,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 52.46868026169318
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756126,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a transfer.",
+          "context": {
+            "value": 28.139632513721224
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757126,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a update.",
+          "context": {
+            "value": 5.977652667125799
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758126,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 35.409261036392415
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759126,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a create.",
+          "context": {
+            "value": 6.946041336116493
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755126
+    }
+  },
+  {
+    "id": "narrator-60",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-3",
+          "timestamp": 1759629755126,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 98.79146751659616
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-9",
+          "timestamp": 1759629756126,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 25.89049838110857
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629757126,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 19.355524911399023
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-0",
+          "timestamp": 1759629758126,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 7.621698695669754
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-6",
+          "timestamp": 1759629759126,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 8.91265659601661
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755126,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a update.",
+          "context": {
+            "value": 98.79146751659616
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756126,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a transfer.",
+          "context": {
+            "value": 25.89049838110857
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757126,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 19.355524911399023
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758126,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a update.",
+          "context": {
+            "value": 7.621698695669754
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759126,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a create.",
+          "context": {
+            "value": 8.91265659601661
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755126
+    }
+  },
+  {
+    "id": "narrator-66",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-6",
+          "timestamp": 1759629755127,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 6.093353774635024
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629756127,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 84.36261086174395
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-3",
+          "timestamp": 1759629757127,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 32.83151190252007
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-8",
+          "timestamp": 1759629758127,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 23.155503019940337
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-6",
+          "timestamp": 1759629759127,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 25.520749362194483
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-4"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755127,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a create.",
+          "context": {
+            "value": 6.093353774635024
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756127,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 84.36261086174395
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757127,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a transfer.",
+          "context": {
+            "value": 32.83151190252007
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758127,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a delete.",
+          "context": {
+            "value": 23.155503019940337
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759127,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a update.",
+          "context": {
+            "value": 25.520749362194483
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755127
+    }
+  },
+  {
+    "id": "narrator-72",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629755127,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 67.94737515577123
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-5",
+          "timestamp": 1759629756127,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 95.60248007104187
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-3",
+          "timestamp": 1759629757127,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 63.75698081499115
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-3",
+          "timestamp": 1759629758127,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 49.468724778278016
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-9",
+          "timestamp": 1759629759127,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 26.94878096144453
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755127,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 67.94737515577123
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756127,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a create.",
+          "context": {
+            "value": 95.60248007104187
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757127,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a transfer.",
+          "context": {
+            "value": 63.75698081499115
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758127,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a update.",
+          "context": {
+            "value": 49.468724778278016
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759127,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a transfer.",
+          "context": {
+            "value": 26.94878096144453
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755127
+    }
+  },
+  {
+    "id": "narrator-78",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629755127,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 63.40614853097086
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629756127,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 68.01583497559645
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629757127,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 31.474137370915976
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-6",
+          "timestamp": 1759629758127,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 59.948948145848526
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-8",
+          "timestamp": 1759629759127,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 58.98877133882219
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-4"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755127,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 63.40614853097086
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756127,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 68.01583497559645
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757127,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 31.474137370915976
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758127,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a update.",
+          "context": {
+            "value": 59.948948145848526
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759127,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a delete.",
+          "context": {
+            "value": 58.98877133882219
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755127
+    }
+  },
+  {
+    "id": "narrator-84",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-0",
+          "timestamp": 1759629755128,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 0.8655686336467516
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629756128,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 76.35007339308892
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629757128,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 76.66432199180895
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629758128,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 37.395918011329485
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-1",
+          "timestamp": 1759629759128,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 18.661652314888656
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-9"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755128,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a create.",
+          "context": {
+            "value": 0.8655686336467516
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756128,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 76.35007339308892
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757128,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 76.66432199180895
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758128,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 37.395918011329485
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759128,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a create.",
+          "context": {
+            "value": 18.661652314888656
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755128
+    }
+  },
+  {
+    "id": "narrator-90",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-4",
+          "timestamp": 1759629755128,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 48.44323347821762
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-0",
+          "timestamp": 1759629756128,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 8.609293483129177
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-5",
+          "timestamp": 1759629757128,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 97.15887614168184
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629758128,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 49.47639870499534
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-7",
+          "timestamp": 1759629759128,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 52.41970969592074
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-7"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755128,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a transfer.",
+          "context": {
+            "value": 48.44323347821762
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756128,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a transfer.",
+          "context": {
+            "value": 8.609293483129177
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757128,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a create.",
+          "context": {
+            "value": 97.15887614168184
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758128,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 49.47639870499534
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759128,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a transfer.",
+          "context": {
+            "value": 52.41970969592074
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755128
+    }
+  },
+  {
+    "id": "narrator-96",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-1",
+          "timestamp": 1759629755129,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 18.999630895647357
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-1",
+          "timestamp": 1759629756129,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 81.73439776271306
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-2",
+          "timestamp": 1759629757129,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 1.9769606102974624
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-3",
+          "timestamp": 1759629758129,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 18.618769911101584
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-4",
+          "timestamp": 1759629759129,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 82.56475558685106
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-7"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755129,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a delete.",
+          "context": {
+            "value": 18.999630895647357
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756129,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a transfer.",
+          "context": {
+            "value": 81.73439776271306
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757129,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a update.",
+          "context": {
+            "value": 1.9769606102974624
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758129,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a transfer.",
+          "context": {
+            "value": 18.618769911101584
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759129,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a update.",
+          "context": {
+            "value": 82.56475558685106
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755129
+    }
+  },
+  {
+    "id": "narrator-102",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629755129,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 83.95211211141877
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-1",
+          "timestamp": 1759629756129,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 51.53841781990742
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-4",
+          "timestamp": 1759629757129,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 67.97222337921214
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629758129,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 79.72715699973575
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-4",
+          "timestamp": 1759629759129,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 50.6010667139986
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-4"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755129,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 83.95211211141877
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756129,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a update.",
+          "context": {
+            "value": 51.53841781990742
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757129,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a delete.",
+          "context": {
+            "value": 67.97222337921214
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758129,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 79.72715699973575
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759129,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a transfer.",
+          "context": {
+            "value": 50.6010667139986
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755129
+    }
+  },
+  {
+    "id": "narrator-108",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-2",
+          "timestamp": 1759629755130,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 40.18224668745744
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-9",
+          "timestamp": 1759629756130,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 40.53740942854882
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-1",
+          "timestamp": 1759629757130,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 55.71075938815893
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-6",
+          "timestamp": 1759629758130,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 31.63408833225063
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-4",
+          "timestamp": 1759629759130,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 16.712471510947214
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-2"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755130,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a update.",
+          "context": {
+            "value": 40.18224668745744
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756130,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a transfer.",
+          "context": {
+            "value": 40.53740942854882
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757130,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a delete.",
+          "context": {
+            "value": 55.71075938815893
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758130,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a update.",
+          "context": {
+            "value": 31.63408833225063
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759130,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a delete.",
+          "context": {
+            "value": 16.712471510947214
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755130
+    }
+  },
+  {
+    "id": "narrator-114",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629755133,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 46.034433967092816
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-9",
+          "timestamp": 1759629756133,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 66.7413074574631
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-3",
+          "timestamp": 1759629757133,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 82.23023810781326
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629758133,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 2.1058275713612407
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-0",
+          "timestamp": 1759629759133,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 60.628304022096444
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-2"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755133,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 46.034433967092816
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756133,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a transfer.",
+          "context": {
+            "value": 66.7413074574631
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757133,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a transfer.",
+          "context": {
+            "value": 82.23023810781326
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758133,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 2.1058275713612407
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759133,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a update.",
+          "context": {
+            "value": 60.628304022096444
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755133
+    }
+  },
+  {
+    "id": "narrator-120",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629755133,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 60.7161272974297
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629756133,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 66.79175920284221
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-8",
+          "timestamp": 1759629757133,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 40.050229314506545
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-2",
+          "timestamp": 1759629758133,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 25.455130455105703
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-0",
+          "timestamp": 1759629759133,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 96.61460922091727
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-6"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755133,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 60.7161272974297
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756133,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 66.79175920284221
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757133,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a create.",
+          "context": {
+            "value": 40.050229314506545
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758133,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a create.",
+          "context": {
+            "value": 25.455130455105703
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759133,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a delete.",
+          "context": {
+            "value": 96.61460922091727
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755133
+    }
+  },
+  {
+    "id": "narrator-126",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629755134,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 62.400407330584514
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-3",
+          "timestamp": 1759629756134,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 3.3219418264484712
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629757134,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 79.64122575169836
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-0",
+          "timestamp": 1759629758134,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 45.89251276721404
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-1",
+          "timestamp": 1759629759134,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 49.81826939904401
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-0"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755134,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 62.400407330584514
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756134,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a transfer.",
+          "context": {
+            "value": 3.3219418264484712
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757134,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 79.64122575169836
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758134,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a delete.",
+          "context": {
+            "value": 45.89251276721404
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759134,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a create.",
+          "context": {
+            "value": 49.81826939904401
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755134
+    }
+  },
+  {
+    "id": "narrator-132",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-3",
+          "timestamp": 1759629755134,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 7.182913127302704
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-8",
+          "timestamp": 1759629756134,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 75.11661780097134
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-3",
+          "timestamp": 1759629757134,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 35.74274669712247
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-4",
+          "timestamp": 1759629758134,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 10.455500439964215
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-6",
+          "timestamp": 1759629759134,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 77.47522367801056
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-5"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755134,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a create.",
+          "context": {
+            "value": 7.182913127302704
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756134,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a delete.",
+          "context": {
+            "value": 75.11661780097134
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757134,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a transfer.",
+          "context": {
+            "value": 35.74274669712247
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758134,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a delete.",
+          "context": {
+            "value": 10.455500439964215
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759134,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a delete.",
+          "context": {
+            "value": 77.47522367801056
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755134
+    }
+  },
+  {
+    "id": "narrator-138",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629755134,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 28.826184251462216
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-1",
+          "timestamp": 1759629756134,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 94.22114340046784
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629757134,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 77.612613062951
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-5",
+          "timestamp": 1759629758134,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 58.13492324349454
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-0",
+          "timestamp": 1759629759134,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 50.91153287208976
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-0"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755134,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 28.826184251462216
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756134,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a delete.",
+          "context": {
+            "value": 94.22114340046784
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757134,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 77.612613062951
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758134,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a transfer.",
+          "context": {
+            "value": 58.13492324349454
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759134,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a update.",
+          "context": {
+            "value": 50.91153287208976
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755134
+    }
+  },
+  {
+    "id": "narrator-144",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-3",
+          "timestamp": 1759629755135,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 93.04556494073783
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-7",
+          "timestamp": 1759629756135,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 64.74019629177772
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-0",
+          "timestamp": 1759629757135,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 56.050838285264334
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629758135,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 1.1281067598632122
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-2",
+          "timestamp": 1759629759135,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 97.46878766974889
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-1"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755135,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a create.",
+          "context": {
+            "value": 93.04556494073783
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756135,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a update.",
+          "context": {
+            "value": 64.74019629177772
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757135,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a delete.",
+          "context": {
+            "value": 56.050838285264334
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758135,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 1.1281067598632122
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759135,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a delete.",
+          "context": {
+            "value": 97.46878766974889
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755135
+    }
+  },
+  {
+    "id": "narrator-150",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-0",
+          "timestamp": 1759629755135,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 4.783473472713795
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-9",
+          "timestamp": 1759629756135,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 2.9612362862917685
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-5",
+          "timestamp": 1759629757135,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 15.45205946060355
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-6",
+          "timestamp": 1759629758135,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 51.654053386219005
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-3",
+          "timestamp": 1759629759135,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 68.44611081923459
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-2"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755135,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a transfer.",
+          "context": {
+            "value": 4.783473472713795
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756135,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a update.",
+          "context": {
+            "value": 2.9612362862917685
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757135,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a create.",
+          "context": {
+            "value": 15.45205946060355
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758135,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a create.",
+          "context": {
+            "value": 51.654053386219005
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759135,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a create.",
+          "context": {
+            "value": 68.44611081923459
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755135
+    }
+  },
+  {
+    "id": "narrator-156",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-5",
+          "timestamp": 1759629755135,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 79.45123014100555
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-3",
+          "timestamp": 1759629756135,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 50.95269021407
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-6",
+          "timestamp": 1759629757135,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 42.79688188125337
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-0",
+          "timestamp": 1759629758135,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 49.37441891307981
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-7",
+          "timestamp": 1759629759135,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 87.73948196501868
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-7"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755135,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a update.",
+          "context": {
+            "value": 79.45123014100555
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756135,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a delete.",
+          "context": {
+            "value": 50.95269021407
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757135,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a update.",
+          "context": {
+            "value": 42.79688188125337
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758135,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a create.",
+          "context": {
+            "value": 49.37441891307981
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759135,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a update.",
+          "context": {
+            "value": 87.73948196501868
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755135
+    }
+  },
+  {
+    "id": "narrator-162",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-5",
+          "timestamp": 1759629755136,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 97.98135417127453
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629756136,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 49.831401213579475
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-5",
+          "timestamp": 1759629757136,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 27.229936005844134
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-4",
+          "timestamp": 1759629758136,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 83.94442671005886
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-4",
+          "timestamp": 1759629759136,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 15.200017456121028
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-9"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755136,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a transfer.",
+          "context": {
+            "value": 97.98135417127453
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756136,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 49.831401213579475
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757136,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a update.",
+          "context": {
+            "value": 27.229936005844134
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758136,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a update.",
+          "context": {
+            "value": 83.94442671005886
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759136,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a delete.",
+          "context": {
+            "value": 15.200017456121028
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755136
+    }
+  },
+  {
+    "id": "narrator-168",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-0",
+          "timestamp": 1759629755136,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 83.2766780168148
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-3",
+          "timestamp": 1759629756136,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 67.5905779887568
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-2",
+          "timestamp": 1759629757136,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 74.07330824093061
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629758136,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 34.15942672839625
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629759136,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 34.401162921829375
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-9"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755136,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a transfer.",
+          "context": {
+            "value": 83.2766780168148
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756136,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a update.",
+          "context": {
+            "value": 67.5905779887568
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757136,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a transfer.",
+          "context": {
+            "value": 74.07330824093061
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758136,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 34.15942672839625
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759136,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 34.401162921829375
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755136
+    }
+  },
+  {
+    "id": "narrator-174",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-7",
+          "timestamp": 1759629755136,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 26.84662094062602
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629756136,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 46.147988752997705
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-2",
+          "timestamp": 1759629757136,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 19.341064649770523
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629758136,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 77.4757589489847
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-5",
+          "timestamp": 1759629759136,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 88.42962699304347
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-2"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755136,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a update.",
+          "context": {
+            "value": 26.84662094062602
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756136,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 46.147988752997705
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757136,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a update.",
+          "context": {
+            "value": 19.341064649770523
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758136,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 77.4757589489847
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759136,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a delete.",
+          "context": {
+            "value": 88.42962699304347
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755136
+    }
+  },
+  {
+    "id": "narrator-180",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-4",
+          "timestamp": 1759629755136,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 63.68736771402765
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-7",
+          "timestamp": 1759629756136,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 19.493714799413286
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629757136,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 59.925056532003126
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629758136,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 1.4707215112045757
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629759136,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 20.10219147437575
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-9"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755136,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a update.",
+          "context": {
+            "value": 63.68736771402765
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756136,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a transfer.",
+          "context": {
+            "value": 19.493714799413286
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757136,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 59.925056532003126
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758136,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 1.4707215112045757
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759136,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 20.10219147437575
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755136
+    }
+  },
+  {
+    "id": "narrator-186",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629755137,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 3.200483986537539
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-6",
+          "timestamp": 1759629756137,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 77.75503130070543
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-4",
+          "timestamp": 1759629757137,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 84.05781116400435
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-1",
+          "timestamp": 1759629758137,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 9.883626196119044
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629759137,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 17.54555071270194
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-5"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755137,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 3.200483986537539
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756137,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a delete.",
+          "context": {
+            "value": 77.75503130070543
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757137,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a transfer.",
+          "context": {
+            "value": 84.05781116400435
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758137,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a delete.",
+          "context": {
+            "value": 9.883626196119044
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759137,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 17.54555071270194
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755137
+    }
+  },
+  {
+    "id": "narrator-192",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629755137,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 63.975658497588924
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629756137,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 89.94011527995573
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-7",
+          "timestamp": 1759629757137,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 33.04026784084571
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-7",
+          "timestamp": 1759629758137,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 4.137550858064776
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-5",
+          "timestamp": 1759629759137,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 98.32786072025692
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-0"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755137,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 63.975658497588924
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756137,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 89.94011527995573
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757137,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a update.",
+          "context": {
+            "value": 33.04026784084571
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758137,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a update.",
+          "context": {
+            "value": 4.137550858064776
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759137,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a update.",
+          "context": {
+            "value": 98.32786072025692
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755137
+    }
+  },
+  {
+    "id": "narrator-198",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-5",
+          "timestamp": 1759629755137,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 88.68791717018485
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629756137,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 3.480001239583008
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-0",
+          "timestamp": 1759629757137,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 50.67085152777524
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-9",
+          "timestamp": 1759629758137,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 13.824399320671766
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-7",
+          "timestamp": 1759629759137,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 54.482156444099836
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-1"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755137,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a transfer.",
+          "context": {
+            "value": 88.68791717018485
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756137,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 3.480001239583008
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757137,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a delete.",
+          "context": {
+            "value": 50.67085152777524
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758137,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a update.",
+          "context": {
+            "value": 13.824399320671766
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759137,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a transfer.",
+          "context": {
+            "value": 54.482156444099836
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755142
+    }
+  },
+  {
+    "id": "narrator-204",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629755142,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 83.26148456186995
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-6",
+          "timestamp": 1759629756142,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 33.01765635681355
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-9",
+          "timestamp": 1759629757142,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 59.03021921160856
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-7",
+          "timestamp": 1759629758142,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 30.817071626831694
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-3",
+          "timestamp": 1759629759142,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 94.49696828257711
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-5"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755142,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 83.26148456186995
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756142,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a create.",
+          "context": {
+            "value": 33.01765635681355
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757142,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a transfer.",
+          "context": {
+            "value": 59.03021921160856
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758142,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a transfer.",
+          "context": {
+            "value": 30.817071626831694
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759142,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a update.",
+          "context": {
+            "value": 94.49696828257711
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755142
+    }
+  },
+  {
+    "id": "narrator-210",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629755142,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 11.853747873365993
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629756142,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 26.440468544727615
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-3",
+          "timestamp": 1759629757142,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 71.40055633698125
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-6",
+          "timestamp": 1759629758142,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 75.9300613554027
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-1",
+          "timestamp": 1759629759142,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 84.87193298716925
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755142,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 11.853747873365993
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756142,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 26.440468544727615
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757142,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a create.",
+          "context": {
+            "value": 71.40055633698125
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758142,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a update.",
+          "context": {
+            "value": 75.9300613554027
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759142,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a create.",
+          "context": {
+            "value": 84.87193298716925
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755142
+    }
+  },
+  {
+    "id": "narrator-216",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-2",
+          "timestamp": 1759629755142,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 85.27635249002319
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-3",
+          "timestamp": 1759629756142,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 84.5184900718179
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "transfer",
+          "entity": "entity-2",
+          "timestamp": 1759629757142,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 68.73677190428931
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-3",
+          "timestamp": 1759629758142,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 79.61401473404067
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629759142,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 30.068134908769785
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-5"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755142,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a create.",
+          "context": {
+            "value": 85.27635249002319
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756142,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a update.",
+          "context": {
+            "value": 84.5184900718179
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757142,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a transfer.",
+          "context": {
+            "value": 68.73677190428931
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758142,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a create.",
+          "context": {
+            "value": 79.61401473404067
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759142,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 30.068134908769785
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755142
+    }
+  },
+  {
+    "id": "narrator-222",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629755143,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 72.29668852447327
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629756143,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 65.78703856718673
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-1",
+          "timestamp": 1759629757143,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 37.454356911673734
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-8",
+          "timestamp": 1759629758143,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 69.50080700417477
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "transfer",
+          "entity": "entity-6",
+          "timestamp": 1759629759143,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 52.94377605567637
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-1"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755143,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 72.29668852447327
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756143,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 65.78703856718673
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757143,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a update.",
+          "context": {
+            "value": 37.454356911673734
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758143,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a create.",
+          "context": {
+            "value": 69.50080700417477
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759143,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a transfer.",
+          "context": {
+            "value": 52.94377605567637
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "transfer"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755143
+    }
+  },
+  {
+    "id": "narrator-228",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-2",
+          "timestamp": 1759629755143,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 34.774482069944426
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-1",
+          "timestamp": 1759629756143,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 47.137616185214945
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629757143,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 53.1015251957818
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-2",
+          "timestamp": 1759629758143,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 35.61037200839095
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-5",
+          "timestamp": 1759629759143,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 70.29291808623516
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755143,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a delete.",
+          "context": {
+            "value": 34.774482069944426
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756143,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a delete.",
+          "context": {
+            "value": 47.137616185214945
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757143,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 53.1015251957818
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758143,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a delete.",
+          "context": {
+            "value": 35.61037200839095
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759143,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a delete.",
+          "context": {
+            "value": 70.29291808623516
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755143
+    }
+  },
+  {
+    "id": "narrator-234",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-2",
+          "timestamp": 1759629755143,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 91.12868202131754
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629756143,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 12.393231147822249
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-1",
+          "timestamp": 1759629757143,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 27.276324240459225
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-8",
+          "timestamp": 1759629758143,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 33.29889501929875
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-5",
+          "timestamp": 1759629759143,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 41.84456917236088
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-0"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755143,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a create.",
+          "context": {
+            "value": 91.12868202131754
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756143,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 12.393231147822249
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757143,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a delete.",
+          "context": {
+            "value": 27.276324240459225
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758143,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a update.",
+          "context": {
+            "value": 33.29889501929875
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759143,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a create.",
+          "context": {
+            "value": 41.84456917236088
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755143
+    }
+  },
+  {
+    "id": "narrator-240",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629755144,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 26.54352445054562
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-7",
+          "timestamp": 1759629756144,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 91.04065095874189
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-5",
+          "timestamp": 1759629757144,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 71.61447130162185
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-0",
+          "timestamp": 1759629758144,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 2.6953680229327093
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-1",
+          "timestamp": 1759629759144,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 0.3305919714837957
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755144,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 26.54352445054562
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756144,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a update.",
+          "context": {
+            "value": 91.04065095874189
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757144,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a update.",
+          "context": {
+            "value": 71.61447130162185
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758144,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a transfer.",
+          "context": {
+            "value": 2.6953680229327093
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759144,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a update.",
+          "context": {
+            "value": 0.3305919714837957
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755144
+    }
+  },
+  {
+    "id": "narrator-246",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-6",
+          "timestamp": 1759629755144,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 26.35894322055785
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-4",
+          "timestamp": 1759629756144,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 60.563255324402434
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-3",
+          "timestamp": 1759629757144,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 95.42876703207233
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629758144,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 83.65851389270114
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-6",
+          "timestamp": 1759629759144,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 90.54699934951662
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-2"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755144,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a delete.",
+          "context": {
+            "value": 26.35894322055785
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756144,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a transfer.",
+          "context": {
+            "value": 60.563255324402434
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757144,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a delete.",
+          "context": {
+            "value": 95.42876703207233
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758144,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 83.65851389270114
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759144,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a delete.",
+          "context": {
+            "value": 90.54699934951662
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755144
+    }
+  },
+  {
+    "id": "narrator-252",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629755144,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 56.35593932182057
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629756144,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 87.71493269108564
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629757144,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 41.55717087752136
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629758144,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 3.755249367920821
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-3",
+          "timestamp": 1759629759144,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 79.03751545899146
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755144,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 56.35593932182057
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756144,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 87.71493269108564
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757144,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 41.55717087752136
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758144,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 3.755249367920821
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759144,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a update.",
+          "context": {
+            "value": 79.03751545899146
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755144
+    }
+  },
+  {
+    "id": "narrator-258",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-9",
+          "timestamp": 1759629755144,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 61.71278318959619
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-0",
+          "timestamp": 1759629756144,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 40.25339025501378
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629757144,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 60.64262318325115
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629758144,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 38.148095168848826
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-6",
+          "timestamp": 1759629759144,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 30.211249213191604
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755144,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a create.",
+          "context": {
+            "value": 61.71278318959619
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756144,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a update.",
+          "context": {
+            "value": 40.25339025501378
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757144,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 60.64262318325115
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758144,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 38.148095168848826
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759144,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a delete.",
+          "context": {
+            "value": 30.211249213191604
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755144
+    }
+  },
+  {
+    "id": "narrator-264",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-2",
+          "timestamp": 1759629755145,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 25.152722107328263
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629756145,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 23.173390323244412
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-5",
+          "timestamp": 1759629757145,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 57.590878907277386
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-3",
+          "timestamp": 1759629758145,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 67.03347711048661
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-1",
+          "timestamp": 1759629759145,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 69.79670847632744
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-0"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755145,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a update.",
+          "context": {
+            "value": 25.152722107328263
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756145,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 23.173390323244412
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757145,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a create.",
+          "context": {
+            "value": 57.590878907277386
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758145,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a update.",
+          "context": {
+            "value": 67.03347711048661
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759145,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a delete.",
+          "context": {
+            "value": 69.79670847632744
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755145
+    }
+  },
+  {
+    "id": "narrator-270",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "transfer",
+          "entity": "entity-7",
+          "timestamp": 1759629755145,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 63.867099761428456
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-9",
+          "timestamp": 1759629756145,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 6.6163198549553215
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-0",
+          "timestamp": 1759629757145,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 19.307828406317395
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "update",
+          "entity": "entity-7",
+          "timestamp": 1759629758145,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 82.84323785902248
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "update",
+          "entity": "entity-2",
+          "timestamp": 1759629759145,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 15.371374437808583
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-6"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755145,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a transfer.",
+          "context": {
+            "value": 63.867099761428456
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756145,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a transfer.",
+          "context": {
+            "value": 6.6163198549553215
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757145,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a create.",
+          "context": {
+            "value": 19.307828406317395
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758145,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a update.",
+          "context": {
+            "value": 82.84323785902248
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759145,
+          "speaker": "System",
+          "text": "Something happened to entity-2! It was a update.",
+          "context": {
+            "value": 15.371374437808583
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "update"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755145
+    }
+  },
+  {
+    "id": "narrator-276",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-6",
+          "timestamp": 1759629755145,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 14.921452075930342
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "update",
+          "entity": "entity-1",
+          "timestamp": 1759629756145,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 68.21526048893244
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-0",
+          "timestamp": 1759629757145,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 7.207183477762102
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629758145,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 47.3613381928856
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-3",
+          "timestamp": 1759629759145,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 86.2210449585683
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-0"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755145,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a delete.",
+          "context": {
+            "value": 14.921452075930342
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756145,
+          "speaker": "System",
+          "text": "Something happened to entity-1! It was a update.",
+          "context": {
+            "value": 68.21526048893244
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757145,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a update.",
+          "context": {
+            "value": 7.207183477762102
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758145,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 47.3613381928856
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759145,
+          "speaker": "System",
+          "text": "Something happened to entity-3! It was a delete.",
+          "context": {
+            "value": 86.2210449585683
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755145
+    }
+  },
+  {
+    "id": "narrator-282",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629755146,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 26.6132603065363
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-5",
+          "timestamp": 1759629756146,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 62.68861555038725
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "update",
+          "entity": "entity-5",
+          "timestamp": 1759629757146,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 38.17829611619086
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629758146,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 51.59686765320537
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "create",
+          "entity": "entity-4",
+          "timestamp": 1759629759146,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 60.77927309146354
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-8"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755146,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 26.6132603065363
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756146,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a create.",
+          "context": {
+            "value": 62.68861555038725
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757146,
+          "speaker": "System",
+          "text": "Something happened to entity-5! It was a update.",
+          "context": {
+            "value": 38.17829611619086
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758146,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 51.59686765320537
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759146,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a create.",
+          "context": {
+            "value": 60.77927309146354
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "create"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755146
+    }
+  },
+  {
+    "id": "narrator-288",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "update",
+          "entity": "entity-6",
+          "timestamp": 1759629755146,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 31.16972141076957
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "transfer",
+          "entity": "entity-4",
+          "timestamp": 1759629756146,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 30.721829378450405
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "create",
+          "entity": "entity-8",
+          "timestamp": 1759629757146,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 62.699383133488354
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629758146,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 22.201280800891187
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-9",
+          "timestamp": 1759629759146,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 70.78380294554285
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-9"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755146,
+          "speaker": "System",
+          "text": "Something happened to entity-6! It was a update.",
+          "context": {
+            "value": 31.16972141076957
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756146,
+          "speaker": "System",
+          "text": "Something happened to entity-4! It was a transfer.",
+          "context": {
+            "value": 30.721829378450405
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757146,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a create.",
+          "context": {
+            "value": 62.699383133488354
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758146,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 22.201280800891187
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759146,
+          "speaker": "System",
+          "text": "Something happened to entity-9! It was a delete.",
+          "context": {
+            "value": 70.78380294554285
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755146
+    }
+  },
+  {
+    "id": "narrator-294",
+    "input": {
+      "events": [
+        {
+          "id": "event-0",
+          "type": "create",
+          "entity": "entity-8",
+          "timestamp": 1759629755146,
+          "causes": [],
+          "effects": [
+            "event-1"
+          ],
+          "data": {
+            "value": 54.65913334752819
+          }
+        },
+        {
+          "id": "event-1",
+          "type": "create",
+          "entity": "entity-7",
+          "timestamp": 1759629756146,
+          "causes": [
+            "event-0"
+          ],
+          "effects": [
+            "event-2"
+          ],
+          "data": {
+            "value": 53.27670641160145
+          }
+        },
+        {
+          "id": "event-2",
+          "type": "delete",
+          "entity": "entity-7",
+          "timestamp": 1759629757146,
+          "causes": [
+            "event-1"
+          ],
+          "effects": [
+            "event-3"
+          ],
+          "data": {
+            "value": 15.393094883815461
+          }
+        },
+        {
+          "id": "event-3",
+          "type": "transfer",
+          "entity": "entity-8",
+          "timestamp": 1759629758146,
+          "causes": [
+            "event-2"
+          ],
+          "effects": [
+            "event-4"
+          ],
+          "data": {
+            "value": 83.52256995334606
+          }
+        },
+        {
+          "id": "event-4",
+          "type": "delete",
+          "entity": "entity-0",
+          "timestamp": 1759629759146,
+          "causes": [
+            "event-3"
+          ],
+          "effects": [],
+          "data": {
+            "value": 25.054346306232446
+          }
+        }
+      ],
+      "mode": "kid",
+      "focusEntity": "entity-3"
+    },
+    "output": {
+      "story": [
+        {
+          "timestamp": 1759629755146,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a create.",
+          "context": {
+            "value": 54.65913334752819
+          },
+          "causalLinks": []
+        },
+        {
+          "timestamp": 1759629756146,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a create.",
+          "context": {
+            "value": 53.27670641160145
+          },
+          "causalLinks": [
+            "event-0"
+          ]
+        },
+        {
+          "timestamp": 1759629757146,
+          "speaker": "System",
+          "text": "Something happened to entity-7! It was a delete.",
+          "context": {
+            "value": 15.393094883815461
+          },
+          "causalLinks": [
+            "event-1"
+          ]
+        },
+        {
+          "timestamp": 1759629758146,
+          "speaker": "System",
+          "text": "Something happened to entity-8! It was a transfer.",
+          "context": {
+            "value": 83.52256995334606
+          },
+          "causalLinks": [
+            "event-2"
+          ]
+        },
+        {
+          "timestamp": 1759629759146,
+          "speaker": "System",
+          "text": "Something happened to entity-0! It was a delete.",
+          "context": {
+            "value": 25.054346306232446
+          },
+          "causalLinks": [
+            "event-3"
+          ]
+        }
+      ],
+      "summary": "A kid-friendly story of 5 events",
+      "keyInsights": [
+        "Event chain demonstrates causality",
+        "All invariants maintained"
+      ],
+      "causalChains": [
+        {
+          "trigger": "event-0",
+          "chain": [
+            "event-0",
+            "event-1",
+            "event-2",
+            "event-3",
+            "event-4"
+          ],
+          "outcome": "delete"
+        }
+      ]
+    },
+    "metadata": {
+      "substrate": "narrative",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629755146
+    }
+  }
+]

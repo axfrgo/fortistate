@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Context Menu Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            padding: 20px;
+        }
+        .test-section {
+            background: #16213e;
+            border: 2px solid #0f3460;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        h1 { color: #a78bfa; }
+        h2 { color: #c4b5fd; }
+        .checklist { list-style: none; padding: 0; }
+        .checklist li { padding: 8px; margin: 5px 0; background: #0f3460; border-radius: 4px; }
+        .checklist li::before { content: '☐ '; font-size: 18px; margin-right: 10px; }
+        .checklist li.done::before { content: '✅ '; }
+        code {
+            background: #0a0e27;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #a78bfa;
+        }
+        .log-output {
+            background: #0a0e27;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        .info { color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Context Menu Click Test</h1>
+    <p>This guide will help you verify that the context menu buttons are working.</p>
+
+    <div class="test-section">
+        <h2>Step 1: Start Dev Server</h2>
+        <p>In PowerShell:</p>
+        <div class="log-output">
+cd packages/visual-studio
+npm run dev
+        </div>
+        <p class="info">✓ Server should start at http://localhost:5173</p>
+    </div>
+
+    <div class="test-section">
+        <h2>Step 2: Open Visual Studio</h2>
+        <ul class="checklist">
+            <li>Navigate to http://localhost:5173</li>
+            <li>Press F12 to open DevTools</li>
+            <li>Go to Console tab</li>
+            <li>Clear console (Ctrl+L)</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Step 3: Test Context Menu</h2>
+        
+        <h3>Test 3A: Right-click on empty canvas</h3>
+        <p>Expected console output:</p>
+        <div class="log-output">
+<span class="info">🎯 ContextMenu rendered: {
+  x: 123,
+  y: 456,
+  hasNode: false,
+  hasEdge: false,
+  hasTarget: false,
+  hasHandlers: { custodian: true, narrator: true, explorer: true }
+}</span>
+        </div>
+
+        <h3>Test 3B: Right-click on a node</h3>
+        <p>Expected console output:</p>
+        <div class="log-output">
+<span class="info">🎯 ContextMenu rendered: {
+  x: 123,
+  y: 456,
+  hasNode: true,
+  hasEdge: false,
+  hasTarget: true,
+  nodeLabel: "law-1",
+  hasHandlers: { custodian: true, narrator: true, explorer: true }
+}</span>
+        </div>
+
+        <p><strong>✅ If you see these logs, the context menu is rendering correctly!</strong></p>
+    </div>
+
+    <div class="test-section">
+        <h2>Step 4: Click a Menu Button</h2>
+        
+        <h3>Click "🛡️ Ask Custodian to Review"</h3>
+        <p>Expected console output (in order):</p>
+        <div class="log-output">
+<span class="info">🛡️ Custodian button clicked</span>
+<span class="info">🔘 Menu item clicked { hasTarget: true, target: {...} }</span>
+<span class="success">✅ Calling action with target</span>
+<span class="info">🛡️ [CUSTODIAN] Handler called with target: { id: "law-1", ... }</span>
+<span class="info">🛡️ [CUSTODIAN] Target type: law-1 hasData: true</span>
+<span class="info">🛡️ [CUSTODIAN] Spawning agent...</span>
+<span class="success">🛡️ [CUSTODIAN] Agent spawned successfully</span>
+<span class="info">🛡️ [CUSTODIAN] Executing agent...</span>
+<span class="error">🛡️ [CUSTODIAN] Error: ... (Expected - models not set up)</span>
+        </div>
+
+        <p>Then an <strong>alert dialog</strong> should appear:</p>
+        <div class="log-output">
+Custodian agent is not available. This requires a local AI model setup.
+
+Error: [specific error message]
+        </div>
+
+        <p><strong>✅ Seeing the alert = Buttons are working!</strong></p>
+        <p><em>The error is expected - AI models need to be set up for agents to work.</em></p>
+    </div>
+
+    <div class="test-section">
+        <h2>Step 5: Verify Results</h2>
+        <ul class="checklist">
+            <li>Context menu appears on right-click</li>
+            <li>Three buttons are visible (🛡️ 📖 🔮)</li>
+            <li>Console shows logs when clicking</li>
+            <li>Alert dialog appears after clicking</li>
+            <li>Menu closes after clicking</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>🐛 Troubleshooting</h2>
+        
+        <h3>Problem: No logs appear when clicking</h3>
+        <p><strong>Solution:</strong></p>
+        <ol>
+            <li>Hard refresh browser: <code>Ctrl+Shift+R</code></li>
+            <li>Check if dev server reloaded code</li>
+            <li>Restart dev server</li>
+            <li>Check console for React errors</li>
+        </ol>
+
+        <h3>Problem: Menu appears but clicking does nothing</h3>
+        <p><strong>Test in console:</strong></p>
+        <div class="log-output">
+document.querySelector('.context-menu-item')?.click()
+        </div>
+        <p>If this works, there's a CSS issue blocking clicks.</p>
+
+        <h3>Problem: Can't find the menu</h3>
+        <p><strong>Test in console:</strong></p>
+        <div class="log-output">
+document.querySelector('.context-menu')
+        </div>
+        <p>Should return the menu element, not null.</p>
+    </div>
+
+    <div class="test-section">
+        <h2>✅ Success Criteria</h2>
+        <p>You should see ALL of these:</p>
+        <ul class="checklist">
+            <li>✅ Menu renders on right-click</li>
+            <li>✅ Console shows "ContextMenu rendered" log</li>
+            <li>✅ Clicking button shows "button clicked" log</li>
+            <li>✅ Console shows handler logs ([CUSTODIAN], etc.)</li>
+            <li>✅ Alert dialog appears with message</li>
+            <li>✅ Menu closes after clicking</li>
+        </ul>
+        
+        <p class="success"><strong>If all boxes are checked, the context menu is working correctly! 🎉</strong></p>
+        <p><em>The "agent not available" error is expected until AI models are configured.</em></p>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Console Output Reference</h2>
+        <p>Here's what a complete successful test looks like:</p>
+        <div class="log-output">
+<span class="info">🎯 ContextMenu rendered: { x: 150, y: 200, hasNode: true, ... }</span>
+<span class="info">🛡️ Custodian button clicked</span>
+<span class="info">🔘 Menu item clicked { hasTarget: true, target: {...} }</span>
+<span class="success">✅ Calling action with target</span>
+<span class="info">🛡️ [CUSTODIAN] Handler called with target: { id: "law-1", ... }</span>
+<span class="info">🛡️ [CUSTODIAN] Target type: law-1 hasData: true</span>
+<span class="info">🛡️ [CUSTODIAN] Spawning agent...</span>
+<span class="success">🛡️ [CUSTODIAN] Agent spawned successfully</span>
+<span class="info">🛡️ [CUSTODIAN] Executing agent...</span>
+<span class="error">🛡️ [CUSTODIAN] Error: Cannot read properties of undefined (reading 'execute')</span>
+        </div>
+        <p><em>Note: The error at the end is fine - it means the click worked but models aren't set up.</em></p>
+    </div>
+
+    <div class="test-section">
+        <h2>🚀 Next Steps</h2>
+        <p>After verifying the context menu works:</p>
+        <ol>
+            <li><strong>Context menu is functional</strong> ✅</li>
+            <li><strong>Buttons trigger handlers</strong> ✅</li>
+            <li><strong>Logging works</strong> ✅</li>
+            <li><strong>Set up AI models</strong> (optional) - See AI agent setup guide</li>
+        </ol>
+    </div>
+
+</body>
+</html>

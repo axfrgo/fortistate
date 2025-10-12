@@ -1,0 +1,238 @@
+/**
+ * Fortistate Design System - Global Styles
+ * Can be imported into any consuming application
+ * 
+ * Usage:
+ * ```js
+ * import '@fortistate/design-system/css';
+ * ```
+ */
+
+/* Custom Scrollbars - VS Code Style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.5);
+}
+
+/* Global Focus Styles */
+*:focus,
+*:focus-visible {
+  outline: 2px solid rgba(167, 139, 250, 0.6);
+  outline-offset: 2px;
+}
+
+/* Text Selection */
+::selection {
+  background: rgba(167, 139, 250, 0.3);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: rgba(167, 139, 250, 0.3);
+  color: #ffffff;
+}
+
+/* Font Smoothing */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+
+/* Utility Classes */
+.backdrop-blur-strong {
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+}
+
+.backdrop-blur-medium {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.backdrop-blur-light {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #0f0c29 0%, #171b34 25%, #24243e 50%, #302b63 75%, #24243e 100%);
+}
+
+.bg-gradient-section {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+}
+
+.bg-gradient-logo {
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+}
+
+.border-gradient-accent::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(167, 139, 250, 0.5) 50%,
+    transparent 100%);
+  opacity: 0.6;
+}
+
+/* Animation Utilities */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.15);
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* VS Code-inspired Component Styles */
+.vscode-panel {
+  background: rgba(20, 20, 31, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+}
+
+.vscode-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.vscode-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+.vscode-button {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  user-select: none;
+}
+
+.vscode-button:hover {
+  background: rgba(167, 139, 250, 0.12);
+  border-color: rgba(167, 139, 250, 0.25);
+  color: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.15);
+}
+
+.vscode-button:active {
+  transform: translateY(0);
+}
+
+.vscode-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #ffffff;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.vscode-input:focus {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(167, 139, 250, 0.4);
+  outline: none;
+}
+
+.vscode-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Status Indicators */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot.success {
+  background: #89d185;
+  box-shadow: 0 0 6px rgba(137, 209, 133, 0.6);
+}
+
+.status-dot.warning {
+  background: #cca700;
+  box-shadow: 0 0 6px rgba(204, 167, 0, 0.6);
+}
+
+.status-dot.error {
+  background: #f48771;
+  box-shadow: 0 0 6px rgba(244, 135, 113, 0.6);
+}
+
+.status-dot.info {
+  background: #007acc;
+  box-shadow: 0 0 6px rgba(0, 122, 204, 0.6);
+}
+
+/* Loading State */
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

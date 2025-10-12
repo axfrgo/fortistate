@@ -53,7 +53,7 @@ describe('inspector config loader', () => {
     const { dir, presetDest } = setupExampleConfig()
     const port = 4782
     const srv = createInspector({ port, quiet: true, cwd: dir })
-    try {
+    try{
       await srv.start()
       await waitForCondition(
         () => fetch(`http://localhost:${port}/remote-stores`).then(r => r.json()),

@@ -1,0 +1,381 @@
+/* Restriction Badge Styles */
+
+.restriction-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(245, 158, 11, 1);
+}
+
+.restriction-icon {
+  font-size: 16px;
+}
+
+.restriction-text {
+  color: rgba(245, 158, 11, 1);
+}
+
+.restriction-upgrade-btn {
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.restriction-upgrade-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+/* Usage Limit Badge */
+
+.usage-limit-badge {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(167, 139, 250, 0.3);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.usage-limit-badge.near-limit {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.05);
+}
+
+.usage-limit-badge.at-limit {
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.usage-limit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.usage-limit-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.usage-limit-count {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(167, 139, 250, 1);
+}
+
+.usage-limit-badge.near-limit .usage-limit-count {
+  color: rgba(245, 158, 11, 1);
+}
+
+.usage-limit-badge.at-limit .usage-limit-count {
+  color: rgba(239, 68, 68, 1);
+}
+
+.usage-limit-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.usage-limit-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #a78bfa, #8b5cf6);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.usage-limit-badge.near-limit .usage-limit-progress {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.usage-limit-badge.at-limit .usage-limit-progress {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.usage-limit-upgrade-btn {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 4px;
+}
+
+.usage-limit-upgrade-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Upgrade Prompt */
+
+.upgrade-prompt {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  max-width: 420px;
+  z-index: 2000;
+  animation: slideInUp 0.4s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.upgrade-prompt-content {
+  padding: 24px;
+  background: rgba(24, 24, 37, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(167, 139, 250, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.upgrade-prompt-icon {
+  font-size: 48px;
+  text-align: center;
+}
+
+.upgrade-prompt-title {
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  text-align: center;
+}
+
+.upgrade-prompt-message {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(226, 232, 240, 0.8);
+  margin: 0;
+  text-align: center;
+}
+
+.upgrade-prompt-tiers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.upgrade-prompt-tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid rgba(167, 139, 250, 0.2);
+  border-radius: 12px;
+}
+
+.upgrade-prompt-tier.recommended {
+  border-color: rgba(167, 139, 250, 0.6);
+  background: rgba(167, 139, 250, 0.1);
+}
+
+.tier-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(226, 232, 240, 0.6);
+  font-weight: 600;
+}
+
+.tier-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+}
+
+.upgrade-prompt-tier.recommended .tier-name {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.upgrade-prompt-arrow {
+  font-size: 24px;
+  color: rgba(167, 139, 250, 0.6);
+}
+
+.upgrade-prompt-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.upgrade-prompt-btn {
+  flex: 1;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.upgrade-prompt-btn.primary {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  color: white;
+  box-shadow: 0 8px 24px rgba(167, 139, 250, 0.4);
+}
+
+.upgrade-prompt-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(167, 139, 250, 0.6);
+}
+
+.upgrade-prompt-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(167, 139, 250, 0.3);
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.upgrade-prompt-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(167, 139, 250, 0.5);
+}
+
+/* Plan Comparison */
+
+.plan-comparison {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.plan-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.plan-comparison-table th,
+.plan-comparison-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.plan-comparison-table th {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(167, 139, 250, 1);
+  background: rgba(167, 139, 250, 0.05);
+}
+
+.feature-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.feature-value {
+  font-size: 14px;
+  color: rgba(226, 232, 240, 0.7);
+  text-align: center;
+}
+
+.check-icon {
+  color: #10b981;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.cross-icon {
+  color: rgba(226, 232, 240, 0.3);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* Feature Gate */
+
+.feature-gate {
+  position: relative;
+}
+
+.feature-gate-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  z-index: 10;
+}
+
+.feature-gate-content.disabled {
+  filter: grayscale(100%) opacity(0.5);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .upgrade-prompt {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
+
+  .upgrade-prompt-tiers {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .upgrade-prompt-arrow {
+    transform: rotate(90deg);
+  }
+
+  .upgrade-prompt-actions {
+    flex-direction: column;
+  }
+
+  .plan-comparison-table th,
+  .plan-comparison-table td {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,355 @@
+.share-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 12, 28, 0.72);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  z-index: 998;
+}
+
+.share-dialog-positioner {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 40px);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.share-dialog {
+  position: relative;
+  width: min(580px, calc(100vw - 64px));
+  max-height: calc(100vh - 80px);
+  background: linear-gradient(
+    135deg,
+    rgba(20, 16, 33, 0.95) 0%,
+    rgba(28, 26, 48, 0.92) 50%,
+    rgba(9, 10, 19, 0.95) 100%
+  );
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 40px 120px rgba(59, 130, 246, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  backdrop-filter: blur(30px) saturate(140%);
+  -webkit-backdrop-filter: blur(30px) saturate(140%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+
+.share-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.share-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary, #f8f7ff);
+  letter-spacing: -0.01em;
+}
+
+.close-button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-secondary, rgba(226, 213, 255, 0.75));
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.close-button:hover {
+  background: rgba(99, 102, 241, 0.15);
+  color: var(--text-primary, #f8f7ff);
+}
+
+.share-content {
+  padding: 24px 28px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Invite form */
+.invite-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.invite-form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #f8f7ff);
+}
+
+.invite-inputs {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+}
+
+.email-input,
+.role-select,
+.link-input {
+  padding: 10px 14px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 10px;
+  color: var(--text-primary, #f8f7ff);
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.email-input:focus,
+.role-select:focus,
+.link-input:focus {
+  outline: none;
+  border-color: rgba(99, 102, 241, 0.5);
+  background: rgba(99, 102, 241, 0.12);
+}
+
+.role-select {
+  min-width: 110px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: rgba(99, 102, 241, 0.08);
+  color: var(--text-primary, #f8f7ff);
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.59 1.42L6 6 1.41 1.42' stroke='%23f8f7ff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 38px;
+}
+
+.role-select option {
+  color: #111827;
+  background: #f3f4ff;
+}
+
+.role-select::-ms-expand {
+  display: none;
+}
+
+.invite-button,
+.copy-button {
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.invite-button:hover:not(:disabled),
+.copy-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+.invite-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 13px;
+}
+
+/* Role descriptions */
+.role-descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.role-item {
+  font-size: 13px;
+  color: var(--text-secondary, rgba(226, 213, 255, 0.75));
+  line-height: 1.5;
+}
+
+.role-item strong {
+  color: var(--text-primary, #f8f7ff);
+  font-weight: 600;
+}
+
+/* Share link section */
+.share-link-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.share-link-section label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #f8f7ff);
+}
+
+.share-link-input {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.link-input {
+  cursor: text;
+}
+
+.copy-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+}
+
+/* Upgrade notice */
+.upgrade-notice {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  border-radius: 12px;
+  color: #fde047;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.upgrade-notice svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.upgrade-notice strong {
+  color: #fef08a;
+  font-weight: 600;
+}
+
+.upgrade-link {
+  color: #fef08a;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 8px;
+  transition: color 0.2s;
+}
+
+.upgrade-link:hover {
+  color: #fef9c3;
+  text-decoration: underline;
+}
+
+/* Aurora Light theme */
+body[data-theme='aurora-light'] .share-dialog {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.92) 100%);
+  border-color: rgba(99, 102, 241, 0.2);
+  box-shadow: 0 40px 120px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.05) inset;
+}
+
+body[data-theme='aurora-light'] .share-overlay {
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+}
+
+body[data-theme='aurora-light'] .share-header {
+  border-bottom-color: rgba(99, 102, 241, 0.15);
+}
+
+body[data-theme='aurora-light'] .share-header h2 {
+  color: #1e293b;
+}
+
+body[data-theme='aurora-light'] .close-button {
+  color: #64748b;
+}
+
+body[data-theme='aurora-light'] .close-button:hover {
+  background: rgba(99, 102, 241, 0.1);
+  color: #1e293b;
+}
+
+body[data-theme='aurora-light'] .email-input,
+body[data-theme='aurora-light'] .role-select,
+body[data-theme='aurora-light'] .link-input {
+  background: rgba(99, 102, 241, 0.05);
+  border-color: rgba(99, 102, 241, 0.15);
+  color: #1e293b;
+}
+
+body[data-theme='aurora-light'] .role-select {
+  background-color: rgba(99, 102, 241, 0.05);
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.59 1.42L6 6 1.41 1.42' stroke='%231e293b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+body[data-theme='aurora-light'] .role-select option {
+  color: #1f2937;
+  background: #ffffff;
+}
+
+body[data-theme='aurora-light'] .email-input:focus,
+body[data-theme='aurora-light'] .role-select:focus,
+body[data-theme='aurora-light'] .link-input:focus {
+  background: rgba(99, 102, 241, 0.08);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+body[data-theme='aurora-light'] .role-descriptions {
+  background: rgba(99, 102, 241, 0.03);
+  border-color: rgba(99, 102, 241, 0.08);
+}
+
+body[data-theme='aurora-light'] .role-item {
+  color: #64748b;
+}
+
+body[data-theme='aurora-light'] .role-item strong {
+  color: #1e293b;
+}
+
+body[data-theme='aurora-light'] .upgrade-notice {
+  background: rgba(234, 179, 8, 0.08);
+  border-color: rgba(234, 179, 8, 0.2);
+  color: #854d0e;
+}
+
+body[data-theme='aurora-light'] .upgrade-notice strong {
+  color: #713f12;
+}
+
+body[data-theme='aurora-light'] .upgrade-link {
+  color: #854d0e;
+}
+
+body[data-theme='aurora-light'] .upgrade-link:hover {
+  color: #713f12;
+}

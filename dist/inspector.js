@@ -123,7 +123,41 @@ export function createInspectorServer(opts = {}) {
     let wss = null;
     // stores registered remotely (from other processes / browser)
     const remoteStores = {};
-    const persistFile = path.resolve(root, '.fortistate-remote-stores.json');
+    const sanitizeNamespace = (value) => value
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '') || 'default';
+    const rawNamespace = process.env.FORTISTATE_INSPECTOR_NAMESPACE
+        || process.env.FORTISTATE_REMOTE_NAMESPACE
+        || process.env.npm_package_name
+        || path.basename(root)
+        || 'default';
+    const namespace = sanitizeNamespace(rawNamespace);
+    const defaultNamespace = sanitizeNamespace(path.basename(root) || 'default');
+    const persistDir = path.resolve(root, '.fortistate');
+    const legacyPersistFile = path.resolve(root, '.fortistate-remote-stores.json');
+    let persistFile = path.join(persistDir, `remote-stores-${namespace}.json`);
+    const ensurePersistDir = () => {
+        try {
+            fs.mkdirSync(persistDir, { recursive: true });
+        }
+        catch (e) { /* ignore */ }
+    };
+    ensurePersistDir();
+    if (!fs.existsSync(persistFile) && fs.existsSync(legacyPersistFile) && namespace === defaultNamespace) {
+        try {
+            ensurePersistDir();
+            fs.renameSync(legacyPersistFile, persistFile);
+        }
+        catch (e) {
+            try {
+                const legacyContents = fs.readFileSync(legacyPersistFile, 'utf-8');
+                fs.writeFileSync(persistFile, legacyContents);
+                fs.unlinkSync(legacyPersistFile);
+            }
+            catch (copyErr) { /* ignore */ }
+        }
+    }
     const base = path.dirname(fileURLToPath(import.meta.url));
     // prefer embedded module HTML; if devClient option (or env) is enabled prefer the examples copy
     const devClientEnabled = Boolean(opts.devClient) || process.env.FORTISTATE_INSPECTOR_DEV_CLIENT === '1';
@@ -165,8 +199,34 @@ export function createInspectorServer(opts = {}) {
             }
         }
     };
+    // History buffer for timeline tracking
+    const historyBuffer = [];
+    const MAX_HISTORY_BUFFER = 200;
+    const recordHistory = (action, details) => {
+        const entry = {
+            action,
+            ts: Date.now(),
+            ...details
+        };
+        historyBuffer.push(entry);
+        if (historyBuffer.length > MAX_HISTORY_BUFFER) {
+            historyBuffer.shift();
+        }
+        // Broadcast history update via WebSocket
+        if (wss) {
+            const msg = JSON.stringify({ type: 'history:add', entry });
+            wss.clients.forEach((c) => {
+                try {
+                    if (c.readyState === 1)
+                        c.send(msg);
+                }
+                catch (e) { /* ignore */ }
+            });
+        }
+    };
     const persistRemoteStoresSafe = () => {
         try {
+            ensurePersistDir();
             fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
         }
         catch (e) { /* ignore */ }
@@ -182,6 +242,93 @@ export function createInspectorServer(opts = {}) {
             catch (e) { /* ignore */ }
         });
     };
+    // Universe storage helpers
+    const universesDir = path.resolve(root, '.fortistate-universes');
+    const slugify = (value) => {
+        return value
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    };
+    const ensureUniversesDir = () => {
+        try {
+            if (!fs.existsSync(universesDir)) {
+                fs.mkdirSync(universesDir, { recursive: true });
+            }
+        }
+        catch (e) { /* ignore */ }
+    };
+    const listUniverses = () => {
+        try {
+            ensureUniversesDir();
+            const entries = fs.readdirSync(universesDir);
+            const universes = [];
+            for (const entry of entries) {
+                const metaPath = path.join(universesDir, entry, 'meta.json');
+                if (fs.existsSync(metaPath)) {
+                    try {
+                        const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+                        universes.push(meta);
+                    }
+                    catch (e) { /* ignore malformed meta */ }
+                }
+            }
+            return universes;
+        }
+        catch (e) {
+            return [];
+        }
+    };
+    const getUniverseMeta = (universeId) => {
+        try {
+            const metaPath = path.join(universesDir, universeId, 'meta.json');
+            if (fs.existsSync(metaPath)) {
+                return JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+            }
+        }
+        catch (e) { /* ignore */ }
+        return null;
+    };
+    const saveUniverseMeta = (universeId, meta) => {
+        try {
+            ensureUniversesDir();
+            const universeDir = path.join(universesDir, universeId);
+            if (!fs.existsSync(universeDir)) {
+                fs.mkdirSync(universeDir, { recursive: true });
+            }
+            const metaPath = path.join(universeDir, 'meta.json');
+            fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2));
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
+    };
+    const getUniverseVersion = (universeId, versionId) => {
+        try {
+            const versionPath = path.join(universesDir, universeId, 'versions', `${versionId}.json`);
+            if (fs.existsSync(versionPath)) {
+                return JSON.parse(fs.readFileSync(versionPath, 'utf-8'));
+            }
+        }
+        catch (e) { /* ignore */ }
+        return null;
+    };
+    const saveUniverseVersion = (universeId, versionId, version) => {
+        try {
+            ensureUniversesDir();
+            const versionsDir = path.join(universesDir, universeId, 'versions');
+            if (!fs.existsSync(versionsDir)) {
+                fs.mkdirSync(versionsDir, { recursive: true });
+            }
+            const versionPath = path.join(versionsDir, `${versionId}.json`);
+            fs.writeFileSync(versionPath, JSON.stringify(version, null, 2));
+            return true;
+        }
+        catch (e) {
+            return false;
+        }
+    };
     const gatherConfigWatchTargets = (configPath, config) => {
         const targets = new Set();
         if (configPath)
@@ -194,7 +341,21 @@ export function createInspectorServer(opts = {}) {
         const addEntry = (entry) => {
             if (typeof entry === 'string' && entry.trim()) {
                 const abs = path.isAbsolute(entry) ? entry : path.resolve(root, entry);
-                targets.add(abs);
+                // If the path exists and is a directory, watch all JS/MJS/CJS files in it
+                try {
+                    if (fs.existsSync(abs) && fs.statSync(abs).isDirectory()) {
+                        targets.add(path.join(abs, '*.js'));
+                        targets.add(path.join(abs, '*.mjs'));
+                        targets.add(path.join(abs, '*.cjs'));
+                    }
+                    else {
+                        targets.add(abs);
+                    }
+                }
+                catch (e) {
+                    // If we can't stat it, just add it as-is
+                    targets.add(abs);
+                }
             }
         };
         const presets = Array.isArray(config === null || config === void 0 ? void 0 : config.presets) ? config.presets : [];
@@ -273,7 +434,13 @@ export function createInspectorServer(opts = {}) {
             return;
         try {
             const chokidar = await import('chokidar');
-            configWatcher = chokidar.watch(normalized, { ignoreInitial: true });
+            configWatcher = chokidar.watch(normalized, {
+                ignoreInitial: true,
+                awaitWriteFinish: {
+                    stabilityThreshold: 100,
+                    pollInterval: 50
+                }
+            });
             const handle = (file) => queueConfigRefresh('config-watch:' + path.relative(root, file));
             configWatcher.on('add', handle);
             configWatcher.on('change', handle);
@@ -691,7 +858,7 @@ export function createInspectorServer(opts = {}) {
                             }
                             duplicateStore(payload.sourceKey, payload.destKey);
                             try {
-                                fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                persistRemoteStoresSafe();
                             }
                             catch (e) { /* ignore */ }
                             if (wss) {
@@ -873,7 +1040,7 @@ export function createInspectorServer(opts = {}) {
                                 }
                                 catch (e) { /* ignore */ }
                                 try {
-                                    fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                    persistRemoteStoresSafe();
                                 }
                                 catch (e) { /* ignore */ }
                                 if (wss) {
@@ -886,6 +1053,8 @@ export function createInspectorServer(opts = {}) {
                                     });
                                 }
                                 auditEvent('store:register', auth, { key: payload.key, hasInitial: Object.prototype.hasOwnProperty.call(payload, 'initial') });
+                                // Record history
+                                recordHistory('register', { key: payload.key, initial: payload.initial });
                             }
                             res.writeHead(200);
                             res.end('ok');
@@ -920,7 +1089,7 @@ export function createInspectorServer(opts = {}) {
                                 }
                                 catch (e) { /* ignore */ }
                                 try {
-                                    fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                    persistRemoteStoresSafe();
                                 }
                                 catch (e) { /* ignore */ }
                                 if (wss) {
@@ -932,6 +1101,8 @@ export function createInspectorServer(opts = {}) {
                                         catch (e) { /* ignore */ }
                                     });
                                 }
+                                // Record history
+                                recordHistory('change', { key: payload.key, value: payload.value });
                                 auditEvent('store:change', auth, { key: payload.key });
                             }
                             res.writeHead(200);
@@ -1003,6 +1174,19 @@ export function createInspectorServer(opts = {}) {
                     res.writeHead(200);
                     res.end(JSON.stringify(remoteStores));
                     auditEvent('remote-stores:list', auth);
+                    return;
+                }
+                // expose history timeline for the timeline panel
+                if (req.method === 'GET' && req.url === '/history') {
+                    const auth = requireObserver({ optional: !requireSessions, allowLegacy: true });
+                    if (auth === null)
+                        return;
+                    const allowedOrigin = req.headers.origin;
+                    setCors(allowedOrigin);
+                    res.setHeader('Content-Type', 'application/json');
+                    res.writeHead(200);
+                    res.end(JSON.stringify(historyBuffer));
+                    auditEvent('history:read', auth);
                     return;
                 }
                 if (req.method === 'GET' && req.url === '/presets') {
@@ -1082,7 +1266,7 @@ export function createInspectorServer(opts = {}) {
                                 if (typeof val !== 'undefined') {
                                     remoteStores[result.key] = val;
                                     try {
-                                        fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                        persistRemoteStoresSafe();
                                     }
                                     catch (e) { /* ignore */ }
                                 }
@@ -1142,7 +1326,7 @@ export function createInspectorServer(opts = {}) {
                                 if (typeof val !== 'undefined') {
                                     remoteStores[destKey] = val;
                                     try {
-                                        fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                        persistRemoteStoresSafe();
                                     }
                                     catch (e) { /* ignore */ }
                                 }
@@ -1198,7 +1382,7 @@ export function createInspectorServer(opts = {}) {
                                 if (typeof bVal !== 'undefined')
                                     remoteStores[keyB] = bVal;
                                 try {
-                                    fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                    persistRemoteStoresSafe();
                                 }
                                 catch (e) { /* ignore */ }
                             }
@@ -1253,7 +1437,7 @@ export function createInspectorServer(opts = {}) {
                                     remoteStores[newKey] = newVal;
                                 delete remoteStores[oldKey];
                                 try {
-                                    fs.writeFileSync(persistFile, JSON.stringify(remoteStores, null, 2));
+                                    persistRemoteStoresSafe();
                                 }
                                 catch (e) { /* ignore */ }
                             }
@@ -1273,6 +1457,80 @@ export function createInspectorServer(opts = {}) {
                             auditEvent('store:move', auth, { oldKey, newKey });
                             res.writeHead(200);
                             res.end('ok');
+                        }
+                        catch (e) {
+                            res.writeHead(500);
+                            res.end('error');
+                        }
+                    });
+                    return;
+                }
+                // POST /open-in-vscode { storeKey, workspacePath? }
+                if (req.method === 'POST' && req.url === '/open-in-vscode') {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    readJsonBody(req).then((payload) => {
+                        try {
+                            const { storeKey, workspacePath } = payload;
+                            if (!storeKey) {
+                                res.writeHead(400);
+                                res.end('missing storeKey');
+                                return;
+                            }
+                            // Try to find the store file in common locations
+                            const cwd = workspacePath || process.cwd();
+                            const commonPaths = [
+                                path.join(cwd, 'src', 'stores', `${storeKey}.ts`),
+                                path.join(cwd, 'src', 'stores', `${storeKey}Store.ts`),
+                                path.join(cwd, 'src', 'state', `${storeKey}.ts`),
+                                path.join(cwd, 'src', 'models', `${storeKey}Model.ts`),
+                                path.join(cwd, 'src', `${storeKey}.ts`)
+                            ];
+                            // Find the first existing file
+                            let foundPath = null;
+                            for (const p of commonPaths) {
+                                if (fs.existsSync(p)) {
+                                    foundPath = p;
+                                    break;
+                                }
+                            }
+                            if (!foundPath) {
+                                // If no file found, try to search using grep
+                                try {
+                                    const searchPattern = `createStore(['"\`]${storeKey}['"\`]`;
+                                    const result = spawnSync('grep', ['-r', '-l', searchPattern, path.join(cwd, 'src')], {
+                                        encoding: 'utf-8',
+                                        timeout: 5000
+                                    });
+                                    if (result.stdout && result.stdout.trim()) {
+                                        const files = result.stdout.trim().split('\\n');
+                                        if (files.length > 0) {
+                                            foundPath = files[0];
+                                        }
+                                    }
+                                }
+                                catch (e) {
+                                    // grep might not be available on Windows, ignore
+                                }
+                            }
+                            if (foundPath) {
+                                // Try to open VS Code using the 'code' command
+                                try {
+                                    spawn('code', ['--goto', foundPath], { detached: true, stdio: 'ignore' });
+                                    auditEvent('ide:open', auth, { storeKey, path: foundPath });
+                                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                                    res.end(JSON.stringify({ success: true, path: foundPath }));
+                                }
+                                catch (e) {
+                                    res.writeHead(200, { 'Content-Type': 'application/json' });
+                                    res.end(JSON.stringify({ success: false, path: foundPath, message: 'VS Code command not found' }));
+                                }
+                            }
+                            else {
+                                res.writeHead(200, { 'Content-Type': 'application/json' });
+                                res.end(JSON.stringify({ success: false, message: 'Store file not found', searchedPaths: commonPaths }));
+                            }
                         }
                         catch (e) {
                             res.writeHead(500);
@@ -1501,6 +1759,354 @@ export function createInspectorServer(opts = {}) {
                     catch (e) {
                         // ignore and fallthrough
                     }
+                }
+                // Universe API endpoints
+                const rawPath = req.url ? req.url.split('?')[0] : '';
+                const normalizedPath = rawPath.length > 1 && rawPath.endsWith('/') ? rawPath.slice(0, -1) : rawPath;
+                if (req.method === 'OPTIONS' && normalizedPath.startsWith('/api/universes')) {
+                    setCors();
+                    res.writeHead(204);
+                    res.end();
+                    return;
+                }
+                // GET /api/universes - list all saved universes
+                if (req.method === 'GET' && normalizedPath === '/api/universes') {
+                    const auth = requireObserver({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    setCors(req.headers.origin);
+                    try {
+                        const universes = listUniverses();
+                        res.setHeader('Content-Type', 'application/json');
+                        res.writeHead(200);
+                        res.end(JSON.stringify({ universes }));
+                        auditEvent('universe:list', auth, { count: universes.length });
+                    }
+                    catch (e) {
+                        auditEvent('universe:list', auth, { error: String(e) });
+                        res.writeHead(500);
+                        res.end(JSON.stringify({ error: 'Failed to list universes' }));
+                    }
+                    return;
+                }
+                // GET /api/universes/:id/versions/:versionId - get specific version
+                if (req.method === 'GET' && normalizedPath.startsWith('/api/universes/')) {
+                    const auth = requireObserver({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    setCors(req.headers.origin);
+                    try {
+                        const match = normalizedPath.match(/^\/api\/universes\/([^/]+)\/versions\/([^/]+)$/);
+                        if (match) {
+                            const universeId = decodeURIComponent(match[1]);
+                            const versionId = decodeURIComponent(match[2]);
+                            const version = getUniverseVersion(universeId, versionId);
+                            if (version) {
+                                res.setHeader('Content-Type', 'application/json');
+                                res.writeHead(200);
+                                res.end(JSON.stringify({ version }));
+                                auditEvent('universe:version:get', auth, { universeId, versionId });
+                            }
+                            else {
+                                res.writeHead(404);
+                                res.end(JSON.stringify({ error: 'Version not found' }));
+                                auditEvent('universe:version:get', auth, { universeId, versionId, error: 'not-found' });
+                            }
+                            return;
+                        }
+                    }
+                    catch (e) {
+                        auditEvent('universe:version:get', auth, { error: String(e) });
+                        res.writeHead(500);
+                        res.end(JSON.stringify({ error: 'Failed to get version' }));
+                        return;
+                    }
+                }
+                // POST /api/universes - create new universe
+                if (req.method === 'POST' && normalizedPath === '/api/universes') {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    (async () => {
+                        var _a, _b, _c, _d, _e;
+                        try {
+                            const body = await readJsonBody(req);
+                            setCors(req.headers.origin);
+                            if (body && typeof body === 'object' && body !== null && 'metadata' in body && 'canvas' in body) {
+                                const metadata = (body.metadata && typeof body.metadata === 'object') ? body.metadata : {};
+                                const canvasState = body.canvas;
+                                const bindings = Array.isArray(body.bindings) ? body.bindings : [];
+                                if (!canvasState || !Array.isArray(canvasState.nodes) || !Array.isArray(canvasState.edges) || !canvasState.viewport) {
+                                    res.writeHead(400);
+                                    res.end(JSON.stringify({ error: 'Invalid canvas payload' }));
+                                    return;
+                                }
+                                const providedId = [body.universeId, metadata.universeId, metadata.id]
+                                    .find(value => typeof value === 'string' && value.trim().length > 0);
+                                const label = typeof metadata.label === 'string' && metadata.label.trim().length > 0
+                                    ? metadata.label.trim()
+                                    : 'Untitled Universe';
+                                const baseSlug = slugify(label) || 'universe';
+                                let universeId = providedId ? providedId.trim() : baseSlug;
+                                if (!providedId) {
+                                    let candidate = universeId;
+                                    let suffix = 1;
+                                    while (getUniverseMeta(candidate)) {
+                                        candidate = `${baseSlug}-${suffix++}`;
+                                    }
+                                    universeId = candidate;
+                                }
+                                const nowIso = new Date().toISOString();
+                                const ownerId = [body.ownerId, metadata.ownerId]
+                                    .find(value => typeof value === 'string' && value.trim().length > 0);
+                                const createdBy = [body.createdBy, metadata.createdBy]
+                                    .find(value => typeof value === 'string' && value.trim().length > 0);
+                                const existingMetaRaw = getUniverseMeta(universeId);
+                                const meta = existingMetaRaw ? { ...existingMetaRaw } : {
+                                    id: universeId,
+                                    createdAt: nowIso,
+                                    versionIds: [],
+                                    activeVersionId: null,
+                                    integrationCounts: {},
+                                };
+                                meta.label = label;
+                                meta.description = typeof metadata.description === 'string' ? metadata.description : '';
+                                meta.icon = typeof metadata.icon === 'string' && metadata.icon.trim().length > 0 ? metadata.icon : (meta.icon || '🌌');
+                                meta.ownerId = (_a = ownerId !== null && ownerId !== void 0 ? ownerId : meta.ownerId) !== null && _a !== void 0 ? _a : 'unknown';
+                                meta.marketTags = Array.isArray(metadata.marketTags) ? metadata.marketTags.filter(tag => typeof tag === 'string') : ((_b = meta.marketTags) !== null && _b !== void 0 ? _b : []);
+                                meta.dataSensitivity = typeof metadata.dataSensitivity === 'string' ? metadata.dataSensitivity : meta.dataSensitivity;
+                                meta.updatedAt = nowIso;
+                                const versionId = (_c = [body.versionId, metadata.versionId]
+                                    .find(value => typeof value === 'string' && value.trim().length > 0)) !== null && _c !== void 0 ? _c : `v${meta.versionIds.length + 1}-${Date.now().toString(36).slice(-4)}`;
+                                const versionLabel = (_d = [body.versionLabel, metadata.versionLabel]
+                                    .find(value => typeof value === 'string' && value.trim().length > 0)) !== null && _d !== void 0 ? _d : `Snapshot ${meta.versionIds.length + 1}`;
+                                const versionDescription = [body.versionDescription, metadata.versionDescription]
+                                    .find(value => typeof value === 'string' && value.trim().length > 0);
+                                const lastRunSummary = body.lastRunSummary && typeof body.lastRunSummary === 'object'
+                                    ? body.lastRunSummary
+                                    : undefined;
+                                const version = {
+                                    id: versionId,
+                                    label: versionLabel,
+                                    description: versionDescription || '',
+                                    createdAt: nowIso,
+                                    createdBy: (_e = createdBy !== null && createdBy !== void 0 ? createdBy : meta.ownerId) !== null && _e !== void 0 ? _e : 'system',
+                                    canvasState: {
+                                        nodes: canvasState.nodes,
+                                        edges: canvasState.edges,
+                                        viewport: canvasState.viewport,
+                                    },
+                                    bindings,
+                                    lastRunSummary,
+                                };
+                                const integrationCounts = { ...(meta.integrationCounts || {}) };
+                                bindings.forEach((binding) => {
+                                    var _a;
+                                    if (binding && typeof binding.providerId === 'string') {
+                                        const key = binding.providerId;
+                                        integrationCounts[key] = ((_a = integrationCounts[key]) !== null && _a !== void 0 ? _a : 0) + 1;
+                                    }
+                                });
+                                meta.integrationCounts = integrationCounts;
+                                if (!meta.versionIds.includes(versionId)) {
+                                    meta.versionIds = [...meta.versionIds, versionId];
+                                }
+                                meta.activeVersionId = versionId;
+                                const savedVersion = saveUniverseVersion(universeId, versionId, version);
+                                const savedMeta = saveUniverseMeta(universeId, meta);
+                                if (savedVersion && savedMeta) {
+                                    res.setHeader('Content-Type', 'application/json');
+                                    res.writeHead(201);
+                                    res.end(JSON.stringify({ universe: meta, version }));
+                                    auditEvent('universe:create', auth, { universeId, label, versionId });
+                                }
+                                else {
+                                    res.writeHead(500);
+                                    res.end(JSON.stringify({ error: 'Failed to persist universe data' }));
+                                    auditEvent('universe:create', auth, { universeId, error: 'persist-failed' });
+                                }
+                                return;
+                            }
+                            const { id, label, description, icon, ownerId, marketTags, dataSensitivity } = body !== null && body !== void 0 ? body : {};
+                            if (!id || !label || !ownerId) {
+                                res.writeHead(400);
+                                res.end(JSON.stringify({ error: 'Missing required fields: id, label, ownerId' }));
+                                return;
+                            }
+                            const now = new Date().toISOString();
+                            const meta = {
+                                id,
+                                label,
+                                description: description || '',
+                                icon: icon || '🌌',
+                                createdAt: now,
+                                updatedAt: now,
+                                ownerId,
+                                marketTags: marketTags || [],
+                                activeVersionId: null,
+                                versionIds: [],
+                                integrationCounts: {},
+                                dataSensitivity: dataSensitivity || 'internal',
+                            };
+                            const saved = saveUniverseMeta(id, meta);
+                            if (saved) {
+                                res.setHeader('Content-Type', 'application/json');
+                                res.writeHead(201);
+                                res.end(JSON.stringify({ universe: meta }));
+                                auditEvent('universe:create', auth, { universeId: id, label });
+                            }
+                            else {
+                                res.writeHead(500);
+                                res.end(JSON.stringify({ error: 'Failed to save universe' }));
+                                auditEvent('universe:create', auth, { universeId: id, error: 'save-failed' });
+                            }
+                        }
+                        catch (e) {
+                            auditEvent('universe:create', auth, { error: String(e) });
+                            res.writeHead(500);
+                            res.end(JSON.stringify({ error: 'Failed to create universe' }));
+                        }
+                    })();
+                    return;
+                }
+                // POST /api/universes/:id/versions - create new version
+                if (req.method === 'POST' && normalizedPath.match(/^\/api\/universes\/[^/]+\/versions$/)) {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    (async () => {
+                        try {
+                            const match = normalizedPath.match(/^\/api\/universes\/([^/]+)\/versions$/);
+                            if (!match)
+                                return;
+                            const universeId = decodeURIComponent(match[1]);
+                            const body = await readJsonBody(req);
+                            setCors(req.headers.origin);
+                            const { id, label, description, createdBy, canvasState, bindings } = body;
+                            if (!id || !label || !createdBy || !canvasState) {
+                                res.writeHead(400);
+                                res.end(JSON.stringify({ error: 'Missing required fields: id, label, createdBy, canvasState' }));
+                                return;
+                            }
+                            const meta = getUniverseMeta(universeId);
+                            if (!meta) {
+                                res.writeHead(404);
+                                res.end(JSON.stringify({ error: 'Universe not found' }));
+                                auditEvent('universe:version:create', auth, { universeId, error: 'universe-not-found' });
+                                return;
+                            }
+                            const now = new Date().toISOString();
+                            const version = {
+                                id,
+                                label,
+                                description: description || '',
+                                createdAt: now,
+                                createdBy,
+                                canvasState,
+                                bindings: bindings || [],
+                                lastRunSummary: body.lastRunSummary || null,
+                            };
+                            const saved = saveUniverseVersion(universeId, id, version);
+                            if (saved) {
+                                // Update universe meta with new version
+                                if (!meta.versionIds.includes(id)) {
+                                    meta.versionIds.push(id);
+                                }
+                                if (!meta.activeVersionId) {
+                                    meta.activeVersionId = id;
+                                }
+                                meta.updatedAt = now;
+                                saveUniverseMeta(universeId, meta);
+                                res.setHeader('Content-Type', 'application/json');
+                                res.writeHead(201);
+                                res.end(JSON.stringify({ version }));
+                                auditEvent('universe:version:create', auth, { universeId, versionId: id, label });
+                            }
+                            else {
+                                res.writeHead(500);
+                                res.end(JSON.stringify({ error: 'Failed to save version' }));
+                                auditEvent('universe:version:create', auth, { universeId, versionId: id, error: 'save-failed' });
+                            }
+                        }
+                        catch (e) {
+                            auditEvent('universe:version:create', auth, { error: String(e) });
+                            res.writeHead(500);
+                            res.end(JSON.stringify({ error: 'Failed to create version' }));
+                        }
+                    })();
+                    return;
+                }
+                // DELETE /api/universes/:id - remove a universe and its versions
+                if (req.method === 'DELETE' && normalizedPath.match(/^\/api\/universes\/[^/]+$/)) {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    const match = normalizedPath.match(/^\/api\/universes\/([^/]+)$/);
+                    if (!match) {
+                        res.writeHead(400);
+                        res.end(JSON.stringify({ error: 'Invalid universe id' }));
+                        return;
+                    }
+                    const universeId = decodeURIComponent(match[1]);
+                    setCors(req.headers.origin);
+                    try {
+                        const universeDir = path.join(universesDir, universeId);
+                        if (!fs.existsSync(universeDir)) {
+                            res.writeHead(404);
+                            res.end(JSON.stringify({ error: 'Universe not found' }));
+                            auditEvent('universe:delete', auth, { universeId, error: 'not-found' });
+                            return;
+                        }
+                        fs.rmSync(universeDir, { recursive: true, force: true });
+                        res.writeHead(204);
+                        res.end();
+                        auditEvent('universe:delete', auth, { universeId, success: true });
+                    }
+                    catch (e) {
+                        auditEvent('universe:delete', auth, { universeId, error: String(e) });
+                        res.writeHead(500);
+                        res.end(JSON.stringify({ error: 'Failed to delete universe' }));
+                    }
+                    return;
+                }
+                // POST /api/universes/:id/launch - simulate launch request
+                if (req.method === 'POST' && normalizedPath.match(/^\/api\/universes\/[^/]+\/launch$/)) {
+                    const auth = requireEditor({ allowLegacy: true });
+                    if (!auth)
+                        return;
+                    const match = normalizedPath.match(/^\/api\/universes\/([^/]+)\/launch$/);
+                    if (!match) {
+                        res.writeHead(400);
+                        res.end(JSON.stringify({ error: 'Invalid universe id' }));
+                        return;
+                    }
+                    const universeId = decodeURIComponent(match[1]);
+                    (async () => {
+                        var _a;
+                        setCors(req.headers.origin);
+                        try {
+                            const meta = getUniverseMeta(universeId);
+                            if (!meta) {
+                                res.writeHead(404);
+                                res.end(JSON.stringify({ error: 'Universe not found' }));
+                                auditEvent('universe:launch', auth, { universeId, error: 'not-found' });
+                                return;
+                            }
+                            const body = await readJsonBody(req);
+                            const launchId = `launch-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+                            const status = 'queued';
+                            auditEvent('universe:launch', auth, { universeId, launchId, config: (_a = body === null || body === void 0 ? void 0 : body.config) !== null && _a !== void 0 ? _a : null });
+                            res.setHeader('Content-Type', 'application/json');
+                            res.writeHead(202);
+                            res.end(JSON.stringify({ launchId, status }));
+                        }
+                        catch (e) {
+                            auditEvent('universe:launch', auth, { universeId, error: String(e) });
+                            res.writeHead(500);
+                            res.end(JSON.stringify({ error: 'Failed to initiate launch' }));
+                        }
+                    })();
+                    return;
                 }
                 // serve inspector UI at root
                 if (req.url === '/' || req.url === '/index.html') {

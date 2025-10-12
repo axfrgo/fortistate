@@ -1,0 +1,183 @@
+.law-node {
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(30, 30, 46, 0.95), rgba(24, 24, 37, 0.98));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(167, 139, 250, 0.2);
+  min-width: 200px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 2px 16px rgba(167, 139, 250, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.law-node::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(167, 139, 250, 0.5) 50%,
+    transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.law-node:hover::before {
+  opacity: 1;
+}
+
+.law-node:hover {
+  transform: translateY(-2px);
+  border-color: rgba(167, 139, 250, 0.4);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 4px 24px rgba(167, 139, 250, 0.2);
+}
+
+.law-node.selected {
+  border-color: rgba(167, 139, 250, 0.7);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(167, 139, 250, 0.5),
+    0 0 32px rgba(167, 139, 250, 0.3);
+  transform: translateY(-2px);
+}
+
+.law-node.idle {
+  border-color: rgba(167, 139, 250, 0.2);
+}
+
+.law-node.executing {
+  border-color: rgba(167, 139, 250, 0.8);
+  background: linear-gradient(145deg, 
+    rgba(48, 35, 74, 0.95), 
+    rgba(39, 29, 61, 0.98));
+  box-shadow: 
+    0 12px 48px rgba(167, 139, 250, 0.3),
+    0 0 0 1px rgba(167, 139, 250, 0.3) inset,
+    0 0 40px rgba(167, 139, 250, 0.4);
+}
+
+.law-node.success {
+  border-color: rgba(16, 185, 129, 0.6);
+  background: linear-gradient(145deg, 
+    rgba(20, 48, 38, 0.95), 
+    rgba(16, 39, 31, 0.98));
+  box-shadow: 
+    0 12px 48px rgba(16, 185, 129, 0.2),
+    0 0 0 1px rgba(16, 185, 129, 0.2) inset,
+    0 0 32px rgba(16, 185, 129, 0.25);
+}
+
+.law-node.error {
+  border-color: rgba(239, 68, 68, 0.6);
+  background: linear-gradient(145deg, 
+    rgba(48, 26, 26, 0.95), 
+    rgba(39, 20, 20, 0.98));
+  box-shadow: 
+    0 12px 48px rgba(239, 68, 68, 0.2),
+    0 0 0 1px rgba(239, 68, 68, 0.2) inset,
+    0 0 32px rgba(239, 68, 68, 0.25);
+}
+
+.law-node-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.law-node-icon {
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.law-node-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.law-node-result {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 12px;
+}
+
+.result-status {
+  font-size: 18px;
+  font-weight: bold;
+  filter: drop-shadow(0 2px 6px currentColor);
+}
+
+.law-node.success .result-status {
+  color: #10B981;
+}
+
+.law-node.error .result-status {
+  color: #EF4444;
+}
+
+.result-duration {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Courier New', monospace;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+/* Handles */
+.react-flow__handle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+  border: 2px solid rgba(30, 30, 46, 0.9);
+  box-shadow: 
+    0 0 0 2px rgba(167, 139, 250, 0.2),
+    0 2px 8px rgba(167, 139, 250, 0.4);
+  transition: all 0.3s ease;
+}
+
+.react-flow__handle:hover {
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%);
+  box-shadow: 
+    0 0 0 3px rgba(167, 139, 250, 0.3),
+    0 2px 12px rgba(167, 139, 250, 0.6);
+}
+
+.law-node.executing .react-flow__handle {
+  background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+  animation: pulse-handle 1.5s infinite;
+}
+
+@keyframes pulse-handle {
+  0%, 100% {
+    box-shadow: 
+      0 0 0 2px rgba(167, 139, 250, 0.5),
+      0 0 0 0 rgba(167, 139, 250, 0.7);
+  }
+  50% {
+    box-shadow: 
+      0 0 0 2px rgba(167, 139, 250, 0.3),
+      0 0 0 8px rgba(167, 139, 250, 0);
+  }
+}

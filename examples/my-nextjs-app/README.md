@@ -1,307 +1,611 @@
-# Fortistate Comprehensive DemoThis is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fortistate Next.js Demo - Ontogenetic Edition# Fortistate Comprehensive DemoThis is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 
 
-This Next.js application demonstrates **all features** of Fortistate delivered across **Epics 1-5**, showcasing the transformation into a production-ready, collaborative state management platform.## Getting Started
+A comprehensive demonstration of Fortistate state management with **ontogenetic laws** - rules that govern how state should evolve over time.
 
 
 
-## 🎯 What This Demo ShowsFirst, run the development server:
+## 🎮 FeaturesThis Next.js application demonstrates **all features** of Fortistate delivered across **Epics 1-5**, showcasing the transformation into a production-ready, collaborative state management platform.## Getting Started
 
 
+
+### 1. Space Shooter Game with Law Enforcement
+
+- **10 Ontogenetic Laws** governing game state
+
+- Real-time law validation and violation detection## 🎯 What This Demo ShowsFirst, run the development server:
+
+- Auto-fix capability for law violations
+
+- Interactive game with health, score, levels, enemies, and power-ups
+
+- Visual law enforcement panel showing violations and suggestions
 
 ### Epic 1-3: Authentication & Developer Experience```bash
 
-- **Unified auth system** with `createRoleEnforcer`npm run dev
+### 2. Full Inspector Integration
 
-- **Role-based access control** (observer/editor/admin)# or
+- Automatic store detection and exposure- **Unified auth system** with `createRoleEnforcer`npm run dev
 
-- **Session management** with create/list/revoke operationsyarn dev
+- Real-time state monitoring
+
+- Law validation with presets (strict, production, development, minimal, none)- **Role-based access control** (observer/editor/admin)# or
+
+- Timeline view of all state mutations
+
+- Telemetry data for law enforcement metrics- **Session management** with create/list/revoke operationsyarn dev
+
+- WebSocket connection for live updates
 
 - **JWT tokens** with TTL (time-to-live)# or
 
-- **CLI integration** for session workflowspnpm dev
+### 3. Complete Feature Demo
 
-# or
+- **Authentication & Sessions**: Role-based access control- **CLI integration** for session workflowspnpm dev
+
+- **Audit Logging**: Complete history of all state changes
+
+- **Collaboration**: Real-time presence tracking# or
+
+- **State Management**: Reactive stores with type safety
 
 ### Epic 4: Audit Loggingbun dev
 
-- **Log rotation** (size and age-based)```
-
-- **Multiple export formats** (JSON, CSV, plain text)
-
-- **Complete audit trail** of all admin actionsOpen [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-- **Compliance-ready** logging system
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-### Epic 5: Multi-User Collaboration
-
-- **Real-time presence tracking** of connected usersThis project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-- **WebSocket protocol** for live updates
-
-- **Active store awareness** - see what others are viewing## Learn More
-
-- **Cursor tracking** through state tree navigation
-
-- **Automatic idle cleanup** after 5 minutesTo learn more about Next.js, take a look at the following resources:
-
-
-
-### Core Features- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-
-- **Reactive state stores** with instant updates- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-- **Type-safe** TypeScript support
-
-- **Nested objects and arrays** You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-- **Real-time inspector** integration
-
-## Deploy on Vercel
-
----
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
 ## 🚀 Quick Start
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Log rotation** (size and age-based)```
 
 ### 1. Install Dependencies
 
-```bash
-cd examples/my-nextjs-app
+```bash- **Multiple export formats** (JSON, CSV, plain text)
+
 npm install
-```
 
-### 2. Build Fortistate (if not already built)
+```- **Complete audit trail** of all admin actionsOpen [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
+
+### 2. Start the Demo App- **Compliance-ready** logging system
 
 ```bash
-cd ../../
-npm run build
-cd examples/my-nextjs-app
+
+npm run devYou can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
 ```
 
-### 3. Start the Inspector
+### Epic 5: Multi-User Collaboration
+
+The app will be available at [http://localhost:3000](http://localhost:3000)
+
+- **Real-time presence tracking** of connected usersThis project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+### 3. Start the Inspector (in a separate terminal)
+
+From the root of the fortistate project:- **WebSocket protocol** for live updates
+
+```bash
+
+npm run inspect- **Active store awareness** - see what others are viewing## Learn More
+
+```
+
+- **Cursor tracking** through state tree navigation
+
+The inspector will open at [http://localhost:4000](http://localhost:4000)
+
+- **Automatic idle cleanup** after 5 minutesTo learn more about Next.js, take a look at the following resources:
+
+## 🔍 Inspector Integration
+
+
+
+### Automatic Store Detection
+
+The app automatically exposes these stores to the inspector:### Core Features- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+
+- `gameState` - Space shooter game state with ontogenetic laws
+
+- `counter` - Simple counter demo- **Reactive state stores** with instant updates- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+- `cart` - Shopping cart with nested objects
+
+- `user` - User profile and preferences- **Type-safe** TypeScript support
+
+- `collaboration` - Real-time presence data
+
+- `session` - Authentication session- **Nested objects and arrays** You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+- `audit` - Audit log entries
+
+- **Real-time inspector** integration
+
+### Inspector Features
+
+## Deploy on Vercel
+
+#### 1. **Store Monitoring**
+
+- View all stores in real-time---
+
+- See current state values
+
+- Filter stores by nameThe easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+- Auto-refresh on changes
+
+## 🚀 Quick Start
+
+#### 2. **Ontogenetic Laws**
+
+The inspector includes 10 game-specific laws:Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+- **GAME-001**: Player health bounds (0 to maxHealth)
+
+- **GAME-002**: Score must be non-negative### 1. Install Dependencies
+
+- **GAME-003**: Level must be positive integer
+
+- **GAME-004**: Resources should not exceed capacity```bash
+
+- **GAME-005**: Game pause time limit (5 minutes)cd examples/my-nextjs-app
+
+- **GAME-006**: Player position within boundsnpm install
+
+- **GAME-007**: High score tracking```
+
+- **GAME-008**: Enemy count sync with array length
+
+- **GAME-009**: Power-up expiration times### 2. Build Fortistate (if not already built)
+
+- **GAME-010**: State mutation validation
+
+```bash
+
+#### 3. **Law Presets**cd ../../
+
+Apply pre-configured law enforcement levels:npm run build
+
+- **Strict**: All laws enforced (development/testing)cd examples/my-nextjs-app
+
+- **Production**: Production-safe rules only```
+
+- **Development**: Balanced for active development
+
+- **Minimal**: Essential laws only### 3. Start the Inspector
+
+- **None**: Disable law enforcement
 
 In one terminal:
 
-```bash
-# From the fortistate root
-npm run inspect
+#### 4. **Timeline**
+
+- View complete history of state changes```bash
+
+- Track which actions triggered mutations# From the fortistate root
+
+- Replay state changesnpm run inspect
+
+- Debug time-based issues
 
 # Optional: specify a custom port
-npm run inspect -- --port 5173
 
-# Allow the Next.js app (port 3000) to talk to the inspector
-npm run inspect -- --allow-origin http://localhost:3000
+#### 5. **Telemetry**npm run inspect -- --port 5173
+
+- Monitor law violation counts
+
+- See which laws fail most often# Allow the Next.js app (port 3000) to talk to the inspector
+
+- Performance metrics for validationnpm run inspect -- --allow-origin http://localhost:3000
+
+- Real-time charts and graphs
 
 # Combine flags as needed (port + allow-origin, etc.)
-```
 
-By default the inspector listens on **http://localhost:4000**. If you override the port or need to allow multiple origins, pass the flags shown above so the browser can reach it.
+#### 6. **Auto-Fix**```
+
+- Automatically repair law violations
+
+- Apply fixes with one clickBy default the inspector listens on **http://localhost:4000**. If you override the port or need to allow multiple origins, pass the flags shown above so the browser can reach it.
+
+- See before/after state comparison
 
 > ℹ️ The demo now proxies REST calls through `/api/fortistate`, so listing sessions or fetching audit logs works even when the inspector omits CORS headers. You'll still want `--allow-origin http://localhost:3000` to keep the Presence WebSocket happy.
 
+## 🎮 Playing the Game
+
 ### 4. Configure the Demo (if needed)
 
-The demo reads `NEXT_PUBLIC_INSPECTOR_URL` from `.env.local`. We ship a default file pointing to `http://localhost:4000`. If you changed the inspector port, update the variable:
+### Game Controls
+
+- **Arrow Buttons**: Move player (left, right, up, down)The demo reads `NEXT_PUBLIC_INSPECTOR_URL` from `.env.local`. We ship a default file pointing to `http://localhost:4000`. If you changed the inspector port, update the variable:
+
+- **Shoot**: Fire at enemies (costs ammo)
+
+- **Spawn Enemy**: Add new enemy to the game```bash
+
+- **+Score**: Increase score by 100echo NEXT_PUBLIC_INSPECTOR_URL=http://localhost:5173 > .env.local
+
+- **Level Up**: Advance to next level```
+
+- **Take Damage**: Reduce player health by 20
+
+- **Collect Resources**: Gain ammo, shields, or energy### 5. Run the Next.js App
+
+- **Speed Boost**: Activate temporary speed power-up
+
+- **Pause/Resume**: Toggle game stateIn another terminal:
+
+- **Reset**: Start a new game
 
 ```bash
-echo NEXT_PUBLIC_INSPECTOR_URL=http://localhost:5173 > .env.local
-```
 
-### 5. Run the Next.js App
+### Law Violation Triggers# From examples/my-nextjs-app
 
-In another terminal:
+Test the inspector's law enforcement by clicking these buttons:npm run dev
 
-```bash
-# From examples/my-nextjs-app
-npm run dev
-```
+- **Break Health Law**: Set health above maxHealth```
 
-The app will start on `http://localhost:3000`
+- **Break Score Law**: Set negative score
 
-### 6. Open Both in Your Browser
+- **Break Level Law**: Set non-integer levelThe app will start on `http://localhost:3000`
+
+- **Break Resource Law**: Exceed resource capacity
+
+- **Break Position Law**: Move player out of bounds### 6. Open Both in Your Browser
+
+- **Break Enemy Count**: Desync enemy count
 
 - **Demo App**: http://localhost:3000
-- **Inspector**: http://localhost:4000 (or your configured port)
 
----
+After triggering violations:- **Inspector**: http://localhost:4000 (or your configured port)
 
-## 📖 Using the Demo
+1. Open the inspector
+
+2. Check the "Laws" panel---
+
+3. See violations highlighted in red/yellow
+
+4. Click "Auto-Fix" to repair violations## 📖 Using the Demo
+
+5. Watch the state correct itself in real-time
 
 ### Overview Tab (📊)
 
+## 📊 Inspector Workflow
+
 The landing page provides:
-- Summary of all 5 epics and their features
-- Quick navigation to different sections
-- Quick start guide
-- Feature highlights
 
-### Sessions Tab (🔐)
+### Typical Usage- Summary of all 5 epics and their features
 
-**Test authentication and session management:**
+1. **Start both services**: Demo app on :3000, Inspector on :4000- Quick navigation to different sections
 
-1. **Create a Session**
-   - Select a role: `observer` (read-only), `editor` (can modify), or `admin` (full control)
+2. **Navigate to Game Demo**: Click "🎮 Game Demo" in the app- Quick start guide
+
+3. **Open Inspector**: Auto-detects running app and stores- Feature highlights
+
+4. **Play the game**: Move around, shoot enemies, collect resources
+
+5. **Trigger violations**: Click law violation buttons### Sessions Tab (🔐)
+
+6. **Monitor inspector**: Watch real-time violations appear
+
+7. **Apply law presets**: Configure enforcement level**Test authentication and session management:**
+
+8. **Auto-fix issues**: Click repair button
+
+9. **View timeline**: See complete mutation history1. **Create a Session**
+
+10. **Check telemetry**: Analyze law enforcement metrics   - Select a role: `observer` (read-only), `editor` (can modify), or `admin` (full control)
+
    - Add a label (e.g., "Alice", "Bob", "Test User")
-   - Choose TTL (1h, 24h, 7d, 30d)
-   - Click "Create Session"
-   - **Save the token** - it's stored in localStorage
 
-2. **List Active Sessions**
-   - Click "List Active Sessions"
+### Law Preset Configuration   - Choose TTL (1h, 24h, 7d, 30d)
+
+1. In the inspector, click "🎨 Presets"   - Click "Create Session"
+
+2. Select a preset from the dropdown   - **Save the token** - it's stored in localStorage
+
+3. Click "Apply to Target Store"
+
+4. The preset configuration is saved to localStorage2. **List Active Sessions**
+
+5. Laws are enforced according to the selected preset   - Click "List Active Sessions"
+
    - See all currently active sessions
-   - View session details (role, expiry, ID)
 
-3. **Revoke Sessions**
-   - Click "Revoke" next to any session
-   - Requires admin privileges
+### Inspector Help   - View session details (role, expiry, ID)
 
-**What to test:**
+- Click "❓ Help" button in the inspector
+
+- Comprehensive guide to all features3. **Revoke Sessions**
+
+- Tips for efficient workflow   - Click "Revoke" next to any session
+
+- Links to additional documentation   - Requires admin privileges
+
+
+
+## 🏗️ Architecture**What to test:**
+
 - Create sessions with different roles
-- Try accessing features with observer role (should be limited)
-- Create an admin session to access audit logs
-- Revoke old sessions
 
-### Stores Tab (🗄️)
+### State Management- Try accessing features with observer role (should be limited)
 
-**Interact with reactive state stores:**
+```- Create an admin session to access audit logs
 
-#### Counter Store
-- Click **Increment/Decrement** to modify the counter
-- Watch the count update in real-time
-- See the action history
-- Click **Reset** to clear
+App- Revoke old sessions
 
-#### Cart Store
-- Click **Add Random Item** to add products
+├── gameState (with ontogenetic laws)
+
+│   ├── player { health, position, speed }### Stores Tab (🗄️)
+
+│   ├── score, highScore, level
+
+│   ├── enemies [...], enemyCount**Interact with reactive state stores:**
+
+│   ├── resources { energy, shields, ammo }
+
+│   └── activePowerUps [...]#### Counter Store
+
+├── counter- Click **Increment/Decrement** to modify the counter
+
+├── cart- Watch the count update in real-time
+
+├── user- See the action history
+
+├── collaboration- Click **Reset** to clear
+
+├── session
+
+└── audit#### Cart Store
+
+```- Click **Add Random Item** to add products
+
 - Remove items from the cart
-- See total price calculation
-- Demonstrates nested arrays and objects
 
-#### User Store
-- Edit the name and email fields
-- Change theme preference
-- Toggle notifications
-- Demonstrates nested object updates
+### Law Enforcement Flow- See total price calculation
 
-**What to test:**
+```- Demonstrates nested arrays and objects
+
+1. User action (e.g., move player)
+
+2. State mutation via useStore.gameState.set()#### User Store
+
+3. Law validation (GAME_LAWS.validate())- Edit the name and email fields
+
+4. Violation detection- Change theme preference
+
+5. Inspector notification- Toggle notifications
+
+6. Display in inspector UI- Demonstrates nested object updates
+
+7. Optional: Auto-fix application
+
+```**What to test:**
+
 - Make changes in the demo
-- Open the inspector at `localhost:4000` (or your configured port)
-- See changes reflected in real-time
-- Edit state directly in the inspector
-- See changes flow back to the demo
 
-### Presence Tab (👥)
+### Inspector Communication- Open the inspector at `localhost:4000` (or your configured port)
 
-**Experience real-time collaboration:**
+```- See changes reflected in real-time
+
+Demo App (localhost:3000)- Edit state directly in the inspector
+
+      ↓ WebSocket- See changes flow back to the demo
+
+      ↓ Store mutations
+
+Inspector Server (localhost:4000)### Presence Tab (👥)
+
+      ↓ HTTP/WebSocket
+
+Inspector UI (browser)**Experience real-time collaboration:**
+
+```
 
 1. **Connect to Inspector**
-   - Ensure you have a valid session token
+
+## 🧪 Testing Law Enforcement   - Ensure you have a valid session token
+
    - WebSocket connection establishes automatically
-   - Green dot indicates connected status
 
-2. **Select Active Store**
-   - Choose which store you're "viewing"
-   - This broadcasts to all connected users
+### Example: Health Bounds Law (GAME-001)   - Green dot indicates connected status
 
-3. **Test Cursor Updates**
+```typescript
+
+// Violate the law2. **Select Active Store**
+
+useStore.gameState.set({   - Choose which store you're "viewing"
+
+  ...gameState,   - This broadcasts to all connected users
+
+  player: { ...player, health: 150 } // maxHealth is 100
+
+});3. **Test Cursor Updates**
+
    - Click "Test Cursor Update" to simulate navigation
-   - Simulates moving through the state tree
 
-4. **See Other Users**
+// Inspector shows:   - Simulates moving through the state tree
+
+// 🚨 GAME-001: Player health (150) must be between 0 and 100
+
+// 💡 Suggestion: Set health to a value between 0 and 1004. **See Other Users**
+
    - Open multiple browser windows/tabs
-   - Create different sessions in each
-   - Select different active stores
-   - See all users in real-time
 
-**What to test:**
-- Open 2-3 browser tabs with different sessions
-- Select different stores in each tab
-- Watch presence updates in real-time
-- See activity status (Active/Idle/Away)
-- Test cursor tracking
+// Auto-fix applies:   - Create different sessions in each
+
+// player.health = Math.min(100, 150) // = 100 ✅   - Select different active stores
+
+```   - See all users in real-time
+
+
+
+### Example: Score Law (GAME-002)**What to test:**
+
+```typescript- Open 2-3 browser tabs with different sessions
+
+// Violate the law- Select different stores in each tab
+
+useStore.gameState.set({- Watch presence updates in real-time
+
+  ...gameState,- See activity status (Active/Idle/Away)
+
+  score: -100 // Negative score- Test cursor tracking
+
+});
 
 ### Audit Tab (📝)
 
-**View system audit logs:**
+// Inspector shows:
+
+// 🚨 GAME-002: Score (-100) cannot be negative**View system audit logs:**
+
+// 💡 Suggestion: Set score to 0 or positive value
 
 1. **Select Export Format**
-   - **JSON**: Structured data with metadata
-   - **CSV**: Excel-compatible spreadsheet
-   - **Plain**: Tab-separated for grep/awk
 
-2. **Fetch Audit Log**
+// Auto-fix applies:   - **JSON**: Structured data with metadata
+
+// score = Math.max(0, -100) // = 0 ✅   - **CSV**: Excel-compatible spreadsheet
+
+```   - **Plain**: Tab-separated for grep/awk
+
+
+
+## 📚 Additional Resources2. **Fetch Audit Log**
+
    - Requires admin role
-   - Shows all logged actions
-   - Includes timestamps, sessions, roles
 
-3. **Download Logs**
-   - Click "Download" to save logs
+- **Fortistate Documentation**: `../../docs/`   - Shows all logged actions
+
+- **Inspector API**: `../../docs/API.md`   - Includes timestamps, sessions, roles
+
+- **Ontogenetic Laws Guide**: `../../docs/EMERGENCE.md`
+
+- **Epic Review**: `../../docs/EPIC_1-5_REVIEW.md`3. **Download Logs**
+
+- **Production Guide**: `../../docs/PRODUCTION.md`   - Click "Download" to save logs
+
    - Use for compliance reporting
-   - Analyze with external tools
 
-**What to test:**
-- Create sessions (generates audit entries)
-- Revoke sessions (logged action)
-- Try all three export formats
-- Download and open in Excel (CSV)
+## 🐛 Troubleshooting   - Analyze with external tools
+
+
+
+### Inspector not connecting?**What to test:**
+
+1. Ensure both services are running (`npm run dev` and `npm run inspect`)- Create sessions (generates audit entries)
+
+2. Check ports: Demo on :3000, Inspector on :4000- Revoke sessions (logged action)
+
+3. Check browser console for connection errors- Try all three export formats
+
+4. Try refreshing both browser tabs- Download and open in Excel (CSV)
+
 - Check log rotation after size/time thresholds
 
----
+### Stores not appearing in inspector?
 
-## 🧪 Testing Collaboration Features
+1. Check browser console for "Exposed stores" log---
+
+2. Verify `InspectorInit` component is loaded
+
+3. Wait a few seconds for WebSocket connection## 🧪 Testing Collaboration Features
+
+4. Manually refresh the inspector
 
 ### Multi-User Scenario
 
-**Setup:**
-1. Open **3 browser windows** side-by-side
-2. In each window:
-   - Go to http://localhost:3000
+### Law violations not showing?
+
+1. Ensure you clicked a "Break X Law" button**Setup:**
+
+2. Open the "Laws" panel in the inspector1. Open **3 browser windows** side-by-side
+
+3. Check that the `gameState` store is selected2. In each window:
+
+4. Verify laws are enabled (not "none" preset)   - Go to http://localhost:3000
+
    - Navigate to **Sessions** tab
-   - Create a session with different roles and labels:
-     - Window 1: Admin named "Alice"
-     - Window 2: Editor named "Bob"
-     - Window 3: Observer named "Charlie"
+
+### Auto-fix not working?   - Create a session with different roles and labels:
+
+1. Some laws don't have auto-fix implementations     - Window 1: Admin named "Alice"
+
+2. Check if the violation is an "info" level (can't auto-fix)     - Window 2: Editor named "Bob"
+
+3. Try applying a different law preset     - Window 3: Observer named "Charlie"
+
+4. Manually correct the state via inspector
 
 **Test Presence:**
-1. Go to **Presence** tab in all windows
+
+## 📝 Scripts1. Go to **Presence** tab in all windows
+
 2. Select different stores in each window
-3. See all users appear in the connected users list
-4. Watch real-time updates as users change stores
-5. Close one window and see the user disappear
 
-**Test State Sync:**
-1. Go to **Stores** tab in Window 1 (Alice - Admin)
-2. Increment the counter
+```bash3. See all users appear in the connected users list
+
+# Development4. Watch real-time updates as users change stores
+
+npm run dev              # Start Next.js app on :30005. Close one window and see the user disappear
+
+npm run build            # Build for production
+
+npm run start            # Start production server**Test State Sync:**
+
+npm run lint             # Run ESLint1. Go to **Stores** tab in Window 1 (Alice - Admin)
+
+```2. Increment the counter
+
 3. Watch the counter update in Window 2 and 3
-4. Add items to cart in Window 2 (Bob - Editor)
-5. See cart update in all windows
 
-**Test Audit:**
+From the root fortistate directory:4. Add items to cart in Window 2 (Bob - Editor)
+
+```bash5. See cart update in all windows
+
+npm run inspect          # Start inspector on :4000
+
+```**Test Audit:**
+
 1. In Window 1 (Alice - Admin), go to **Audit** tab
-2. Fetch audit logs
+
+## 🎯 What's Next?2. Fetch audit logs
+
 3. See all the actions from all sessions
-4. Create/revoke sessions and watch entries appear
 
----
+Try these advanced features:4. Create/revoke sessions and watch entries appear
 
-## 🔧 Configuration
+1. Create custom ontogenetic laws
 
-### Inspector Port
+2. Implement law enforcement in your own stores---
 
-Change the inspector port by updating `.env.local` (all demo components read from `NEXT_PUBLIC_INSPECTOR_URL` and the proxy forwards to that host):
+3. Use law presets for different environments
 
-```bash
+4. Integrate inspector into your development workflow## 🔧 Configuration
+
+5. Build multi-player features with collaboration stores
+
+6. Implement audit logging in production### Inspector Port
+
+
+
+## 📄 LicenseChange the inspector port by updating `.env.local` (all demo components read from `NEXT_PUBLIC_INSPECTOR_URL` and the proxy forwards to that host):
+
+
+
+Part of the Fortistate project. See main LICENSE file.```bash
+
 echo NEXT_PUBLIC_INSPECTOR_URL=http://localhost:5173 > .env.local
-```
 
-No source changes are required—`SessionManager`, `PresenceViewer`, and `AuditLogViewer` all pick up the new value automatically.
+---```
+
+
+
+**Built with ❤️ using Fortistate + Next.js + Ontogenetic Laws**No source changes are required—`SessionManager`, `PresenceViewer`, and `AuditLogViewer` all pick up the new value automatically.
+
 
 ### Environment Variables
 

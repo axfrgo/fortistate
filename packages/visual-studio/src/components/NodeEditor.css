@@ -1,0 +1,381 @@
+/* Node Editor Styles */
+
+.editor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 3000;
+}
+
+.editor-modal-positioner {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3001;
+  pointer-events: none;
+}
+
+.editor-modal {
+  pointer-events: auto;
+  width: min(90vw, 600px);
+  max-height: calc(100vh - 100px);
+  background: rgba(24, 24, 37, 0.98);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1.5px solid rgba(167, 139, 250, 0.3);
+  border-radius: 16px;
+  box-shadow: 
+    0 24px 80px rgba(0, 0, 0, 0.6), 
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 0 100px rgba(102, 126, 234, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: move;
+}
+
+.editor-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+}
+
+.editor-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.editor-type {
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.editor-id {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.editor-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editor-close:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: rgba(239, 68, 68, 1);
+}
+
+.editor-body {
+  flex: 1;
+  padding: 24px 28px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.editor-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.editor-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.editor-body::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.3);
+  border-radius: 4px;
+}
+
+.editor-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.5);
+}
+
+.editor-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editor-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(167, 139, 250, 0.9);
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+
+.editor-input,
+.editor-textarea {
+  padding: 12px 16px;
+  background: rgba(30, 30, 46, 0.8);
+  border: 1.5px solid rgba(167, 139, 250, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  outline: none;
+  transition: all 0.2s ease;
+  resize: vertical;
+}
+
+.editor-input:focus,
+.editor-textarea:focus {
+  border-color: rgba(167, 139, 250, 0.5);
+  background: rgba(30, 30, 46, 1);
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
+}
+
+.editor-textarea {
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.editor-footer {
+  padding: 20px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.editor-btn {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.editor-btn.cancel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.editor-btn.cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.editor-btn.save {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.editor-btn.save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.editor-btn.save:active {
+  transform: translateY(0);
+}
+
+.editor-section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(32, 32, 48, 0.55);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.editor-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.editor-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.editor-section-caption {
+  font-size: 13px;
+  color: rgba(203, 213, 255, 0.65);
+  line-height: 1.5;
+}
+
+.binding-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.binding-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 12px;
+  background: rgba(18, 18, 30, 0.85);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+}
+
+.binding-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.binding-card-header h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.binding-card-header p {
+  margin: 4px 0 0 0;
+  font-size: 12px;
+  color: rgba(203, 213, 255, 0.55);
+}
+
+.binding-id {
+  font-size: 11px;
+  color: rgba(167, 139, 250, 0.65);
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background: rgba(76, 29, 149, 0.25);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.binding-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.binding-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(167, 139, 250, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.binding-settings .editor-textarea {
+  min-height: 140px;
+}
+
+.binding-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.binding-status {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+
+.binding-status.success {
+  color: #bbf7d0;
+  border-color: rgba(34, 197, 94, 0.35);
+  background: rgba(22, 163, 74, 0.12);
+}
+
+.binding-status.error {
+  color: #fecaca;
+  border-color: rgba(248, 113, 113, 0.4);
+  background: rgba(248, 113, 113, 0.12);
+}
+
+.binding-status.info {
+  color: rgba(203, 213, 255, 0.8);
+  border-color: rgba(99, 102, 241, 0.35);
+  background: rgba(79, 70, 229, 0.12);
+}
+
+.binding-empty {
+  padding: 16px;
+  border-radius: 10px;
+  background: rgba(17, 24, 39, 0.6);
+  border: 1px dashed rgba(167, 139, 250, 0.35);
+  color: rgba(203, 213, 255, 0.65);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.binding-empty strong {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+}
+
+.binding-add-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.editor-add-binding {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  background: rgba(79, 70, 229, 0.15);
+  color: rgba(224, 231, 255, 0.95);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editor-add-binding:hover:not(:disabled) {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: rgba(167, 139, 250, 0.6);
+}
+
+.editor-add-binding:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.binding-add-hint {
+  font-size: 12px;
+  color: rgba(203, 213, 255, 0.6);
+}

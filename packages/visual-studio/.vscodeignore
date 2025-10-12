@@ -1,0 +1,10 @@
+.env
+.env.*
+.fortistate/
+.fortistate-audit*.log
+node_modules/**
+test/**
+docs/**
+*.test.*
+*.spec.*
+*.md

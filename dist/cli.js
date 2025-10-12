@@ -95,6 +95,12 @@ async function main(argv = process.argv.slice(2)) {
         const { default: createInspector } = await import('./inspector.js');
         const port = argv[1] && !argv[1].startsWith('--') ? Number(argv[1]) : undefined;
         const quiet = argv.includes('--quiet');
+        const cwdFlagIndex = argv.indexOf('--cwd');
+        const cwd = cwdFlagIndex >= 0 ? path.resolve(process.cwd(), argv[cwdFlagIndex + 1] || '.') : process.cwd();
+        if (cwdFlagIndex >= 0) {
+            // prevent downstream flag parsing from treating the cwd value as another flag
+            argv.splice(cwdFlagIndex, 2);
+        }
         // parse --token <token> and --allow-origin <origin> (can be repeated comma-separated)
         const tokenFlagIndex = argv.indexOf('--token');
         const token = tokenFlagIndex >= 0 ? argv[tokenFlagIndex + 1] : undefined;
@@ -107,7 +113,7 @@ async function main(argv = process.argv.slice(2)) {
         const host = hostFlagIndex >= 0 ? argv[hostFlagIndex + 1] : undefined;
         const requireSessions = process.env.FORTISTATE_REQUIRE_SESSIONS === '1';
         const allowAnonSessions = process.env.FORTISTATE_ALLOW_ANON_SESSIONS === '1';
-        const srv = createInspector({ port, quiet, token, allowOrigin, allowOriginStrict, devClient, host });
+        const srv = createInspector({ port, quiet, token, allowOrigin, allowOriginStrict, devClient, host, cwd });
         await srv.start();
         if (!quiet) {
             console.log('Inspector running - open http://localhost:' + (port || 4000));

@@ -62,7 +62,7 @@ describe('createRoleEnforcer', () => {
   })
 
   it('allows legacy tokens when allowed and denies when disallowed', () => {
-    const store = new SessionStore({ rootDir: cwd, debug: true })
+  const store = new SessionStore({ rootDir: cwd, secret: '0123456789abcdef', debug: true })
     const enforcer = createRoleEnforcer({
       sessionStore: store,
       requireSessions: true,
@@ -96,7 +96,7 @@ describe('createRoleEnforcer', () => {
   })
 
   it('requires sessions when configured but respects optional routes', () => {
-    const store = new SessionStore({ rootDir: cwd })
+  const store = new SessionStore({ rootDir: cwd, secret: '0123456789abcdef' })
     const enforcer = createRoleEnforcer({
       sessionStore: store,
       requireSessions: true,
@@ -118,7 +118,7 @@ describe('createRoleEnforcer', () => {
   })
 
   it('enforces role hierarchy for session tokens via check()', () => {
-    const store = new SessionStore({ rootDir: cwd })
+  const store = new SessionStore({ rootDir: cwd, secret: '0123456789abcdef' })
     const { token } = store.createSession({ role: 'editor' })
 
     const enforcer = createRoleEnforcer({
@@ -156,7 +156,7 @@ describe('createRoleMiddleware', () => {
   })
 
   it('allows legacy tokens for admin guard by default', () => {
-    const store = new SessionStore({ rootDir: cwd })
+  const store = new SessionStore({ rootDir: cwd, secret: '0123456789abcdef' })
     const enforcer = createRoleEnforcer({
       sessionStore: store,
       requireSessions: true,
@@ -175,7 +175,7 @@ describe('createRoleMiddleware', () => {
   })
 
   it('rejects insufficient roles via editor guard', () => {
-    const store = new SessionStore({ rootDir: cwd })
+  const store = new SessionStore({ rootDir: cwd, secret: '0123456789abcdef' })
     const { token } = store.createSession({ role: 'observer' })
     const enforcer = createRoleEnforcer({
       sessionStore: store,
@@ -195,7 +195,7 @@ describe('createRoleMiddleware', () => {
   })
 
   it('treats observer guard as optional when requested', () => {
-    const store = new SessionStore({ rootDir: cwd })
+  const store = new SessionStore({ rootDir: cwd, secret: '0123456789abcdef' })
     const enforcer = createRoleEnforcer({
       sessionStore: store,
       requireSessions: true,

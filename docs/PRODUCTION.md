@@ -11,6 +11,7 @@ This guide covers everything you need to deploy Fortistate-based applications to
 5. [Scaling Considerations](#scaling-considerations)
 6. [Error Handling](#error-handling)
 7. [Deployment Checklist](#deployment-checklist)
+8. [Runtime Orchestration Workflow](#runtime-orchestration-workflow)
 
 ## Environment Setup
 
@@ -549,6 +550,48 @@ Monitor these metrics:
 - [ ] CORS configured correctly
 - [ ] Security headers set
 - [ ] Dependency vulnerabilities patched
+
+## Runtime Orchestration Workflow
+
+Fortistate Visual Studio now includes a full production loop for connecting integrations, versioning canvases, and orchestrating launches. Use this flow to guarantee repeatable go-lives:
+
+### 1. Establish provider connections
+
+Open the **Connection Center** (🔗 icon in the Visual Studio header) to authorize accounts and inspect bindings.
+
+- Connect OAuth/API-key providers that power your automations.
+- Review existing bindings and detach stale or failed wiring.
+- Browse provider capabilities and docs before enabling a service in production.
+
+### 2. Capture universes as reusable versions
+
+Use **Save Canvas** to persist a snapshot. The **Saved Universes** dashboard (🗂) lets you:
+
+- Audit metadata, market tags, and data-sensitivity classifications.
+- Restore a saved version onto the canvas for tweaks or rollbacks.
+- Inspect which bindings ship with each version before launch.
+
+### 3. Launch with Go-Live Orchestration
+
+The **Go-Live Launch Center** (🚀) converts a saved version into a runtime launch request (`POST /api/universes/:id/launch`). It enforces:
+
+1. Universe + version selection with active entry node validation.
+2. Runtime mode (dry run vs live) and telemetry verbosity.
+3. Binding overrides so you can swap sandbox accounts for production credentials.
+4. Completion notifications (in-app alerts and optional email to the signed-in operator).
+
+Launch requests persist recent activity and update the registry so downstream dashboards stay in sync.
+
+### 4. Observe, iterate, and version frequently
+
+- Keep telemetry sinks enabled (see [Monitoring & Observability](#monitoring--observability)) to track performance and constraint repairs.
+- After a run, archive launch metadata with deployment records and note overrides applied.
+- When bindings or universe topology evolve, capture a new version so the launch recipe remains reproducible.
+
+### 5. Automated QA guardrails
+
+- `packages/visual-studio/test/universeRegistryStore.test.ts` covers draft creation, launch orchestration, and session synchronization so regressions are caught before deployments.
+- Keep the suite green before promoting a build; these assertions ensure recent universes, last-viewed pointers, and workstate hydration all stay consistent when new orchestration features ship.
 
 ## Troubleshooting
 

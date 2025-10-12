@@ -6,7 +6,7 @@ export async function _loadModule(p, options = {}) {
     var _a;
     let url = pathToFileURL(p).href;
     if (options.bustCache) {
-        url += (url.includes('?') ? '&' : '?') + 't=' + Date.now();
+        url += (url.includes('?') ? '&' : '?') + 't=' + Date.now() + '&r=' + Math.random();
     }
     try {
         const mod = await import(url);
@@ -21,10 +21,27 @@ export async function _loadModule(p, options = {}) {
             if (options.bustCache) {
                 try {
                     const resolved = req.resolve(p);
-                    if (req.cache)
+                    // Clear from all possible caches
+                    if (req.cache) {
                         delete req.cache[resolved];
-                    if (typeof require !== 'undefined' && require.cache && require.cache[resolved])
-                        delete require.cache[resolved];
+                    }
+                    if (typeof require !== 'undefined' && require.cache) {
+                        if (require.cache[resolved]) {
+                            delete require.cache[resolved];
+                        }
+                    }
+                    // Also try to clear parent references
+                    if (typeof require !== 'undefined' && require.cache) {
+                        Object.keys(require.cache).forEach(key => {
+                            const mod = require.cache[key];
+                            if (mod && mod.children) {
+                                const idx = mod.children.findIndex((child) => child.id === resolved);
+                                if (idx >= 0) {
+                                    mod.children.splice(idx, 1);
+                                }
+                            }
+                        });
+                    }
                 }
                 catch (eResolve) { /* ignore */ }
             }

@@ -1,5 +1,4 @@
 import path from 'path';
-import { pathToFileURL } from 'url';
 import { createStore, globalStoreFactory } from './storeFactory.js';
 import resolveConfig, { _loadModule } from './config.js';
 import { registerStore as pluginRegisterStore, clearRegistered as clearRegisteredPlugins } from './plugins.js';
@@ -53,31 +52,7 @@ export async function loadPlugins(cwd = process.cwd()) {
             }
             else {
                 const pPath = path.isAbsolute(preset) ? preset : path.resolve(cwd, preset);
-                let url = pathToFileURL(pPath).href;
-                url += (url.includes('?') ? '&' : '?') + 't=' + Date.now();
-                let mod;
-                try {
-                    mod = await import(url).then(m => { var _a; return ((_a = m.default) !== null && _a !== void 0 ? _a : m); });
-                }
-                catch (eImport) {
-                    try {
-                        // eslint-disable-next-line @typescript-eslint/no-var-requires
-                        const { createRequire } = await import('module');
-                        const req = createRequire(import.meta.url);
-                        try {
-                            const resolvedReq = req.resolve(pPath);
-                            if (req.cache)
-                                delete req.cache[resolvedReq];
-                            if (typeof require !== 'undefined' && require.cache && require.cache[resolvedReq])
-                                delete require.cache[resolvedReq];
-                        }
-                        catch (eResolve) { /* ignore */ }
-                        mod = req(pPath);
-                    }
-                    catch (eReq) {
-                        throw eImport;
-                    }
-                }
+                const mod = await _loadModule(pPath, { bustCache: true });
                 presetCfg = typeof mod === 'function' ? await mod() : mod;
             }
             if (presetCfg === null || presetCfg === void 0 ? void 0 : presetCfg.plugins)
@@ -98,27 +73,7 @@ export async function loadPlugins(cwd = process.cwd()) {
                 continue;
             }
             const pPath = path.isAbsolute(p) ? p : path.resolve(cwd, p);
-            let url = pathToFileURL(pPath).href;
-            url += (url.includes('?') ? '&' : '?') + 't=' + Date.now();
-            let mod;
-            try {
-                mod = await import(url).then(m => { var _a; return ((_a = m.default) !== null && _a !== void 0 ? _a : m); });
-            }
-            catch (eImport) {
-                // fallback to require for CommonJS plugins
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
-                const { createRequire } = await import('module');
-                const req = createRequire(import.meta.url);
-                try {
-                    const resolvedReq = req.resolve(pPath);
-                    if (req.cache)
-                        delete req.cache[resolvedReq];
-                    if (typeof require !== 'undefined' && require.cache && require.cache[resolvedReq])
-                        delete require.cache[resolvedReq];
-                }
-                catch (eResolve) { /* ignore */ }
-                mod = req(pPath);
-            }
+            const mod = await _loadModule(pPath, { bustCache: true });
             const fn = typeof mod === 'function' ? mod : (mod && mod.plugin) || null;
             if (!fn)
                 continue;

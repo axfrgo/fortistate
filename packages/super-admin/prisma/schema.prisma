@@ -1,0 +1,246 @@
+// This is your Prisma schema file for Super Admin Analytics Database
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// === USER DATA (AGGREGATED) ===
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  name          String?
+  avatarUrl     String?
+  organizationId String?
+  role          String   // 'owner', 'admin', 'developer', 'viewer'
+  plan          String   // 'free', 'pro', 'enterprise'
+  status        String   // 'active', 'suspended', 'deleted'
+  isAbuser      Boolean  @default(false)
+  abuseScore    Int      @default(0)
+  totalApiCalls Int      @default(0)
+  totalAiCalls  Int      @default(0)
+  totalCost     Float    @default(0)
+  createdAt     DateTime @default(now())
+  lastActiveAt  DateTime @default(now())
+  suspendedAt   DateTime?
+  suspendedBy   String?
+  suspensionReason String?
+  
+  organization  Organization? @relation(fields: [organizationId], references: [id])
+  metrics       Metric[]
+  aiUsage       AiUsage[]
+  auditLogs     AuditLog[]
+  
+  @@index([email])
+  @@index([organizationId])
+  @@index([status])
+  @@index([isAbuser])
+  @@index([createdAt])
+}
+
+// === ORGANIZATION DATA (AGGREGATED) ===
+model Organization {
+  id                    String   @id @default(uuid())
+  name                  String
+  slug                  String   @unique
+  plan                  String   // 'free', 'pro', 'enterprise'
+  status                String   // 'active', 'suspended', 'deleted'
+  hasEnterpriseAccess   Boolean  @default(false) // Can access User Admin panel
+  orgAdminEmail         String?  // Email of the organization admin
+  orgAdminId            String?  // Clerk user ID of the org admin
+  mrr                   Float    @default(0) // Monthly Recurring Revenue
+  userCount             Int      @default(0)
+  universeCount         Int      @default(0)
+  totalApiCalls         Int      @default(0)
+  totalAiCalls          Int      @default(0)
+  totalCost             Float    @default(0)
+  createdAt             DateTime @default(now())
+  lastActiveAt          DateTime @default(now())
+  enterpriseAccessGrantedAt DateTime?
+  enterpriseAccessGrantedBy String? // Super admin who granted access
+  
+  users         User[]
+  universes     Universe[]
+  metrics       Metric[]
+  
+  @@index([slug])
+  @@index([plan])
+  @@index([status])
+  @@index([mrr])
+  @@index([hasEnterpriseAccess])
+}
+
+// === UNIVERSE DATA (AGGREGATED) ===
+model Universe {
+  id              String   @id @default(uuid())
+  name            String
+  organizationId  String
+  status          String   // 'running', 'stopped', 'error'
+  stateSize       Int      @default(0) // in bytes
+  storeCount      Int      @default(0)
+  lawCount        Int      @default(0)
+  eventCount      Int      @default(0)
+  violationCount  Int      @default(0)
+  totalApiCalls   Int      @default(0)
+  createdAt       DateTime @default(now())
+  lastActiveAt    DateTime @default(now())
+  
+  organization    Organization @relation(fields: [organizationId], references: [id])
+  metrics         Metric[]
+  
+  @@index([organizationId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// === TIME-SERIES METRICS ===
+model Metric {
+  id              String   @id @default(uuid())
+  timestamp       DateTime @default(now())
+  metricType      String   // 'user', 'org', 'universe', 'platform'
+  metricName      String   // 'api_calls', 'active_users', 'mrr', etc.
+  value           Float
+  userId          String?
+  organizationId  String?
+  universeId      String?
+  metadata        String?  // Additional context (JSON string for SQLite)
+  
+  user            User?         @relation(fields: [userId], references: [id])
+  organization    Organization? @relation(fields: [organizationId], references: [id])
+  universe        Universe?     @relation(fields: [universeId], references: [id])
+  
+  @@index([timestamp])
+  @@index([metricType])
+  @@index([metricName])
+  @@index([userId])
+  @@index([organizationId])
+}
+
+// === AI USAGE TRACKING ===
+model AiUsage {
+  id              String   @id @default(uuid())
+  timestamp       DateTime @default(now())
+  userId          String
+  organizationId  String
+  model           String   // 'gpt-4', 'gpt-3.5-turbo', etc.
+  promptTokens    Int
+  completionTokens Int
+  totalTokens     Int
+  cost            Float    // in USD
+  requestType     String   // 'universe_generation', 'law_suggestion', etc.
+  success         Boolean  @default(true)
+  errorMessage    String?
+  
+  user            User     @relation(fields: [userId], references: [id])
+  
+  @@index([timestamp])
+  @@index([userId])
+  @@index([organizationId])
+  @@index([model])
+  @@index([cost])
+}
+
+// === SECURITY & ABUSE DETECTION ===
+model AbuseEvent {
+  id              String   @id @default(uuid())
+  timestamp       DateTime @default(now())
+  userId          String
+  organizationId  String?
+  eventType       String   // 'rate_limit', 'sql_injection', 'excessive_cost', etc.
+  severity        String   // 'low', 'medium', 'high', 'critical'
+  description     String
+  ipAddress       String?
+  userAgent       String?
+  requestPath     String?
+  metadata        String?  // JSON string for SQLite
+  resolved        Boolean  @default(false)
+  resolvedAt      DateTime?
+  resolvedBy      String?
+  action          String?  // 'warning', 'suspended', 'banned'
+  
+  @@index([timestamp])
+  @@index([userId])
+  @@index([eventType])
+  @@index([severity])
+  @@index([resolved])
+}
+
+// === FEATURE FLAGS ===
+model FeatureFlag {
+  id              String   @id @default(uuid())
+  name            String   @unique
+  description     String
+  enabled         Boolean  @default(false)
+  rolloutPercent  Int      @default(0) // 0-100
+  targetUserIds   String?  // Comma-separated user IDs for SQLite
+  targetOrgIds    String?  // Comma-separated org IDs for SQLite
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  createdBy       String
+  
+  @@index([name])
+  @@index([enabled])
+}
+
+// === AUDIT LOGS (7-YEAR RETENTION) ===
+model AuditLog {
+  id              String   @id @default(uuid())
+  timestamp       DateTime @default(now())
+  adminId         String   // Who performed the action
+  action          String   // 'user_suspended', 'org_deleted', 'feature_enabled', etc.
+  targetType      String   // 'user', 'organization', 'universe', 'system'
+  targetId        String?
+  description     String
+  ipAddress       String
+  userAgent       String
+  metadata        String?  // Full context (JSON string for SQLite)
+  
+  user            User?    @relation(fields: [adminId], references: [id])
+  
+  @@index([timestamp])
+  @@index([adminId])
+  @@index([action])
+  @@index([targetType])
+  @@index([targetId])
+}
+
+// === DEPLOYMENT HISTORY ===
+model Deployment {
+  id              String   @id @default(uuid())
+  timestamp       DateTime @default(now())
+  service         String   // 'core', 'inspector', 'visual-studio', 'admin-dashboard'
+  version         String   // '3.0.0'
+  environment     String   // 'production', 'staging'
+  status          String   // 'deploying', 'success', 'failed', 'rolled_back'
+  deployedBy      String
+  commitHash      String?
+  releaseNotes    String?
+  duration        Int?     // in seconds
+  errorMessage    String?
+  
+  @@index([timestamp])
+  @@index([service])
+  @@index([status])
+  @@index([environment])
+}
+
+// === ADMIN SESSIONS ===
+model AdminSession {
+  id              String   @id @default(uuid())
+  adminId         String
+  token           String   @unique
+  ipAddress       String
+  userAgent       String
+  mfaVerified     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  expiresAt       DateTime
+  lastActivityAt  DateTime @default(now())
+  
+  @@index([token])
+  @@index([adminId])
+  @@index([expiresAt])
+}

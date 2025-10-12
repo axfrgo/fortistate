@@ -1,0 +1,3352 @@
+[
+  {
+    "id": "explorer-0",
+    "input": {
+      "paradox": {
+        "id": "paradox-0",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-1"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-0-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-0-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629757743
+    }
+  },
+  {
+    "id": "explorer-3",
+    "input": {
+      "paradox": {
+        "id": "paradox-3",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-99"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-3-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-3-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629757743
+    }
+  },
+  {
+    "id": "explorer-6",
+    "input": {
+      "paradox": {
+        "id": "paradox-6",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-66"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-6-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-6-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629757743
+    }
+  },
+  {
+    "id": "explorer-9",
+    "input": {
+      "paradox": {
+        "id": "paradox-9",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-25"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-9-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-9-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629757743
+    }
+  },
+  {
+    "id": "explorer-12",
+    "input": {
+      "paradox": {
+        "id": "paradox-12",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-20"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-12-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-12-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629757743
+    }
+  },
+  {
+    "id": "explorer-15",
+    "input": {
+      "paradox": {
+        "id": "paradox-15",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-69"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-15-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-15-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629757743
+    }
+  },
+  {
+    "id": "explorer-18",
+    "input": {
+      "paradox": {
+        "id": "paradox-18",
+        "type": "temporal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-31"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-18-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-18-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629757743
+    }
+  },
+  {
+    "id": "explorer-21",
+    "input": {
+      "paradox": {
+        "id": "paradox-21",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-97"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-21-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-21-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-24",
+    "input": {
+      "paradox": {
+        "id": "paradox-24",
+        "type": "temporal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-78"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-24-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-24-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-27",
+    "input": {
+      "paradox": {
+        "id": "paradox-27",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-16"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-27-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-27-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-30",
+    "input": {
+      "paradox": {
+        "id": "paradox-30",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-13"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-30-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-30-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-33",
+    "input": {
+      "paradox": {
+        "id": "paradox-33",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-67"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-33-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-33-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-36",
+    "input": {
+      "paradox": {
+        "id": "paradox-36",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-74"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-36-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-36-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-39",
+    "input": {
+      "paradox": {
+        "id": "paradox-39",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-79"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-39-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-39-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-42",
+    "input": {
+      "paradox": {
+        "id": "paradox-42",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-42"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-42-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-42-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-45",
+    "input": {
+      "paradox": {
+        "id": "paradox-45",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-3"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-45-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-45-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-48",
+    "input": {
+      "paradox": {
+        "id": "paradox-48",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-91"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-48-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-48-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-51",
+    "input": {
+      "paradox": {
+        "id": "paradox-51",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-46"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-51-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-51-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-54",
+    "input": {
+      "paradox": {
+        "id": "paradox-54",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-41"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-54-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-54-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-57",
+    "input": {
+      "paradox": {
+        "id": "paradox-57",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-65"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-57-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-57-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-60",
+    "input": {
+      "paradox": {
+        "id": "paradox-60",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-9"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-60-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-60-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-63",
+    "input": {
+      "paradox": {
+        "id": "paradox-63",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-91"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-63-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-63-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-66",
+    "input": {
+      "paradox": {
+        "id": "paradox-66",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-22"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-66-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-66-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-69",
+    "input": {
+      "paradox": {
+        "id": "paradox-69",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-8"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-69-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-69-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-72",
+    "input": {
+      "paradox": {
+        "id": "paradox-72",
+        "type": "temporal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-76"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-72-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-72-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-75",
+    "input": {
+      "paradox": {
+        "id": "paradox-75",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-52"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-75-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-75-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-78",
+    "input": {
+      "paradox": {
+        "id": "paradox-78",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-60"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-78-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-78-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-81",
+    "input": {
+      "paradox": {
+        "id": "paradox-81",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-94"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-81-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-81-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-84",
+    "input": {
+      "paradox": {
+        "id": "paradox-84",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-70"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-84-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-84-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-87",
+    "input": {
+      "paradox": {
+        "id": "paradox-87",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-51"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-87-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-87-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-90",
+    "input": {
+      "paradox": {
+        "id": "paradox-90",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-96"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-90-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-90-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-93",
+    "input": {
+      "paradox": {
+        "id": "paradox-93",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-0"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-93-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-93-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-96",
+    "input": {
+      "paradox": {
+        "id": "paradox-96",
+        "type": "temporal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-3"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-96-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-96-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-99",
+    "input": {
+      "paradox": {
+        "id": "paradox-99",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-46"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-99-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-99-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-102",
+    "input": {
+      "paradox": {
+        "id": "paradox-102",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-18"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-102-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-102-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-105",
+    "input": {
+      "paradox": {
+        "id": "paradox-105",
+        "type": "temporal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-84"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-105-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-105-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-108",
+    "input": {
+      "paradox": {
+        "id": "paradox-108",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-16"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-108-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-108-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-111",
+    "input": {
+      "paradox": {
+        "id": "paradox-111",
+        "type": "temporal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-82"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-111-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-111-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-114",
+    "input": {
+      "paradox": {
+        "id": "paradox-114",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-78"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-114-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-114-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-117",
+    "input": {
+      "paradox": {
+        "id": "paradox-117",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-24"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-117-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-117-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-120",
+    "input": {
+      "paradox": {
+        "id": "paradox-120",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-27"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-120-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-120-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-123",
+    "input": {
+      "paradox": {
+        "id": "paradox-123",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-42"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-123-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-123-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-126",
+    "input": {
+      "paradox": {
+        "id": "paradox-126",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-51"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-126-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-126-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-129",
+    "input": {
+      "paradox": {
+        "id": "paradox-129",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-78"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-129-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-129-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-132",
+    "input": {
+      "paradox": {
+        "id": "paradox-132",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-76"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-132-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-132-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-135",
+    "input": {
+      "paradox": {
+        "id": "paradox-135",
+        "type": "logical",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-48"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-135-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-135-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-138",
+    "input": {
+      "paradox": {
+        "id": "paradox-138",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-9"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-138-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-138-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-141",
+    "input": {
+      "paradox": {
+        "id": "paradox-141",
+        "type": "causal",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-80"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-141-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-141-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-144",
+    "input": {
+      "paradox": {
+        "id": "paradox-144",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-48"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-144-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-144-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  },
+  {
+    "id": "explorer-147",
+    "input": {
+      "paradox": {
+        "id": "paradox-147",
+        "type": "quantum",
+        "description": "Conflicting time-travel law with causality",
+        "conflictingLaws": [
+          "time.forward_only",
+          "time_travel.allowed"
+        ],
+        "affectedEntities": [
+          "entity-14"
+        ]
+      },
+      "universeState": {},
+      "explorationDepth": 3
+    },
+    "output": {
+      "scenarios": [
+        {
+          "id": "scenario-147-1",
+          "name": "Timeline A: No time travel",
+          "initialState": {},
+          "interventions": [],
+          "expectedOutcomes": [
+            "stable"
+          ]
+        },
+        {
+          "id": "scenario-147-2",
+          "name": "Timeline B: Controlled time travel",
+          "initialState": {},
+          "interventions": [
+            {
+              "time": 1000,
+              "action": "time_jump",
+              "target": "system",
+              "params": {
+                "delta": -500
+              }
+            }
+          ],
+          "expectedOutcomes": [
+            "paradox_resolved",
+            "stable"
+          ]
+        }
+      ],
+      "analysis": {
+        "stableOutcomes": 2,
+        "paradoxResolutions": 1,
+        "emergentBehaviors": [
+          "timeline_branching"
+        ]
+      },
+      "recommendations": [
+        "Allow controlled time travel with causality locks"
+      ]
+    },
+    "metadata": {
+      "substrate": "paradox",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629757744
+    }
+  }
+]

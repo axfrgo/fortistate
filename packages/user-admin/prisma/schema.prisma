@@ -1,0 +1,296 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// CORE MODELS
+// ============================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // bcrypt hashed
+  firstName String
+  lastName  String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  organizations OrgUser[]
+  sessions      Session[]
+  apiKeys       ApiKey[]
+  activities    Activity[]
+  notifications Notification[]
+
+  @@index([email])
+}
+
+model Organization {
+  id                  String   @id @default(cuid())
+  name                String
+  slug                String   @unique
+  domain              String?
+  logo                String?
+  plan                String   @default("free") // free, pro, enterprise
+  status              String   @default("active") // active, suspended, inactive
+  subscriptionTier    String   @default("free") // free, starter, professional, enterprise
+  hasEnterpriseAccess Boolean  @default(false) // Can access User Admin panel (granted by Super Admin)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Relations
+  members      OrgUser[]
+  universes    Universe[]
+  apiKeys      ApiKey[]
+  invitations  OrgInvitation[]
+  settings     OrgSettings?
+  billing      BillingInfo?
+  activities   Activity[]
+  notifications Notification[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([hasEnterpriseAccess])
+}
+
+model OrgUser {
+  id        String   @id @default(cuid())
+  role      String   @default("member") // owner, admin, member
+  userId    String
+  orgId     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, orgId])
+  @@index([userId])
+  @@index([orgId])
+  @@index([role])
+}
+
+// ============================================
+// AUTHENTICATION & SESSIONS
+// ============================================
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  orgId     String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ============================================
+// FORTISTATE RESOURCES
+// ============================================
+
+model Universe {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  orgId       String
+  config      String   @default("{}") // JSON config
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  metrics      UniverseMetrics?
+
+  @@index([orgId])
+  @@index([isActive])
+}
+
+model UniverseMetrics {
+  id           String   @id @default(cuid())
+  universeId   String   @unique
+  apiCalls     Int      @default(0)
+  stateOps     Int      @default(0)
+  errors       Int      @default(0)
+  lastActivity DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  universe Universe @relation(fields: [universeId], references: [id], onDelete: Cascade)
+
+  @@index([lastActivity])
+}
+
+// ============================================
+// API KEYS
+// ============================================
+
+model ApiKey {
+  id          String   @id @default(cuid())
+  name        String
+  key         String   @unique // hashed API key
+  prefix      String   // First 8 chars for display (e.g., "fs_test_")
+  orgId       String
+  userId      String   // Creator
+  permissions String   @default("read") // read, write, admin (JSON array)
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([key])
+  @@index([orgId])
+  @@index([userId])
+  @@index([isActive])
+}
+
+// ============================================
+// TEAM MANAGEMENT
+// ============================================
+
+model OrgInvitation {
+  id        String   @id @default(cuid())
+  email     String
+  role      String   @default("member")
+  orgId     String
+  invitedBy String   // userId
+  token     String   @unique
+  expiresAt DateTime
+  status    String   @default("pending") // pending, accepted, expired
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@index([email])
+  @@index([orgId])
+  @@index([token])
+  @@index([status])
+}
+
+// ============================================
+// SETTINGS & BILLING
+// ============================================
+
+model OrgSettings {
+  id        String   @id @default(cuid())
+  orgId     String   @unique
+  settings  String   @default("{}") // JSON settings
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+}
+
+model BillingInfo {
+  id                String   @id @default(cuid())
+  orgId             String   @unique
+  stripeCustomerId  String?  @unique
+  plan              String   @default("free")
+  billingEmail      String?
+  paymentMethod     String?  // JSON for payment details
+  subscriptionId    String?
+  subscriptionStatus String? // active, canceled, past_due
+  currentPeriodEnd  DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@index([stripeCustomerId])
+}
+
+// ============================================
+// ACTIVITY & NOTIFICATIONS
+// ============================================
+
+model Activity {
+  id        String   @id @default(cuid())
+  type      String   // user_invited, universe_created, api_key_generated, etc.
+  action    String
+  metadata  String   @default("{}") // JSON metadata
+  userId    String?
+  orgId     String
+  createdAt DateTime @default(now())
+
+  // Relations
+  user         User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@index([orgId])
+  @@index([userId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String   // info, success, warning, error
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  userId    String
+  orgId     String
+  metadata  String   @default("{}") // JSON metadata
+  createdAt DateTime @default(now())
+
+  // Relations
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([orgId])
+  @@index([isRead])
+  @@index([createdAt])
+}
+
+// ============================================
+// AUDIT LOG (Cross-app tracking)
+// ============================================
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  appSource    String   // 'super-admin', 'user-admin', 'visual-studio'
+  actorId      String   // userId or admin ID
+  actorType    String   // 'platform_admin', 'org_admin', 'org_member', 'vs_user'
+  orgId        String?  // null for platform-level actions
+  action       String   // 'vs_access_granted', 'org_created', 'token_generated', etc.
+  resourceType String?  // 'user', 'organization', 'vs_access', 'token', etc.
+  resourceId   String?  // ID of affected resource
+  details      String   @default("{}") // JSON details
+  ipAddress    String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+
+  @@index([appSource])
+  @@index([actorId])
+  @@index([orgId])
+  @@index([action])
+  @@index([resourceType])
+  @@index([createdAt])
+}

@@ -1,18 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { useStore } from 'fortistate';
+import { useStore } from '@/hooks/useClientStore';
 import type { CartItem } from '@/stores';
 
 export default function StoreDemo() {
   const [activeTab, setActiveTab] = useState('counter');
 
   // Access stores using the proxy-based useStore API
-  // @ts-expect-error - useStore uses a Proxy for dynamic store access
   const [counterState, counterUtils] = useStore.counterStore();
-  // @ts-expect-error - useStore uses a Proxy for dynamic store access
   const [cartState, cartUtils] = useStore.cartStore();
-  // @ts-expect-error - useStore uses a Proxy for dynamic store access
   const [userState, userUtils] = useStore.userStore();
 
   const tabs = [

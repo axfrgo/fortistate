@@ -1,0 +1,3080 @@
+[
+  {
+    "id": "custodian-0",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:72",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750255,
+        "severity": "high"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750255
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-0",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:72",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9448466387270635,
+        "estimatedCost": 30
+      },
+      "reasoning": "Detected overdraft on account:72. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629750255
+    }
+  },
+  {
+    "id": "custodian-8",
+    "input": {
+      "violation": {
+        "violationType": "entropy_spike",
+        "entity": "system:39",
+        "law": "entropy.delta >= 0",
+        "snapshot": {
+          "entropy": 100,
+          "previousEntropy": 150
+        },
+        "timestamp": 1759629750256,
+        "severity": "critical"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-8",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "system:39",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: entropy.delta >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8859593915882624,
+        "estimatedCost": 73
+      },
+      "reasoning": "Detected entropy_spike on system:39. Proposing patch to restore law: entropy.delta >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-16",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:862",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-16",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:862",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8698222483080145,
+        "estimatedCost": 16
+      },
+      "reasoning": "Detected overdraft on account:862. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-24",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:981",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-24",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:981",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9823850718207795,
+        "estimatedCost": 47
+      },
+      "reasoning": "Detected overdraft on account:981. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-32",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:974",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-32",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:974",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9073451632846113,
+        "estimatedCost": 63
+      },
+      "reasoning": "Detected overdraft on account:974. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-40",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:724",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-40",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:724",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8835809743446794,
+        "estimatedCost": 60
+      },
+      "reasoning": "Detected overdraft on account:724. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-48",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:639",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-48",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:639",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.98581710843499,
+        "estimatedCost": 85
+      },
+      "reasoning": "Detected overdraft on account:639. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-56",
+    "input": {
+      "violation": {
+        "violationType": "duplicate_username",
+        "entity": "user:424",
+        "law": "username.unique === true",
+        "snapshot": {
+          "username": "alice",
+          "existingUsers": [
+            "alice",
+            "bob"
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "medium"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-56",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "user:424",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: username.unique === true violated. Rollback restores invariant.",
+        "confidence": 0.9521128586855752,
+        "estimatedCost": 20
+      },
+      "reasoning": "Detected duplicate_username on user:424. Proposing patch to restore law: username.unique === true",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-64",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:539",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-64",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:539",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.906796209908839,
+        "estimatedCost": 34
+      },
+      "reasoning": "Detected overdraft on account:539. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-72",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:871",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-72",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:871",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9309466275101084,
+        "estimatedCost": 28
+      },
+      "reasoning": "Detected overdraft on account:871. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-80",
+    "input": {
+      "violation": {
+        "violationType": "invalid_transfer",
+        "entity": "transaction:8526",
+        "law": "sum(transactions.amount) === balance",
+        "snapshot": {
+          "fromBalance": 50,
+          "toBalance": 200,
+          "transferAmount": 100
+        },
+        "timestamp": 1759629750256,
+        "severity": "medium"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-80",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "transaction:8526",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: sum(transactions.amount) === balance violated. Rollback restores invariant.",
+        "confidence": 0.8807460407004296,
+        "estimatedCost": 1
+      },
+      "reasoning": "Detected invalid_transfer on transaction:8526. Proposing rollback to restore law: sum(transactions.amount) === balance",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-88",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:139",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-88",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:139",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.879505226828094,
+        "estimatedCost": 45
+      },
+      "reasoning": "Detected overdraft on account:139. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-96",
+    "input": {
+      "violation": {
+        "violationType": "duplicate_username",
+        "entity": "user:540",
+        "law": "username.unique === true",
+        "snapshot": {
+          "username": "alice",
+          "existingUsers": [
+            "alice",
+            "bob"
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "medium"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-96",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "user:540",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: username.unique === true violated. Rollback restores invariant.",
+        "confidence": 0.8647998098785553,
+        "estimatedCost": 52
+      },
+      "reasoning": "Detected duplicate_username on user:540. Proposing rollback to restore law: username.unique === true",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-104",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:559",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-104",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:559",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8637575532986654,
+        "estimatedCost": 39
+      },
+      "reasoning": "Detected overdraft on account:559. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-112",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:794",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-112",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:794",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9784024540628435,
+        "estimatedCost": 23
+      },
+      "reasoning": "Detected overdraft on account:794. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-120",
+    "input": {
+      "violation": {
+        "violationType": "invalid_transfer",
+        "entity": "transaction:8134",
+        "law": "sum(transactions.amount) === balance",
+        "snapshot": {
+          "fromBalance": 50,
+          "toBalance": 200,
+          "transferAmount": 100
+        },
+        "timestamp": 1759629750256,
+        "severity": "medium"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-120",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "transaction:8134",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: sum(transactions.amount) === balance violated. Rollback restores invariant.",
+        "confidence": 0.9207048163722884,
+        "estimatedCost": 61
+      },
+      "reasoning": "Detected invalid_transfer on transaction:8134. Proposing patch to restore law: sum(transactions.amount) === balance",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-128",
+    "input": {
+      "violation": {
+        "violationType": "entropy_spike",
+        "entity": "system:95",
+        "law": "entropy.delta >= 0",
+        "snapshot": {
+          "entropy": 100,
+          "previousEntropy": 150
+        },
+        "timestamp": 1759629750256,
+        "severity": "critical"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-128",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "system:95",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: entropy.delta >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8686800034821868,
+        "estimatedCost": 60
+      },
+      "reasoning": "Detected entropy_spike on system:95. Proposing patch to restore law: entropy.delta >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-136",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:702",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-136",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:702",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8921295005823343,
+        "estimatedCost": 66
+      },
+      "reasoning": "Detected overdraft on account:702. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-144",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:673",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-144",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:673",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9464454878570164,
+        "estimatedCost": 5
+      },
+      "reasoning": "Detected overdraft on account:673. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-152",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:307",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-152",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:307",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9438470275218499,
+        "estimatedCost": 55
+      },
+      "reasoning": "Detected overdraft on account:307. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-160",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:340",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-160",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:340",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9645291123155952,
+        "estimatedCost": 6
+      },
+      "reasoning": "Detected overdraft on account:340. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-168",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:658",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-168",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:658",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8745619731189632,
+        "estimatedCost": 26
+      },
+      "reasoning": "Detected overdraft on account:658. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-176",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:814",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-176",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:814",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9705737638380634,
+        "estimatedCost": 6
+      },
+      "reasoning": "Detected overdraft on account:814. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-184",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:517",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-184",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:517",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8877902954297847,
+        "estimatedCost": 78
+      },
+      "reasoning": "Detected overdraft on account:517. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-192",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:123",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-192",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:123",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9458434665290663,
+        "estimatedCost": 97
+      },
+      "reasoning": "Detected overdraft on account:123. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-200",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:414",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-200",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:414",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9466324832195654,
+        "estimatedCost": 72
+      },
+      "reasoning": "Detected overdraft on account:414. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-208",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:102",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-208",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:102",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9778036382120602,
+        "estimatedCost": 54
+      },
+      "reasoning": "Detected overdraft on account:102. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-216",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:103",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-216",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:103",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8914615979769047,
+        "estimatedCost": 19
+      },
+      "reasoning": "Detected overdraft on account:103. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-224",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:763",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-224",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:763",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9622451080697223,
+        "estimatedCost": 91
+      },
+      "reasoning": "Detected overdraft on account:763. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-232",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:294",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-232",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:294",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8877522443570499,
+        "estimatedCost": 10
+      },
+      "reasoning": "Detected overdraft on account:294. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 2,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-240",
+    "input": {
+      "violation": {
+        "violationType": "invalid_transfer",
+        "entity": "transaction:1141",
+        "law": "sum(transactions.amount) === balance",
+        "snapshot": {
+          "fromBalance": 50,
+          "toBalance": 200,
+          "transferAmount": 100
+        },
+        "timestamp": 1759629750256,
+        "severity": "medium"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-240",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "transaction:1141",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: sum(transactions.amount) === balance violated. Rollback restores invariant.",
+        "confidence": 0.971787065730656,
+        "estimatedCost": 72
+      },
+      "reasoning": "Detected invalid_transfer on transaction:1141. Proposing patch to restore law: sum(transactions.amount) === balance",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 5,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-248",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:678",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-248",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:678",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.946234297975082,
+        "estimatedCost": 36
+      },
+      "reasoning": "Detected overdraft on account:678. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-256",
+    "input": {
+      "violation": {
+        "violationType": "duplicate_username",
+        "entity": "user:46",
+        "law": "username.unique === true",
+        "snapshot": {
+          "username": "alice",
+          "existingUsers": [
+            "alice",
+            "bob"
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "medium"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-256",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "user:46",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: username.unique === true violated. Rollback restores invariant.",
+        "confidence": 0.9590382805137244,
+        "estimatedCost": 50
+      },
+      "reasoning": "Detected duplicate_username on user:46. Proposing patch to restore law: username.unique === true",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 4,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-264",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:990",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-264",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:990",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.852468448087086,
+        "estimatedCost": 99
+      },
+      "reasoning": "Detected overdraft on account:990. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-272",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:318",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-272",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:318",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9867202509608393,
+        "estimatedCost": 66
+      },
+      "reasoning": "Detected overdraft on account:318. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-280",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:471",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-280",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:471",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8830624268157153,
+        "estimatedCost": 84
+      },
+      "reasoning": "Detected overdraft on account:471. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-288",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:884",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-288",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:884",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9071171338874147,
+        "estimatedCost": 76
+      },
+      "reasoning": "Detected overdraft on account:884. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-296",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:170",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750256,
+        "severity": "high"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750256
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-296",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:170",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9706028908388473,
+        "estimatedCost": 96
+      },
+      "reasoning": "Detected overdraft on account:170. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629750256
+    }
+  },
+  {
+    "id": "custodian-304",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:764",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-304",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:764",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9123056535519264,
+        "estimatedCost": 29
+      },
+      "reasoning": "Detected overdraft on account:764. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 10,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-312",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:185",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-312",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:185",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9395644190958836,
+        "estimatedCost": 78
+      },
+      "reasoning": "Detected overdraft on account:185. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-320",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:522",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-320",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:522",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8862520493265122,
+        "estimatedCost": 32
+      },
+      "reasoning": "Detected overdraft on account:522. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-328",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:895",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-328",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:895",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9541633006952347,
+        "estimatedCost": 99
+      },
+      "reasoning": "Detected overdraft on account:895. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-336",
+    "input": {
+      "violation": {
+        "violationType": "duplicate_username",
+        "entity": "user:876",
+        "law": "username.unique === true",
+        "snapshot": {
+          "username": "alice",
+          "existingUsers": [
+            "alice",
+            "bob"
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "medium"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-336",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "user:876",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: username.unique === true violated. Rollback restores invariant.",
+        "confidence": 0.8754380170906663,
+        "estimatedCost": 93
+      },
+      "reasoning": "Detected duplicate_username on user:876. Proposing rollback to restore law: username.unique === true",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-344",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:308",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-344",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:308",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9677665609305445,
+        "estimatedCost": 11
+      },
+      "reasoning": "Detected overdraft on account:308. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 7,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-352",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:577",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-352",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:577",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9495860810333956,
+        "estimatedCost": 2
+      },
+      "reasoning": "Detected overdraft on account:577. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 3,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-360",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:738",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "balance >= 0",
+        "sum(transactions.amount) === balance",
+        "user.verified === true OR transaction.limit < 100"
+      ],
+      "universeState": {
+        "substrate": "banking",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-360",
+        "type": "rollback",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:738",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.9282436614499646,
+        "estimatedCost": 10
+      },
+      "reasoning": "Detected overdraft on account:738. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "banking",
+      "complexity": 1,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-368",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:967",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "energy.total === conserved",
+        "momentum.total === conserved",
+        "entropy >= 0 AND entropy.delta >= 0"
+      ],
+      "universeState": {
+        "substrate": "physics",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-368",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:967",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8689504659090669,
+        "estimatedCost": 65
+      },
+      "reasoning": "Detected overdraft on account:967. Proposing patch to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "physics",
+      "complexity": 6,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-376",
+    "input": {
+      "violation": {
+        "violationType": "duplicate_username",
+        "entity": "user:945",
+        "law": "username.unique === true",
+        "snapshot": {
+          "username": "alice",
+          "existingUsers": [
+            "alice",
+            "bob"
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "medium"
+      },
+      "laws": [
+        "username.unique === true",
+        "connection.mutual === true",
+        "post.visibility IN [\"public\", \"friends\", \"private\"]"
+      ],
+      "universeState": {
+        "substrate": "social",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-376",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "user:945",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: username.unique === true violated. Rollback restores invariant.",
+        "confidence": 0.9069950433141656,
+        "estimatedCost": 30
+      },
+      "reasoning": "Detected duplicate_username on user:945. Proposing patch to restore law: username.unique === true",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "social",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-384",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:121",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "task.status IN [\"pending\", \"active\", \"completed\", \"blocked\"]",
+        "approval.required === true IMPLIES approval.count >= approval.threshold",
+        "resource.allocated <= resource.available"
+      ],
+      "universeState": {
+        "substrate": "workflow",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-384",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:121",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.947099215022571,
+        "estimatedCost": 83
+      },
+      "reasoning": "Detected overdraft on account:121. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "workflow",
+      "complexity": 8,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  },
+  {
+    "id": "custodian-392",
+    "input": {
+      "violation": {
+        "violationType": "overdraft",
+        "entity": "account:36",
+        "law": "balance >= 0",
+        "snapshot": {
+          "balance": -50,
+          "transactions": [
+            {
+              "amount": -100
+            }
+          ]
+        },
+        "timestamp": 1759629750257,
+        "severity": "high"
+      },
+      "laws": [
+        "player.health >= 0 AND player.health <= 100",
+        "item.count >= 0",
+        "quest.prerequisites.every(q => q.completed)"
+      ],
+      "universeState": {
+        "substrate": "game",
+        "entities": {},
+        "timestamp": 1759629750257
+      }
+    },
+    "output": {
+      "proposal": {
+        "id": "proposal-392",
+        "type": "patch",
+        "steps": [
+          {
+            "action": "revert_transaction",
+            "target": "account:36",
+            "params": {
+              "amount": 100
+            },
+            "preconditions": [
+              "transaction.exists"
+            ],
+            "postconditions": [
+              "balance >= 0"
+            ]
+          }
+        ],
+        "proof": "Proof: balance >= 0 violated. Rollback restores invariant.",
+        "confidence": 0.8710310451251212,
+        "estimatedCost": 22
+      },
+      "reasoning": "Detected overdraft on account:36. Proposing rollback to restore law: balance >= 0",
+      "alternatives": []
+    },
+    "metadata": {
+      "substrate": "game",
+      "complexity": 9,
+      "verificationPassed": true,
+      "generatedAt": 1759629750257
+    }
+  }
+]
